@@ -1,8 +1,17 @@
 #pragma once
 
+#include "Itemset.h"
 #include "ofMain.h"
 
+
+using namespace std;
+
 class coneVizApp : public ofBaseApp {
+
+	private:
+		std::vector<Itemset> itemsets;
+
+
 	public:
 	
 		void setup();

@@ -21,9 +21,15 @@
     <ClCompile Include="coneVizApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Itemset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coneVizApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Itemset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

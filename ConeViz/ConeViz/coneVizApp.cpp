@@ -27,7 +27,7 @@ void coneVizApp::draw(){
 	ofRotateX(ofRadToDeg(.5));
 	ofRotateY(ofRadToDeg(-.5));
 	
-	ofBackground(0);
+	ofBackground(255,255,255);
 	
 	ofSetColor(255,0,0);
 	ofFill();
