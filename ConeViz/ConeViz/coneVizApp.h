@@ -1,9 +1,10 @@
 #pragma once
 
+#include "Level.h"
 #include "Itemset.h"
 #include "Utilities.h"
 #include "ofMain.h"
-
+#include <math.h>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ class coneVizApp : public ofBaseApp {
 
 	private:
 		std::vector<Itemset> itemsets;
+		std::vector<Level> levels;
 
 
 	public:

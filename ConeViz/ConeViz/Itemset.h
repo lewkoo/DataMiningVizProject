@@ -31,6 +31,10 @@ public:
 	void setLocation(ofPoint newLocation);
 	void setColor(ofColor newColor);
 
+	int getLevel();
+	ofPoint getLocation();
+	ofColor getColor();
+
 
 };
 

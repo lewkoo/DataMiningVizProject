@@ -33,3 +33,23 @@ void Itemset::setLevel(int newLevel)
 {
 	this->level = newLevel;
 }
+
+void Itemset::setColor(ofColor newColor)
+{
+	this->color=newColor;
+}
+
+int Itemset::getLevel()
+{
+	return level;
+}
+
+ofPoint Itemset::getLocation()
+{
+	return location;
+}
+
+ofColor Itemset::getColor()
+{
+	return color;
+}

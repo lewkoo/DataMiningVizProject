@@ -21,6 +21,44 @@ void coneVizApp::setup(){
 
 	Utilities::loadItemsets("classDataset.txt", &itemsets);
 
+	//Generalize this code
+	//Determine the locations of the itemsets
+
+	int countLevel1 = 0;
+	int countLevel2 = 0;
+
+	for(int i = 0; i < itemsets.size(); i++)
+	{
+		if(itemsets[i].getLevel() == 1)
+		{
+			countLevel1++;
+		}
+	}
+
+	countLevel1 = 7;
+
+	double distanceInDegrees = 360 / countLevel1;
+
+	double currentDistance = 0;
+
+	int circleRadius = 2;
+	int circleX = 0;
+	int circleY = 0;
+
+	for(int i = 0; i < countLevel1; i++)
+	{
+
+		double x = circleX + 10 * cos(2 * PI * i / countLevel1);		
+		double y = circleY + 10 * sin(2 * PI * i / countLevel1);
+
+		itemsets[i].setLocation(ofPoint(x,y));
+		itemsets[i].setColor(ofColor(30,30,30));
+
+		currentDistance += distanceInDegrees;
+
+	}
+
+
 
 
 
@@ -40,13 +78,19 @@ void coneVizApp::draw(){
 	
 	ofBackground(0);
 	
-	ofSetColor(255,0,0);
-	ofFill();
-	ofBox(30);
-	ofNoFill();
-	ofSetColor(0);
-	ofBox(30);
-	
+	for(int i = 0; i < itemsets.size(); i++)
+	{
+		Itemset* currentItemset = &itemsets[i];
+		ofPushMatrix();
+		ofTranslate(currentItemset->getLocation());
+		ofSetColor(currentItemset->getColor());
+		ofSphere(2);
+		ofPopMatrix();
+
+
+	}
+
+
 	ofPushMatrix();
 	ofTranslate(0,0,20);
 	ofSetColor(0,0,255);
