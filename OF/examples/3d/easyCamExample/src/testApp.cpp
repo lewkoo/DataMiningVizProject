@@ -6,7 +6,7 @@ void testApp::setup(){
 	
 	// this uses depth information for occlusion
 	// rather than always drawing things on top of each other
-	ofEnableDepthTest();
+	glEnable(GL_DEPTH_TEST);
 	
 	// this sets the camera's distance from the object
 	cam.setDistance(100);
@@ -31,19 +31,19 @@ void testApp::draw(){
 	
 	ofSetColor(255,0,0);
 	ofFill();
-	ofDrawBox(30);
+	ofBox(30);
 	ofNoFill();
 	ofSetColor(0);
-	ofDrawBox(30);
+	ofBox(30);
 	
 	ofPushMatrix();
 	ofTranslate(0,0,20);
 	ofSetColor(0,0,255);
 	ofFill();
-	ofDrawBox(5);
+	ofBox(5);
 	ofNoFill();
 	ofSetColor(0);
-	ofDrawBox(5);
+	ofBox(5);
 	ofPopMatrix();
 	cam.end();
 	drawInteractionArea();

@@ -7,7 +7,6 @@
 #include "ofPixels.h"
 #include "ofTypes.h"
 #include "ofEvents.h"
-#include "ofThread.h"
 
 #define GST_DISABLE_DEPRECATED
 #include <gst/gst.h>
@@ -54,7 +53,6 @@ public:
 
 	GstElement 	* getPipeline();
 	GstElement 	* getSink();
-	GstElement 	* getGstElementByName(const string & name);
 	unsigned long getMinLatencyNanos();
 	unsigned long getMaxLatencyNanos();
 
@@ -78,8 +76,8 @@ protected:
 	bool				isStream;
 
 private:
-	static bool			busFunction(GstBus * bus, GstMessage * message, ofGstUtils * app);
-	bool				gstHandleMessage(GstBus * bus, GstMessage * message);
+	void 				gstHandleMessage();
+	void				update(ofEventArgs & args);
 	bool				startPipeline();
 
 	bool 				bPlaying;
@@ -93,23 +91,8 @@ private:
 	GstElement 	*		gstPipeline;
 
 	float				speed;
-	gint64				durationNanos;
+	int64_t				durationNanos;
 	bool				isAppSink;
-
-	class ofGstMainLoopThread: public ofThread{
-		GMainLoop *main_loop;
-	public:
-		void start(){
-			startThread();
-		}
-		void threadedFunction(){
-			main_loop = g_main_loop_new (NULL, FALSE);
-			g_main_loop_run (main_loop);
-		}
-	};
-
-	static ofGstMainLoopThread * mainLoop;
-	GstBus * bus;
 };
 
 

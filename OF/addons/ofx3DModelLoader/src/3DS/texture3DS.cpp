@@ -12,7 +12,7 @@ texture3DS::texture3DS(string filename, const int textureId){
 	
     ofImage img;
     if( !img.loadImage(filename) ){
-		ofLogError("texture3DS") << "couldn't open " << filename;
+		ofLog(OF_LOG_ERROR, "texture3DS ERROR:  Could not open %s", filename.c_str());
     }
 
     m_width     = img.width;
@@ -20,11 +20,12 @@ texture3DS::texture3DS(string filename, const int textureId){
     m_bpp       = img.bpp;
 
     if( m_width <= 0 || m_height <= 0){
-		ofLogError("texture3DS") << "dimensions less than 0 \"" << filename << "\": " << m_width << "x" << m_height;
+		ofLog(OF_LOG_ERROR, "texture3DS ERROR: Something wrong with %s - dimensions less than 0", filename.c_str());
+
     }
 
     if(m_bpp != 32 && m_bpp != 24){		
-		ofLogError("texture3DS") << "invalid texture color depth \"" << filename << "\", must be uncompressed 24/32bpp png, jpg, bmp, or tga";
+		ofLog(OF_LOG_ERROR, "texture3DS ERROR: Invalid texture color depth %s  must be uncompressed 24/32bpp png, jpg, bmp, tga", filename.c_str());
         return;
     }
 
@@ -34,8 +35,10 @@ texture3DS::texture3DS(string filename, const int textureId){
         case 24:fileFormat = GL_RGB; internalFormat = GL_RGB; break;
         case 32:fileFormat = GL_RGBA; internalFormat = GL_RGBA; break;
         default:
-			ofLogError("texture3DS") << "invalid texture color depth \"" << filename << "\", must be uncompressed 24/32bpp";
+			ofLog(OF_LOG_ERROR, "texture3DS ERROR: Invalid texture color depth %s  must be uncompressed 24/32bpp", filename.c_str());
+
 			return;
+            break;
     }
 
 
@@ -82,5 +85,5 @@ texture3DS::texture3DS(string filename, const int textureId){
     gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat, m_width, m_height, fileFormat, GL_UNSIGNED_BYTE, flippedPixels);
 #endif
 
-    ofLogVerbose("texture3DS") << "loaded \"" << filename << "\"";
+    ofLog(OF_LOG_NOTICE, "texture3DS Texture %s loaded", filename.c_str());
 }

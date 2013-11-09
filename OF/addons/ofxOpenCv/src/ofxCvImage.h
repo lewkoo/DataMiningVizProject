@@ -9,7 +9,9 @@
 *
 */
 
-#pragma once
+
+#ifndef OFX_CV_IMAGE_H
+#define OFX_CV_IMAGE_H
 
 
 #include "ofxCvConstants.h"
@@ -184,3 +186,6 @@ class ofxCvImage : public ofBaseImage {
     bool  bAnchorIsPct;    
 
 };
+
+
+#endif

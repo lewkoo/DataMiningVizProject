@@ -27,8 +27,8 @@ public:
 	// set parent to link nodes
 	// transformations are inherited from parent node
 	// set to NULL if not needed (default)
-	void setParent(ofNode& parent, bool bMaintainGlobalTransform = false);
-	void clearParent(bool bMaintainGlobalTransform = false);
+	void setParent(ofNode& parent);
+	void clearParent();
 	ofNode* getParent() const;
 
 	
@@ -137,7 +137,10 @@ public:
 	
 
 	// if you extend ofNode and wish to change the way it draws, extend this
-	virtual void customDraw();
+	virtual void customDraw() {
+		ofBox(10);
+		ofDrawAxis(20);
+	}
 
 	
 	// draw function. do NOT override this

@@ -14,7 +14,7 @@ void testApp::setup(){
 	ofNoFill();
 	ofSetFrameRate(30);
 	ofBackground(0);
-
+	
 	//this slows down the rotate a little bit
 	dampen = .4;
 }
@@ -28,7 +28,7 @@ void testApp::update(){
 void testApp::draw(){
 	
 	//translate so that 0,0 is the center of the screen
-    ofPushMatrix();
+    glPushMatrix();  
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2, 40);  
 	//Extract the rotation from the current rotation
     ofVec3f axis;  
@@ -37,7 +37,7 @@ void testApp::draw(){
 	
 	//apply the quaternion's rotation to the viewport and draw the sphere
 	ofRotate(angle, axis.x, axis.y, axis.z);  
-	ofDrawSphere(0, 0, 0, 200);
+	ofSphere(0, 0, 0, 200);
 	
 	ofPopMatrix();  
 }

@@ -42,6 +42,7 @@ void testApp::draw(){
     vidGrabber.draw(0,0);
 
     ofPixelsRef pixelsRef = vidGrabber.getPixelsRef();
+    unsigned char * pixels = vidGrabber.getPixels();
     
     ofSetHexColor(0xffffff);
 

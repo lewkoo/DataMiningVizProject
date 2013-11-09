@@ -16,13 +16,13 @@
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons">
-			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc85}</UniqueIdentifier>
+			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc8563776aec}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxThreadedImageLoader">
-			<UniqueIdentifier>{4fcfbe74-4716-4092-c67f-91ae}</UniqueIdentifier>
+			<UniqueIdentifier>{4fcfbe74-4716-4092-c67f-91ae0d514e3e}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxThreadedImageLoader\src">
-			<UniqueIdentifier>{96e590a4-6ab6-fe3d-02ec-8d08}</UniqueIdentifier>
+			<UniqueIdentifier>{96e590a4-6ab6-fe3d-02ec-8d08b1d33728}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -32,8 +32,5 @@
 		<ClInclude Include="..\..\..\addons\ofxThreadedImageLoader\src\ofxThreadedImageLoader.h">
 			<Filter>addons\ofxThreadedImageLoader\src</Filter>
 		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
 	</ItemGroup>
 </Project>

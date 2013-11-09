@@ -1,10 +1,15 @@
-#pragma once
+#ifndef _TEST_APP
+#define _TEST_APP
+
+
 
 #include "ofMain.h"
 #include "ofEvents.h"
-#include "Circle.h"
+#include "circle.h"
 
 #define TOTAL_GRAY_CIRCLES 10
+
+
 
 class testApp : public ofBaseApp{
 
@@ -21,3 +26,6 @@ class testApp : public ofBaseApp{
     ofVec2f clickedPoint;
     
 };
+
+#endif
+

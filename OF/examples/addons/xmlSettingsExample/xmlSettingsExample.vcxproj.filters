@@ -25,16 +25,16 @@
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons">
-			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc85}</UniqueIdentifier>
+			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc8563776aec}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxXmlSettings">
-			<UniqueIdentifier>{877f005d-13e6-0592-1d97-f2e3}</UniqueIdentifier>
+			<UniqueIdentifier>{877f005d-13e6-0592-1d97-f2e39d804d43}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxXmlSettings\src">
-			<UniqueIdentifier>{ccb2ac63-49d2-977c-cfe8-aead}</UniqueIdentifier>
+			<UniqueIdentifier>{ccb2ac63-49d2-977c-cfe8-aeadb8be6a99}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxXmlSettings\libs">
-			<UniqueIdentifier>{687714a8-1662-fa1c-261f-50f0}</UniqueIdentifier>
+			<UniqueIdentifier>{687714a8-1662-fa1c-261f-50f068335398}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -47,8 +47,5 @@
 		<ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
 			<Filter>addons\ofxXmlSettings\libs</Filter>
 		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
 	</ItemGroup>
 </Project>

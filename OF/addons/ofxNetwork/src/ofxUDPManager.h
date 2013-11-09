@@ -1,4 +1,6 @@
-#pragma once
+#ifndef  ___ofxUDPManager__H__
+#define  ___ofxUDPManager__H__
+
 
 //////////////////////////////////////////////////////////////////////////////////////
 // Original author: ???????? we think Christian Naglhofer
@@ -171,3 +173,5 @@ protected:
 	bool canGetRemoteAddress;
 
 };
+
+#endif // ___ofxUDPManager__H__

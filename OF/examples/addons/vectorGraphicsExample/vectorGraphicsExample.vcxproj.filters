@@ -19,16 +19,16 @@
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons">
-			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc85}</UniqueIdentifier>
+			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc8563776aec}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxVectorGraphics">
-			<UniqueIdentifier>{5a7f3658-b06b-db97-f4e1-dd19}</UniqueIdentifier>
+			<UniqueIdentifier>{5a7f3658-b06b-db97-f4e1-dd1970a8a410}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxVectorGraphics\src">
-			<UniqueIdentifier>{f615f000-d48c-b1d6-f1c2-6edd}</UniqueIdentifier>
+			<UniqueIdentifier>{f615f000-d48c-b1d6-f1c2-6eddc2810357}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxVectorGraphics\libs">
-			<UniqueIdentifier>{b341f552-35c4-7eb6-b3c9-9d96}</UniqueIdentifier>
+			<UniqueIdentifier>{b341f552-35c4-7eb6-b3c9-9d96f0ae1975}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -44,8 +44,5 @@
 		<ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp">
 			<Filter>addons\ofxVectorGraphics\libs</Filter>
 		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
 	</ItemGroup>
 </Project>

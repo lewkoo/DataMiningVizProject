@@ -7,7 +7,9 @@
 *
 */
 
-#pragma once
+
+#ifndef OFX_CV_COLOR_IMAGE_H
+#define OFX_CV_COLOR_IMAGE_H
 
 #include "ofxCvImage.h"
 
@@ -133,3 +135,7 @@ class ofxCvColorImage : public ofxCvImage {
     IplImage*  cvGrayscaleImage;    // internal helper grayscale, allocated on demand
       
 };
+
+
+
+#endif

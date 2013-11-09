@@ -25,13 +25,13 @@
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons">
-			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc85}</UniqueIdentifier>
+			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc8563776aec}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxNetwork">
-			<UniqueIdentifier>{01a15744-29a6-108d-08e9-83a7}</UniqueIdentifier>
+			<UniqueIdentifier>{01a15744-29a6-108d-08e9-83a73d797b5f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxNetwork\src">
-			<UniqueIdentifier>{3d1c10c7-8f35-e796-9c70-f5f3}</UniqueIdentifier>
+			<UniqueIdentifier>{3d1c10c7-8f35-e796-9c70-f5f317cb6d6b}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -56,8 +56,5 @@
 		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.h">
 			<Filter>addons\ofxNetwork\src</Filter>
 		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
 	</ItemGroup>
 </Project>

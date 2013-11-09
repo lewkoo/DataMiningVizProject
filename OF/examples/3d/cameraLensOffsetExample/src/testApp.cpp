@@ -80,9 +80,10 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::drawScene(bool isPreview){
 	
-	ofEnableDepthTest();
-
+	glEnable(GL_DEPTH_TEST);
+	
 	if (isPreview) {
+		
 		ofPushStyle();
 		ofSetColor(150, 100, 100);
 		ofDrawGrid(1.0f, 5.0f, true);
@@ -103,7 +104,7 @@ void testApp::drawScene(bool isPreview){
 		
 		ofPushStyle();
 		ofNoFill();
-		ofDrawBox(2.0f);
+		ofBox(2.0f);
 		ofPopStyle();
 		
 		headTrackedCamera.restoreTransformGL();
@@ -113,7 +114,7 @@ void testApp::drawScene(bool isPreview){
 		//--
 		//draw window preview
 		//
-		window.clear();
+		ofMesh window;
 		window.addVertex(windowTopLeft);
 		window.addVertex(windowBottomLeft);
 		window.addVertex(windowBottomRight);
@@ -121,6 +122,7 @@ void testApp::drawScene(bool isPreview){
 		window.draw();
 		glPointSize(3.0f);
 		window.drawVertices();
+		
 		//
 		//--
 	}
@@ -140,19 +142,19 @@ void testApp::drawScene(bool isPreview){
 	ofSetColor(255);
 	ofSetLineWidth(5.0f);
 	ofBeginShape();
-	for (unsigned int i=0; i<headPositionHistory.size(); i++) {
+	for (int i=0; i<headPositionHistory.size(); i++) {
 		ofPoint vertex(headPositionHistory[i].x, headPositionHistory[i].y, -float( headPositionHistory.size() - i ) * 0.05f);
 		ofCurveVertex(vertex);
 	}
 	ofEndShape(false);
 	ofPopStyle();
 	
-	ofDisableDepthTest();
+	glDisable(GL_DEPTH_TEST);
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-
+	
 	ofBackgroundGradient(ofColor(50), ofColor(0));
 	//------
 	//draw the scene
@@ -182,7 +184,7 @@ void testApp::draw(){
 	video.draw(0, 0);
 	ofPushStyle();
 	ofNoFill();
-	for(unsigned int i = 0; i < finder.blobs.size(); i++) {
+	for(int i = 0; i < finder.blobs.size(); i++) {
 		ofRectangle cur = finder.blobs[i].boundingRect;
 		ofRect(cur.x, cur.y, cur.width, cur.height);
 	}

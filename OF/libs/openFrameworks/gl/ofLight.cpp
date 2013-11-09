@@ -14,8 +14,6 @@
 #include <map>
 
 
-static bool normalsEnabled=false;
-
 //----------------------------------------
 void ofEnableLighting() {
 	glEnable(GL_LIGHTING);
@@ -23,21 +21,11 @@ void ofEnableLighting() {
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 #endif
 	glEnable(GL_COLOR_MATERIAL);
-
-	// FIXME: we do this so the 3d ofDraw* functions work with lighting
-	// but if someone enables it between ofEnableLighting it'll be disabled
-	// on ofDisableLighting. by now it seems the best option to not loose
-	// performance when drawing lots of primitives
-	normalsEnabled = glIsEnabled( GL_NORMALIZE );
-	glEnable(GL_NORMALIZE);
 }
 
 //----------------------------------------
 void ofDisableLighting() {
 	glDisable(GL_LIGHTING);
-	if(!normalsEnabled){
-		glDisable(GL_NORMALIZE);
-	}
 }
 
 //----------------------------------------
@@ -112,7 +100,7 @@ static void release(ofLight & light){
 			getIds().erase(id);
 		}
 	}else{
-		ofLogWarning("ofLight") << "release(): something's wrong here, releasing unknown light id " << id;
+		ofLog(OF_LOG_WARNING,"ofLight: releasing id not found, this shouldn't be happening releasing anyway");
 		lastRef=true;
 	}
 	if(lastRef){
@@ -167,18 +155,11 @@ ofLight::ofLight(const ofLight & mom){
 	isDirectional	= mom.isDirectional;
 	isSpotlight		= mom.isSpotlight;
 	lightType		= mom.lightType;
-	exponent		= mom.exponent;
-	attenuation_constant = mom.attenuation_constant;
-	spotCutOff 		= mom.spotCutOff;
-	attenuation_linear = mom.attenuation_linear;
-	attenuation_quadratic = mom.attenuation_quadratic;
 }
 
 //----------------------------------------
 ofLight & ofLight::operator=(const ofLight & mom){
 	if(&mom == this) return *this;
-	release(*this);
-
 	ambientColor = mom.ambientColor;
 	diffuseColor = mom.diffuseColor;
 	specularColor = mom.specularColor;
@@ -189,11 +170,6 @@ ofLight & ofLight::operator=(const ofLight & mom){
 	isDirectional	= mom.isDirectional;
 	isSpotlight		= mom.isSpotlight;
 	lightType		= mom.lightType;
-	exponent		= mom.exponent;
-	attenuation_constant = mom.attenuation_constant;
-	spotCutOff 		= mom.spotCutOff;
-	attenuation_linear = mom.attenuation_linear;
-	attenuation_quadratic = mom.attenuation_quadratic;
 	return *this;
 }
 
@@ -211,7 +187,7 @@ void ofLight::setup() {
 			}
 		}
 		if( !bLightFound ){
-			ofLogError("ofLight") << "setup(): couldn't get active GL light, maximum number of "<< OF_MAX_LIGHTS << " reached";
+			ofLog(OF_LOG_ERROR, "ofLight : Trying to create too many lights: " + ofToString(glIndex));
 		}
         if(bLightFound) {
             // run this the first time, since it was not found before //
@@ -234,8 +210,7 @@ void ofLight::setup() {
 //----------------------------------------
 void ofLight::enable() {
     setup();
-    onPositionChanged(); // update the position //
-	onOrientationChanged();
+    onPositionChanged(); // update the position // 
 	ofEnableLighting();
 	glEnable(GL_LIGHT0 + glIndex);
 }
@@ -292,7 +267,7 @@ void ofLight::setSpotlightCutOff( float spotCutOff ) {
 //----------------------------------------
 float ofLight::getSpotlightCutOff() {
     if(!getIsSpotlight()) {
-        ofLogWarning("ofLight") << "getSpotlightCutOff(): light " << glIndex << " is not a spot light";
+        ofLog(OF_LOG_WARNING, "ofLight :: getSpotlightCutOff : this light is not a spot light");
     }
     return spotCutOff;
 }
@@ -306,7 +281,7 @@ void ofLight::setSpotConcentration( float exponent ) {
 //----------------------------------------
 float ofLight::getSpotConcentration() {
     if(!getIsSpotlight()) {
-        ofLogWarning("ofLight") << "getSpotConcentration(): light " << glIndex << " is not a spot light";
+        ofLog(OF_LOG_WARNING, "ofLight :: getSpotConcentration : this light is not a spot light");
     }
     return exponent;
 }
@@ -395,16 +370,13 @@ ofFloatColor ofLight::getSpecularColor() const {
 //----------------------------------------
 void ofLight::customDraw() {
     if(getIsPointLight()) {
-        ofDrawSphere( 0,0,0, 10);
+        ofSphere( 0,0,0, 10);
     } else if (getIsSpotlight()) {
         float coneHeight = (sin(spotCutOff*DEG_TO_RAD) * 30.f) + 1;
         float coneRadius = (cos(spotCutOff*DEG_TO_RAD) * 30.f) + 8;
-		ofPushMatrix();
-		ofRotate(-90, 1, 0, 0);
-		ofDrawCone(0, -(coneHeight*.5), 0, coneHeight, coneRadius);
-		ofPopMatrix();
+        ofCone(0, 0, -(coneHeight*.5), coneHeight, coneRadius);
     } else {
-        ofDrawBox(10);
+        ofBox(10);
     }
     ofDrawAxis(20);
 }
@@ -412,40 +384,25 @@ void ofLight::customDraw() {
 
 //----------------------------------------
 void ofLight::onPositionChanged() {
-	// TODO: (tig) fix this.  this breaks udpate() thread safety (openGL should not be called in update() but only draw() ),
-	// since this method will most likely be called during update()
-	// if the light is parented and the parent node changes position during update().
-
 	if(glIndex==-1) return;
 	// if we are a positional light and not directional, update light position
 	if(isDirectional == false) {
-		// (tig) this fixes an issue in case the light is parented
-		GLfloat cc[] = {getGlobalPosition().x, getGlobalPosition().y, getGlobalPosition().z, 1};
+		GLfloat cc[] = {getPosition().x, getPosition().y, getPosition().z, 1};
 		glLightfv(GL_LIGHT0 + glIndex, GL_POSITION, cc);
 	}
 }
 
 //----------------------------------------
 void ofLight::onOrientationChanged() {
-	// TODO: (tig) fix this.  this breaks udpate() thread safety (openGL should not be called in update() but only draw() ),
-	// since this method will most likely be called during update()
-	// if the light is parented and the parent node changes orientation during update().
-
 	if(glIndex==-1) return;
 	// if we are a directional light and not positional, update light position (direction)
 	if(isDirectional == true) {
-		// (tig) takes into account global orientation should node be parented.
-		ofVec3f lookAtDir = ( getGlobalTransformMatrix().getInverse() * ofVec4f(0,0,-1, 1) ).getNormalized();
-		GLfloat cc[] = {lookAtDir.x, lookAtDir.y, lookAtDir.z, 0};
+		GLfloat cc[] = {getLookAtDir().x, getLookAtDir().y, getLookAtDir().z, 0};
 		glLightfv(GL_LIGHT0 + glIndex, GL_POSITION, cc);
 	} else {
 		if(isSpotlight) {
 			// determines the axis of the cone light //
-			
-			// (tig) takes into account global orientation should node be parented.
-			ofVec3f lookAtDir = ( getGlobalTransformMatrix().getInverse() * ofVec4f(0,0,-1, 1) ).getNormalized();
-			
-			GLfloat spot_direction[] = { lookAtDir.x, lookAtDir.y, lookAtDir.z, 1.0};
+			GLfloat spot_direction[] = { getLookAtDir().x, getLookAtDir().y, getLookAtDir().z, 1.0 };
 			glLightfv(GL_LIGHT0 + glIndex, GL_SPOT_DIRECTION, spot_direction);
 		}
 	}

@@ -28,11 +28,9 @@ class ofRtAudioSoundStream : public ofBaseSoundStream{
 		void close();
 		
 		long unsigned long getTickCount();		
-
+				
 		int getNumInputChannels();
 		int getNumOutputChannels();
-		int getSampleRate();
-		int getBufferSize();
 	
 		
 	private:
@@ -40,7 +38,7 @@ class ofRtAudioSoundStream : public ofBaseSoundStream{
 		ofPtr<RtAudio>		audio;
 		int					sampleRate;
 		int					outDeviceID, inDeviceID;
-		int					bufferSize;
+    
 		int					nInputChannels;
 		int					nOutputChannels;
 		ofBaseSoundInput *  soundInputPtr;

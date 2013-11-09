@@ -13,12 +13,8 @@ class ofxSimpleSlider {
 
 	public:
 			
-		ofxSimpleSlider();
-		~ofxSimpleSlider();
-
 		void	setup (float inx, float iny, float inw, float inh, float loVal, float hiVal, float initialPercent, bool bVert, bool bDrawNum);
-		void	clear();
-
+		
 		void	draw(ofEventArgs& event);
 		void	mouseMoved(ofMouseEventArgs& event);
 		void	mouseDragged(ofMouseEventArgs& event);
@@ -38,8 +34,7 @@ class ofxSimpleSlider {
 		void	updatePercentFromMouse(int mx, int my); 
 		
 	
-	protected:
-		
+	protected: 
 		float	x;
 		float	y; 
 		float	width; 
@@ -60,5 +55,5 @@ class ofxSimpleSlider {
 	
 	private:
 	
-		bool	bWasSetup;
+	
 };

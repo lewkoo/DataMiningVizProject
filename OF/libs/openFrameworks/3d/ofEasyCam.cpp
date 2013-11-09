@@ -206,12 +206,11 @@ void ofEasyCam::updateMouse(){
 		if(lastTap != 0 && curTap - lastTap < doubleclickTime){
 			reset();
 		}
-                
-		if ((bEnableMouseMiddleButton && ofGetMousePressed(OF_MOUSE_BUTTON_MIDDLE)) || ofGetKeyPressed(doTranslationKey)  || ofGetMousePressed(OF_MOUSE_BUTTON_RIGHT)){
+		if ((bEnableMouseMiddleButton && ofGetMousePressed(1)) || ofGetKeyPressed(doTranslationKey)  || ofGetMousePressed(2)){
 			bDoTranslate = true;
 			bDoRotate = false;
 			bApplyInertia = false;
-		}else if (ofGetMousePressed(OF_MOUSE_BUTTON_LEFT)) {
+		}else if (ofGetMousePressed(0)) {
 			bDoTranslate = false;
 			bDoRotate = true;
 			bApplyInertia = false;
@@ -233,35 +232,28 @@ void ofEasyCam::updateMouse(){
 			bApplyInertia = true;
 			bValidClick = false;
 		}else {
-			int vFlip;
-			if(isVFlipped()){
-				vFlip = -1;
-			}else{
-				vFlip =  1;
-			}
-
 			mouseVel = mouse  - lastMouse;
 			
 			if (bDoTranslate) {
 				moveX = 0;
 				moveY = 0;
 				moveZ = 0;
-				if (ofGetMousePressed(OF_MOUSE_BUTTON_RIGHT)) {
+				if (ofGetMousePressed(2)) {
 					moveZ = mouseVel.y * sensitivityZ * (getDistance() + FLT_EPSILON)/ viewport.height;				
 				}else {
 					moveX = -mouseVel.x * sensitivityXY * (getDistance() + FLT_EPSILON)/viewport.width;
-					moveY = vFlip * mouseVel.y * sensitivityXY * (getDistance() + FLT_EPSILON)/viewport.height;
+					moveY =  mouseVel.y * sensitivityXY * (getDistance() + FLT_EPSILON)/viewport.height;
 				}
 			}else {
 				xRot = 0;
 				yRot = 0;
 				zRot = 0;
 				if (bInsideArcball) {
-					xRot = vFlip * -mouseVel.y * rotationFactor;
+					xRot = -mouseVel.y * rotationFactor;
 					yRot = -mouseVel.x * rotationFactor;
 				}else {
 					ofVec2f center(viewport.width/2, viewport.height/2);
-					zRot = - vFlip * ofVec2f(mouse.x - viewport.x - center.x, mouse.y - viewport.y - center.y).angle(lastMouse - ofVec2f(viewport.x, viewport.y) - center);
+					zRot = - ofVec2f(mouse.x - viewport.x - center.x, mouse.y -viewport.y -center.y).angle(lastMouse - ofVec2f(viewport.x, viewport.y) - center);
 				}
 			}
 			lastMouse = mouse;

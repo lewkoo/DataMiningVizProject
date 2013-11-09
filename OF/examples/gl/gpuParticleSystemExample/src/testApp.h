@@ -98,7 +98,4 @@ public:
     int     imgWidth, imgHeight;
     int     numParticles;
     int     textureRes;
-    
-    
-    ofVboMesh mesh;
 };

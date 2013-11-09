@@ -21,8 +21,6 @@ ofVideoGrabber::ofVideoGrabber(){
 	RequestedDeviceID	= -1;
 	internalPixelFormat = OF_PIXELS_RGB;
 	desiredFramerate 	= -1;
-	height				= 0;
-	width				= 0;
 
 #ifdef TARGET_ANDROID
 	if(!ofxAndroidInitGrabber(this)) return;
@@ -76,10 +74,18 @@ bool ofVideoGrabber::initGrabber(int w, int h, bool setUseTexture){
 	height			= (int)grabber->getHeight();
 
 	if( grabberRunning && bUseTexture ){
-		tex.allocate(width, height, ofGetGLInternalFormatFromPixelFormat(internalPixelFormat));
-		if(ofGetGLProgrammableRenderer() && internalPixelFormat == OF_PIXELS_MONO){
-			tex.setRGToRGBASwizzles(true);
-		}
+		if(internalPixelFormat == OF_PIXELS_RGB)
+			tex.allocate(width, height, GL_RGB);
+		else if(internalPixelFormat == OF_PIXELS_RGBA)
+			tex.allocate(width, height, GL_RGBA);
+		else if(internalPixelFormat == OF_PIXELS_BGRA)
+			tex.allocate(width, height, GL_RGBA); // for some reason if we allcoate as GL_BGRA we get a white texture
+#ifdef TARGET_ANDROID
+		else if(internalPixelFormat == OF_PIXELS_RGB565)
+			tex.allocate(width, height, GL_RGB565_OES);
+		else if(internalPixelFormat == OF_PIXELS_MONO)
+			tex.allocate(width, height, GL_LUMINANCE);
+#endif
 	}
 
 	return grabberRunning;
@@ -89,7 +95,7 @@ bool ofVideoGrabber::initGrabber(int w, int h, bool setUseTexture){
 bool ofVideoGrabber::setPixelFormat(ofPixelFormat pixelFormat) {
 	if( grabber != NULL ){
 		if( grabberRunning ){
-			ofLogWarning("ofVideoGrabber") << "setPixelFormat(): can't set pixel format while grabber is running";
+			ofLogWarning("ofVideoGrabber") << "setPixelFormat - can't be called while the grabber is running ";
 			internalPixelFormat = grabber->getPixelFormat(); 
 			return false;
 		}else{
@@ -115,11 +121,10 @@ ofPixelFormat ofVideoGrabber::getPixelFormat(){
 }
 
 //--------------------------------------------------------------------
-vector<ofVideoDevice> ofVideoGrabber::listDevices(){
-	if( grabber == NULL ){
-		setGrabber( ofPtr<OF_VID_GRABBER_TYPE>(new OF_VID_GRABBER_TYPE) );
+void ofVideoGrabber::listDevices(){
+	if(	grabber != NULL ){
+		grabber->listDevices();
 	}
-	return grabber->listDevices();
 }
 
 //--------------------------------------------------------------------
@@ -133,7 +138,7 @@ void ofVideoGrabber::setVerbose(bool bTalkToMe){
 void ofVideoGrabber::setDeviceID(int _deviceID){
 	RequestedDeviceID = _deviceID;
 	if( bInitialized ){
-		ofLogWarning("ofxVideoGrabber") << "setDeviceID(): can't set device while grabber is running";
+		ofLog(OF_LOG_WARNING, "call setDeviceID before grabber is started!");
 	}
 }
 
@@ -177,9 +182,24 @@ void ofVideoGrabber::update(){
 	if(	grabber != NULL ){
 		grabber->update();
 		if( bUseTexture && grabber->isFrameNew() ){
-			tex.loadData(grabber->getPixels(), (int)tex.getWidth(), (int)tex.getHeight(), ofGetGLTypeFromPixelFormat(internalPixelFormat));
+
+#ifndef TARGET_ANDROID
+			//NOTE: keeping this for now as ofGetGLTypeFromPixelFormat return GL_RGBA for OF_PIXELS_BGRA
+			//TODO: once ofGetGLTypeFromPixelFormat is fixed then we just need the single line below. Could be to do with line 81 above?
+			if(internalPixelFormat == OF_PIXELS_BGRA){
+				tex.loadData(grabber->getPixels(), (int)tex.getWidth(), (int)tex.getHeight(), GL_BGRA);
+			}else
+#endif
+			{
+				tex.loadData(grabber->getPixels(), (int)tex.getWidth(), (int)tex.getHeight(), ofGetGLTypeFromPixelFormat(internalPixelFormat));
+			}
 		}
 	}
+}
+
+//--------------------------------------------------------------------
+void ofVideoGrabber::grabFrame(){
+	update();
 }
 
 //--------------------------------------------------------------------

@@ -26,7 +26,9 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+
+#ifndef _ofxOscMESSAGE_H
+#define _ofxOscMESSAGE_H
 
 #include "ofxOscArg.h"
 #include <vector>
@@ -51,9 +53,9 @@ public:
 	string getAddress() const { return address; }
 
 	/// return the remote ip
-	string getRemoteIp() const { return remote_host; }
+	string getRemoteIp() { return remote_host; }
 	/// return the remote port
-	int getRemotePort() const { return remote_port; }
+	int getRemotePort() { return remote_port; }
 
 	/// return number of argumentsļ
 	int getNumArgs() const;
@@ -92,3 +94,5 @@ private:
 
 
 };
+
+#endif

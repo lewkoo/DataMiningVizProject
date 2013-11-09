@@ -72,7 +72,7 @@ void ofxThreadedImageLoader::threadedFunction() {
             
             if(entry.type == OF_LOAD_FROM_DISK) {
                 if(! entry.image->loadImage(entry.filename) )  { 
-                    ofLogError("ofxThreadedImageLoader") << "couldn't load file: \"" << entry.filename << "\"";
+                    ofLogError() << "ofxThreadedImageLoader error loading image " << entry.filename;
                 }
                 
                 lock();
@@ -111,7 +111,7 @@ void ofxThreadedImageLoader::urlResponse(ofHttpResponse & response) {
 		unlock();
 	}else{
 		// log error.
-		ofLogError("ofxThreadedImageLoader") << "couldn't load url, response status: " << response.status;
+		ofLogError()<< "Could not get image from url, response status: " << response.status;
 		ofRemoveURLRequest(response.request.getID());
 		// remove the entry from the queue
 		lock();

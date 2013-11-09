@@ -47,9 +47,6 @@
 #include "Poco/SharedPtr.h"
 #include <set>
 
-#ifdef verify 
-#undef verify 
-#endif
 
 namespace Poco {
 namespace Net {

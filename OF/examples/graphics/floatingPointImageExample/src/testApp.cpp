@@ -2,7 +2,7 @@
 
 //Some helper functions
 //--------------------------------------------------------------
-void testApp::addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c) {
+void addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c) {
 	ofVec3f normal = ((b - a).cross(c - a)).normalize();
 	mesh.addNormal(normal);
 	mesh.addVertex(a);
@@ -13,13 +13,14 @@ void testApp::addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c) {
 }
 
 //--------------------------------------------------------------
-void testApp::addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c, ofVec3f d) {
+void addFace(ofMesh& mesh, ofVec3f a, ofVec3f b, ofVec3f c, ofVec3f d) {
 	addFace(mesh, a, b, c);
 	addFace(mesh, a, c, d);
 }
 
 //--------------------------------------------------------------
-ofVec3f testApp::getVertexFromImg(ofFloatImage& img, int x, int y) {
+ofVec3f getVertexFromImg(ofFloatImage& img, int x, int y) {
+	float scaleFactor = 100;
 	return ofVec3f(x, y, 100 * img.getColor(x, y).getBrightness());
 }
 
@@ -64,9 +65,9 @@ void testApp::draw(){
 		ofRotateX(60);
 		ofTranslate(-img.getWidth() / 2, -img.getHeight() / 2, 0);
 		ofSetColor(255);
-		ofEnableDepthTest();
+		glEnable(GL_DEPTH_TEST);
 		mesh.draw();
-		ofDisableDepthTest();
+		glDisable(GL_DEPTH_TEST);
 	easyCam.end();
 }
 

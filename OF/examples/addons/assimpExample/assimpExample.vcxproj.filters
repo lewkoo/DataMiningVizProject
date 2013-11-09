@@ -16,34 +16,31 @@
 		<ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpModelLoader.cpp">
 			<Filter>addons\ofxAssimpModelLoader\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpTexture.cpp">
-			<Filter>addons\ofxAssimpModelLoader\src</Filter>
-		</ClCompile>
 	</ItemGroup>
 	<ItemGroup>
 		<Filter Include="src">
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons">
-			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc85}</UniqueIdentifier>
+			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc8563776aec}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxAssimpModelLoader">
-			<UniqueIdentifier>{de65d9f7-840a-cd0a-a555-ea3b}</UniqueIdentifier>
+			<UniqueIdentifier>{de65d9f7-840a-cd0a-a555-ea3be4fa7335}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxAssimpModelLoader\src">
-			<UniqueIdentifier>{b84008dc-4b5e-271b-05da-d8c8}</UniqueIdentifier>
+			<UniqueIdentifier>{b84008dc-4b5e-271b-05da-d8c81a0af46e}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxAssimpModelLoader\libs">
-			<UniqueIdentifier>{3d854f79-fa4a-75fa-fc0a-2b25}</UniqueIdentifier>
+			<UniqueIdentifier>{3d854f79-fa4a-75fa-fc0a-2b2538e76be9}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxAssimpModelLoader\libs\assimp">
-			<UniqueIdentifier>{fe8b5295-d3a7-b9cd-89c9-2613}</UniqueIdentifier>
+			<UniqueIdentifier>{fe8b5295-d3a7-b9cd-89c9-2613e8c9b9e3}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxAssimpModelLoader\libs\assimp\include">
-			<UniqueIdentifier>{edc34c4f-5d44-fb76-337e-ee48}</UniqueIdentifier>
+			<UniqueIdentifier>{edc34c4f-5d44-fb76-337e-ee486cef3663}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxAssimpModelLoader\libs\assimp\include\Compiler">
-			<UniqueIdentifier>{e4500551-64e5-7412-70fa-bc1b}</UniqueIdentifier>
+			<UniqueIdentifier>{e4500551-64e5-7412-70fa-bc1bed39ebcf}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -54,9 +51,6 @@
 			<Filter>addons\ofxAssimpModelLoader\src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpModelLoader.h">
-			<Filter>addons\ofxAssimpModelLoader\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpTexture.h">
 			<Filter>addons\ofxAssimpModelLoader\src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpUtils.h">
@@ -158,8 +152,5 @@
 		<ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\DefaultLogger.h">
 			<Filter>addons\ofxAssimpModelLoader\libs\assimp\include</Filter>
 		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
 	</ItemGroup>
 </Project>

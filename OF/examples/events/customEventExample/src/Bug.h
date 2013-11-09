@@ -74,7 +74,7 @@ public:
         // the squash
         else {
             ofSetHexColor(0xE32289);
-            for(unsigned int i=0; i<squashPts.size(); i++) {
+            for(int i=0; i<squashPts.size(); i++) {
                 ofCircle(pos + squashPts[i], 2);
             }
         }

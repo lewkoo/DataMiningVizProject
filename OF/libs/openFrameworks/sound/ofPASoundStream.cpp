@@ -23,7 +23,7 @@ ofPASoundStream::ofPASoundStream(){
 		PaError err;
 		err = Pa_Initialize();
 		if( err != paNoError ){
-			ofLogError("ofPASoundStream") << "couldn't initialize PortAudio: " << Pa_GetErrorText( err );
+			ofLog(OF_LOG_ERROR,"PortAudio error: %s\n",Pa_GetErrorText( err ));
 		}else{
 			initialized = true;
 		}
@@ -42,10 +42,10 @@ void ofPASoundStream::setOutput(ofBaseSoundOutput * soundOutput){
 	soundOutputPtr = soundOutput;
 }
 
-bool ofPASoundStream::setup(int outChannels, int inChannels, int _sampleRate, int _bufferSize, int nBuffers){
+bool ofPASoundStream::setup(int outChannels, int inChannels, int _sampleRate, int bufferSize, int nBuffers){
 	nInputChannels 		=  inChannels;
 	nOutputChannels 	=  outChannels;
-	bufferSize = ofNextPow2(_bufferSize);	// must be pow2
+	bufferSize = ofNextPow2(bufferSize);	// must be pow2
 	sampleRate = _sampleRate;
 	tickCount			=  0;
 
@@ -86,7 +86,7 @@ bool ofPASoundStream::setup(int outChannels, int inChannels, int _sampleRate, in
 #endif
 
 	if( err != paNoError ){
-		ofLogError("ofPASoundStream") << "setup(): couldn't open PortAudio stream: " << Pa_GetErrorText( err );
+		ofLog(OF_LOG_ERROR,"PortAudio error: %s\n",Pa_GetErrorText( err ));
 		return false;
 	}
 //	err = Pa_OpenDefaultStream( &audio,
@@ -107,7 +107,7 @@ bool ofPASoundStream::setup(int outChannels, int inChannels, int _sampleRate, in
 
 	err = Pa_StartStream( audio );
 	if( err != paNoError ){
-		ofLogError("ofPASoundStream") << "setup(): couldn't start PortAudio stream: " << Pa_GetErrorText( err );
+		ofLog(OF_LOG_ERROR,"PortAudio error: %s\n",Pa_GetErrorText( err ));
 		return false;
 	}
 
@@ -131,10 +131,8 @@ int ofPASoundStream::paAudioCallback(const void *inputBuffer,
 
 	ofPASoundStream * instance = (ofPASoundStream*)data;
 
-	if ( status ) {
-		ofLogNotice("ofPASoundStream") << "stream over/underflow detected";
-	}
-	
+	if ( status ) std::cout << "Stream over/underflow detected." << std::endl;
+
 	// 	rtAudio uses a system by which the audio
 	// 	can be of different formats
 	// 	char, float, etc.
@@ -171,7 +169,7 @@ int ofPASoundStream::paAudioCallback(const void *inputBuffer,
 void ofPASoundStream::stop(){
 	int err = Pa_StopStream(audio);
     if( err != paNoError )
-    	ofLogError("ofPASoundStream") << "stop(): couldn't stop PortAudio stream: " << Pa_GetErrorText( err );
+    	ofLog(OF_LOG_ERROR,"PortAudio error: %s\n",Pa_GetErrorText( err ));
 }
 
 
@@ -180,7 +178,7 @@ void ofPASoundStream::stop(){
 void ofPASoundStream::start(){
 	int err = Pa_StartStream( audio );
     if( err != paNoError )
-    	ofLogError("ofPASoundStream") << "start(): couldn't start PortAudio stream: " << Pa_GetErrorText( err );
+    	ofLog(OF_LOG_ERROR,"PortAudio error: %s\n",Pa_GetErrorText( err ));
 }
 
 
@@ -189,7 +187,7 @@ void ofPASoundStream::close(){
 	int err = Pa_AbortStream(audio);
 	audio = NULL;
 	if( err != paNoError )
-		ofLogError("ofPASoundStream") << "close(): couldn't close PortAudio stream: " << Pa_GetErrorText( err );
+    	ofLog(OF_LOG_ERROR,"PortAudio error: %s\n",Pa_GetErrorText( err ));
 }
 
 
@@ -200,7 +198,7 @@ void ofPASoundStream::listDevices(){
 	numDevices = Pa_GetDeviceCount();
 	if( numDevices < 0 )
 	{
-		ofLogError("ofPASoundStream") << "couldn't list PortAudio devices: " << Pa_GetErrorText( numDevices );
+    	ofLog(OF_LOG_ERROR,"PortAudio error: %s\n",Pa_GetErrorText( numDevices ));
     	return;
 	}
 	const   PaDeviceInfo *deviceInfo;
@@ -208,11 +206,11 @@ void ofPASoundStream::listDevices(){
 	for( int i=0; i<numDevices; i++ )
 	{
 		deviceInfo = Pa_GetDeviceInfo( i );
-		ofLogNotice() << i << ": " << deviceInfo->name;
-		ofLogNotice() << "api: " << deviceInfo->hostApi;
-		ofLogNotice() << "max in channels" << deviceInfo->maxInputChannels;
-		ofLogNotice() << "max out channels" << deviceInfo->maxOutputChannels;
-		ofLogNotice() << "default sample rate:" << deviceInfo->defaultSampleRate;
+		cout << i << ": " << deviceInfo->name << endl;
+		cout << "api: " << deviceInfo->hostApi << endl;
+		cout << "max in channels" << deviceInfo->maxInputChannels << endl;
+		cout << "max out channels" << deviceInfo->maxOutputChannels << endl;
+		cout << "default sample rate:" << deviceInfo->defaultSampleRate << endl;
 	}
 
 }
@@ -225,21 +223,4 @@ void ofPASoundStream::setDeviceID(int _deviceID){
 long unsigned long ofPASoundStream::getTickCount(){
 	return tickCount;
 }
-
-int ofPASoundStream::getNumInputChannels(){
-	return nInputChannels;
-}
-
-int ofPASoundStream::getNumOutputChannels(){
-	return nOutputChannels;
-}
-
-int ofPASoundStream::getSampleRate(){
-	return sampleRate;
-}
-
-int ofPASoundStream::getBufferSize(){
-	return bufferSize;
-}
-
 #endif

@@ -16,8 +16,7 @@ public:
 	ofCairoRenderer();
 	~ofCairoRenderer();
 
-	static const string TYPE;
-	const string & getType(){ return TYPE; }
+	string getType(){ return "cairo"; }
 
 	enum Type{
 		PDF,
@@ -33,11 +32,10 @@ public:
 	void update();
 
 	void draw(ofPath & shape);
-	void draw(ofPath::Command & path);
+	void draw(ofSubPath & path);
 	void draw(ofPolyline & poly);
 	void draw(ofMesh & vertexData, bool useColors=true, bool useTextures=true, bool useNormals=true);
 	void draw(ofMesh & vertexData, ofPolyRenderMode mode, bool useColors = false, bool useTextures = false, bool useNormals = false);
-    void draw(of3dPrimitive& model, ofPolyRenderMode renderType );
 	void draw(vector<ofPoint> & vertexData, ofPrimitiveMode drawMode);
 	void draw(ofImage & img, float x, float y, float z, float w, float h, float sx, float sy, float sw, float sh);
 	void draw(ofFloatImage & image, float x, float y, float z, float w, float h, float sx, float sy, float sw, float sh);
@@ -57,8 +55,8 @@ public:
 	// if nearDist or farDist are 0 assume defaults (calculated based on width / height)
 	void viewport(ofRectangle viewport);
 	void viewport(float x = 0, float y = 0, float width = 0, float height = 0, bool invertY = true);
-	void setupScreenPerspective(float width = 0, float height = 0, float fov = 60, float nearDist = 0, float farDist = 0);
-	void setupScreenOrtho(float width = 0, float height = 0, float nearDist = -1, float farDist = 1);
+	void setupScreenPerspective(float width = 0, float height = 0, ofOrientation orientation = OF_ORIENTATION_UNKNOWN, bool vFlip = true, float fov = 60, float nearDist = 0, float farDist = 0);
+	void setupScreenOrtho(float width = 0, float height = 0, ofOrientation orientation = OF_ORIENTATION_UNKNOWN, bool vFlip = true, float nearDist = -1, float farDist = 1);
 	ofRectangle getCurrentViewport();
 	int getViewportWidth();
 	int getViewportHeight();
@@ -72,12 +70,9 @@ public:
 	void setFillMode(ofFillFlag fill);
 	ofFillFlag getFillMode();
 	void setLineWidth(float lineWidth);
-	void setDepthTest(bool depthTest);
 	void setBlendMode(ofBlendMode blendMode);
 	void setLineSmoothing(bool smooth);
 	void setSphereResolution(int res);
-	void enableAntiAliasing();
-	void disableAntiAliasing();
 
 	//our openGL wrappers
 	void pushMatrix();

@@ -8,7 +8,9 @@
 */
 
 
-#pragma once
+
+#ifndef OFX_CV_SHORT_IMAGE_H
+#define OFX_CV_SHORT_IMAGE_H
 
 
 #include "ofxCvImage.h"
@@ -133,3 +135,9 @@ class ofxCvShortImage : public ofxCvImage {
 
     ofShortPixels shortPixels;
 };
+
+
+
+#endif
+
+

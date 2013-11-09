@@ -19,9 +19,6 @@
 		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp">
 			<Filter>addons\ofxOsc\src</Filter>
 		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.cpp">
-			<Filter>addons\ofxOsc\src</Filter>
-		</ClCompile>
 		<ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtilsWin.cpp">
 			<Filter>addons\ofxOsc\libs\oscpack\src\ip\win32</Filter>
 		</ClCompile>
@@ -55,34 +52,34 @@
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons">
-			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc85}</UniqueIdentifier>
+			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc8563776aec}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc">
-			<UniqueIdentifier>{d91dca33-6e5d-4481-2aec-9fbb}</UniqueIdentifier>
+			<UniqueIdentifier>{d91dca33-6e5d-4481-2aec-9fbb1b7355db}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc\src">
-			<UniqueIdentifier>{b9dd339a-d93d-92a1-0a2f-4b41}</UniqueIdentifier>
+			<UniqueIdentifier>{b9dd339a-d93d-92a1-0a2f-4b41d690f257}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc\libs">
-			<UniqueIdentifier>{99eca1d9-873f-4622-8fc0-fc7b}</UniqueIdentifier>
+			<UniqueIdentifier>{99eca1d9-873f-4622-8fc0-fc7b46b76347}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc\libs\oscpack">
-			<UniqueIdentifier>{d3a98534-1602-4fef-57a6-6593}</UniqueIdentifier>
+			<UniqueIdentifier>{d3a98534-1602-4fef-57a6-659374ee9b23}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc\libs\oscpack\src">
-			<UniqueIdentifier>{bfb5bb47-98c8-bbcb-3066-1046}</UniqueIdentifier>
+			<UniqueIdentifier>{bfb5bb47-98c8-bbcb-3066-1046a8b06581}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc\libs\oscpack\src\ip">
-			<UniqueIdentifier>{5a029128-eb41-95c5-cbc0-cded}</UniqueIdentifier>
+			<UniqueIdentifier>{5a029128-eb41-95c5-cbc0-cded454d99e6}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc\libs\oscpack\src\ip\win32">
-			<UniqueIdentifier>{79dfdfe2-400b-8654-3675-01a3}</UniqueIdentifier>
+			<UniqueIdentifier>{79dfdfe2-400b-8654-3675-01a3f46a2e7e}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc\libs\oscpack\src\ip\posix">
-			<UniqueIdentifier>{354c95cf-a234-0360-c6bc-af41}</UniqueIdentifier>
+			<UniqueIdentifier>{354c95cf-a234-0360-c6bc-af410d70c032}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
-			<UniqueIdentifier>{edacb89c-9768-9551-4d41-b590}</UniqueIdentifier>
+			<UniqueIdentifier>{edacb89c-9768-9551-4d41-b59015925509}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -96,9 +93,6 @@
 			<Filter>addons\ofxOsc\src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h">
-			<Filter>addons\ofxOsc\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.h">
 			<Filter>addons\ofxOsc\src</Filter>
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.h">
@@ -149,8 +143,5 @@
 		<ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h">
 			<Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
 		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
 	</ItemGroup>
 </Project>

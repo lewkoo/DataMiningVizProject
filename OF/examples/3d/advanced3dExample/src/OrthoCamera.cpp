@@ -36,16 +36,18 @@ void orthoCamera::begin(ofRectangle rect){
 		scaley = scale / ar;
 	}
 
+	//
+	//--
+
+
+
 	//--
 	// Setup projection
 
-	ofSetMatrixMode(OF_MATRIX_PROJECTION);
-	
-    ofMatrix4x4 ortho;
-    ortho.makeOrthoMatrix(-scalex, scalex, -scaley, scaley, -20 * scale, 28 * scale );
-    ofLoadMatrix( ortho );
-
-    ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-scalex, scalex, -scaley, scaley, -20 * scale, 20 * scale);
+	glMatrixMode(GL_MODELVIEW);
 
 	//
 	//--

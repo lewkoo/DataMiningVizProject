@@ -36,8 +36,6 @@ ofPixels_<PixelType>::ofPixels_(const ofPixels_<PixelType> & mom){
 	pixelsOwner = false;
 	channels = 0;
 	pixels = NULL;
-	width = 0;
-	height = 0;
 	copyFrom( mom );
 }
 
@@ -75,13 +73,13 @@ void ofPixels_<PixelType>::set(int channel,PixelType val){
 }
 
 template<typename PixelType>
-void ofPixels_<PixelType>::setFromPixels(const PixelType * newPixels, int w, int h, int channels){
+void ofPixels_<PixelType>::setFromPixels(const PixelType * newPixels,int w, int h, int channels){
 	allocate(w, h, channels);
 	memcpy(pixels, newPixels, w * h * getBytesPerPixel());
 }
 
 template<typename PixelType>
-void ofPixels_<PixelType>::setFromPixels(const PixelType * newPixels, int w, int h, ofImageType type){
+void ofPixels_<PixelType>::setFromPixels(const PixelType * newPixels,int w, int h, ofImageType type){
 	allocate(w,h,type);
 	switch(type){
 	case OF_IMAGE_GRAYSCALE:
@@ -94,13 +92,13 @@ void ofPixels_<PixelType>::setFromPixels(const PixelType * newPixels, int w, int
 		setFromPixels(newPixels,w,h,4);
 		break;
 	default:
-		ofLogError("ofPixels") << "setFromPixels(): image type " << type << " not supported, not copying";
+		ofLog(OF_LOG_ERROR,"ofPixels: image type not supported");
 		break;
 	}
 }
 
 template<typename PixelType>
-void ofPixels_<PixelType>::setFromExternalPixels(PixelType * newPixels, int w, int h, int _channels){
+void ofPixels_<PixelType>::setFromExternalPixels(PixelType * newPixels,int w, int h, int _channels){
 	clear();
 	channels = _channels;
 	width= w;
@@ -148,6 +146,13 @@ const PixelType * ofPixels_<PixelType>::getPixels() const{
 	return &pixels[0];
 }
 
+
+/*template<typename PixelType>
+void ofPixels_<PixelType>::allocate(int w, int h, int bitsPerPixel){
+	ofImageType type = getImageTypeFromBits(bitsPerPixel);
+	allocate(w,h,type);
+}*/
+
 template<typename PixelType>
 void ofPixels_<PixelType>::allocate(int w, int h, int _channels){
 	if (w < 0 || h < 0) {
@@ -190,7 +195,7 @@ void ofPixels_<PixelType>::allocate(int w, int h, ofPixelFormat format){
 			imgType = OF_IMAGE_GRAYSCALE;
 			break;
 		default:
-			ofLogError("ofPixels") << "allocate(): unknown pixel format, not allocating";
+			ofLog(OF_LOG_ERROR,"ofPixels: format not supported, not allocating");
 			return;
 			break;
 
@@ -211,7 +216,7 @@ void ofPixels_<PixelType>::allocate(int w, int h, ofImageType type){
 		allocate(w,h,4);
 		break;
 	default:
-		ofLogError("ofPixels") << "allocate(): unknown image type, not allocating";
+		ofLog(OF_LOG_ERROR,"ofPixels: image type not supported");
 		break;
 
 	}
@@ -266,7 +271,9 @@ ofColor_<PixelType> ofPixels_<PixelType>::getColor(int x, int y) const {
 }
 
 template<typename PixelType>
-void ofPixels_<PixelType>::setColor(int index, const ofColor_<PixelType>& color) {
+void ofPixels_<PixelType>::setColor(int x, int y, ofColor_<PixelType> color) {
+	int index = getPixelIndex(x, y);
+
 	if( channels == 1 ){
 		pixels[index] = color.getBrightness();
 	}else if( channels == 3 ){
@@ -278,21 +285,6 @@ void ofPixels_<PixelType>::setColor(int index, const ofColor_<PixelType>& color)
 		pixels[index+1] = color.g;
 		pixels[index+2] = color.b;
 		pixels[index+3] = color.a;
-	}
-}
-
-template<typename PixelType>
-void ofPixels_<PixelType>::setColor(int x, int y, const ofColor_<PixelType>& color) {
-	setColor(getPixelIndex(x, y), color);
-}
-
-template<typename PixelType>
-void ofPixels_<PixelType>::setColor(const ofColor_<PixelType>& color) {
-	int i = 0;
-	while(i < size()) {
-		for(int j = 0; j < channels; j++) {
-			pixels[i++] = color[j];
-		}
 	}
 }
 
@@ -789,7 +781,7 @@ bool ofPixels_<PixelType>::resizeTo(ofPixels_<PixelType>& dst, ofInterpolationMe
 			//----------------------------------------
 		case OF_INTERPOLATE_BILINEAR:
 			// not implemented yet
-			ofLogError("ofPixels") << "resizeTo(): bilinear resize not implemented, not resizing";
+			ofLogError(" Bilinear resize not implemented ");
 			break;
 
 			//----------------------------------------

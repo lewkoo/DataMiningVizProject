@@ -9,31 +9,31 @@ ofBaseVideoGrabber::~ofBaseVideoGrabber(){
 
 //---------------------------------------------------------------------------
 void ofBaseVideoGrabber::setVerbose(bool bTalkToMe){
-	ofLogWarning("ofBaseVideoGrabber") << "setVerbose() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoGrabber::setVerbose not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoGrabber::setDeviceID(int _deviceID){
-	ofLogWarning("ofBaseVideoGrabber") << "setDeviceID() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoGrabber::setDeviceID not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoGrabber::setDesiredFrameRate(int framerate){
-	ofLogWarning("ofBaseVideoGrabber") << "setDesiredFrameRate() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoGrabber::setDesiredFrameRate not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoGrabber::videoSettings(){
-	ofLogWarning("ofBaseVideoGrabber") << "videoSettings() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoGrabber::videoSettings not implemented");
 }
 
 //---------------------------------------------------------------------------
 //void ofBaseVideoGrabber::setPixelFormat(ofPixelFormat pixelFormat){
-//	ofLogWarning("ofBaseVideoGrabber") << "setPixelFormat() not implemented";
+//	ofLog(OF_LOG_WARNING, "ofBaseVideoGrabber::setPixelFormat not implemented");
 //}
 //
 //ofPixelFormat ofBaseVideoGrabber::getPixelFormat(){
-//	ofLogWarning("ofBaseVideoGrabber") << "getPixelFormat() not implemented";
+//	ofLog(OF_LOG_WARNING, "ofBaseVideoGrabber::getPixelFormat not implemented");
 //	return OF_PIXELS_RGB;
 //}
 
@@ -47,97 +47,97 @@ ofBaseVideoPlayer::~ofBaseVideoPlayer(){
 
 //---------------------------------------------------------------------------
 float ofBaseVideoPlayer::getPosition(){
-	ofLogWarning("ofBaseVideoPlayer") << "getPosition() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::getPosition not implemented");
 	return 0.0;
 }
 
 //---------------------------------------------------------------------------
 float ofBaseVideoPlayer::getSpeed(){
-	ofLogWarning("ofBaseVideoPlayer") << "getSpeed() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::getSpeed not implemented");
 	return 0.0;
 }
 
 //---------------------------------------------------------------------------
 float ofBaseVideoPlayer::getDuration(){
-	ofLogWarning("ofBaseVideoPlayer") << "getDuration() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::getDuration not implemented");
 	return 0.0;
 }
 
 //---------------------------------------------------------------------------
 bool ofBaseVideoPlayer::getIsMovieDone(){
-	ofLogWarning("ofBaseVideoPlayer") << "getIsMovieDone() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::getIsMovieDone not implemented");
 	return false;
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoPlayer::setPaused(bool bPause){
-	ofLogWarning("ofBaseVideoPlayer") << "setPaused() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::setPaused not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoPlayer::setPosition(float pct){
-	ofLogWarning("ofBaseVideoPlayer") << "setPosition() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::setPosition not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoPlayer::setVolume(float volume){
-	ofLogWarning("ofBaseVideoPlayer") << "setVolume() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::setVolume not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoPlayer::setLoopState(ofLoopType state){
-	ofLogWarning("ofBaseVideoPlayer") << "setLoopState() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::setLoopState not implemented");
 }
 
 //---------------------------------------------------------------------------
-void ofBaseVideoPlayer::setSpeed(float speed){
-	ofLogWarning("ofBaseVideoPlayer") << "setSpeed() not implemented";
+void   ofBaseVideoPlayer::setSpeed(float speed){
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::setSpeed not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoPlayer::setFrame(int frame){
-	ofLogWarning("ofBaseVideoPlayer") << "setFrame() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::setFrame not implemented");
 }
 
 //---------------------------------------------------------------------------
 int	ofBaseVideoPlayer::getCurrentFrame(){
-	ofLogWarning("ofBaseVideoPlayer") << "getCurrentFrame() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::nextFrame not implemented");
 	return 0;
 }
 
 //---------------------------------------------------------------------------
 int	ofBaseVideoPlayer::getTotalNumFrames(){
-	ofLogWarning("ofBaseVideoPlayer") << "getTotalNumFrames() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::getTotalNumFrames not implemented");
 	return 0;
 }
 
 //---------------------------------------------------------------------------
-ofLoopType ofBaseVideoPlayer::getLoopState(){
-	ofLogWarning("ofBaseVideoPlayer") << "getLoopState() not implemented";
+ofLoopType	ofBaseVideoPlayer::getLoopState(){
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::getLoopState not implemented");
 	return OF_LOOP_NONE;
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoPlayer::firstFrame(){
-	ofLogWarning("ofBaseVideoPlayer") << "firstFrame() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::firstFrame not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoPlayer::nextFrame(){
-	ofLogWarning("ofBaseVideoPlayer") << "nextFrame() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::nextFrame not implemented");
 }
 
 //---------------------------------------------------------------------------
 void ofBaseVideoPlayer::previousFrame(){
-	ofLogWarning("ofBaseVideoPlayer") << "previousFrame() not implemented";
+	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::previousFrame not implemented");
 }
 
 //---------------------------------------------------------------------------
 //void ofBaseVideoPlayer::setPixelFormat(ofPixelFormat pixelFormat){
-//	ofLogWarning("ofBaseVideoPlayer") << "setPixelFormat() not implemented";
+//	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::setPixelFormat not implemented");
 //}
 //---------------------------------------------------------------------------
 //ofPixelFormat ofBaseVideoPlayer::getPixelFormat(){
-//	ofLogWarning("ofBaseVideoPlayer") << "getPixelFormat() not implemented";
+//	ofLog(OF_LOG_WARNING, "ofBaseVideoPlayer::getPixelFormat not implemented");
 //	return OF_PIXELS_RGB;
 //}

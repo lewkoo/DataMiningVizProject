@@ -5,10 +5,21 @@
 #include "ofUtils.h"
 #include "ofMesh.h"
 #include "ofImage.h"
-#include "of3dPrimitives.h"
 
-
-const string ofCairoRenderer::TYPE="cairo";
+//-----------------------------------------------------------------------------------
+static void helper_quadratic_to (cairo_t *cr,
+                     double x1, double y1,
+                     double x2, double y2)
+{
+  double x0, y0;
+  cairo_get_current_point (cr, &x0, &y0);
+  cairo_curve_to (cr,
+                  2.0 / 3.0 * x1 + 1.0 / 3.0 * x0,
+                  2.0 / 3.0 * y1 + 1.0 / 3.0 * y0,
+                  2.0 / 3.0 * x1 + 1.0 / 3.0 * x2,
+                  2.0 / 3.0 * y1 + 1.0 / 3.0 * y2,
+                  y1, y2);
+}
 
 _cairo_status ofCairoRenderer::stream_function(void *closure,const unsigned char *data, unsigned int length){
 	((ofCairoRenderer*)closure)->streamBuffer.append((const char*)data,length);
@@ -37,7 +48,7 @@ void ofCairoRenderer::setup(string _filename, Type _type, bool multiPage_, bool 
 	if( _viewport.width == 0 || _viewport.height == 0 ){
 		_viewport.set(0, 0, ofGetWidth(), ofGetHeight());
 	}
-
+	
 	filename = _filename;
 	type = _type;
 	streamBuffer.clear();
@@ -50,17 +61,6 @@ void ofCairoRenderer::setup(string _filename, Type _type, bool multiPage_, bool 
 			type = PDF;
 		}else{ // default to image
 			type = IMAGE;
-		}
-	}
-
-	if(filename != "") {
-		switch(type) {
-			case PDF:
-			case SVG:
-			case IMAGE:
-				ofFilePath::createEnclosingDirectory(filename);
-			case FROM_FILE_EXTENSION:
-				break;
 		}
 	}
 
@@ -81,14 +81,13 @@ void ofCairoRenderer::setup(string _filename, Type _type, bool multiPage_, bool 
 		break;
 	case IMAGE:
 		imageBuffer.allocate(_viewport.width, _viewport.height, 4);
-		imageBuffer.set(0);
 		surface = cairo_image_surface_create_for_data(imageBuffer.getPixels(),CAIRO_FORMAT_ARGB32,_viewport.width, _viewport.height,_viewport.width*4);
 		break;
 	case FROM_FILE_EXTENSION:
-		ofLogFatalError("ofCairoRenderer") << "setup(): couldn't determine type from extension for filename: \"" << _filename << "\"!";
+		ofLogFatalError("ofCairoRenderer") << "Type not determined from file extension!";
 		break;
 	default:
-		ofLogError("ofCairoRenderer") << "setup(): encountered unknown type for filename \"" << _filename << "\"";
+		ofLogError("ofCairoRenderer") << "Unknown type encountered!";
 		break;
 	}
 
@@ -116,7 +115,6 @@ void ofCairoRenderer::close(){
 	if(surface){
 		cairo_surface_flush(surface);
 		if(type==IMAGE && filename!=""){
-			imageBuffer.swapRgb();
 			ofSaveImage(imageBuffer,filename);
 		}
 		cairo_surface_finish(surface);
@@ -183,9 +181,9 @@ void ofCairoRenderer::setStyle(const ofStyle & style){
 
 void ofCairoRenderer::draw(ofPath & shape){
 	cairo_new_path(cr);
-	vector<ofPath::Command> & commands = shape.getCommands();
-	for(int i=0;i<(int)commands.size();i++){
-		draw(commands[i]);
+	vector<ofSubPath> & paths = shape.getSubPaths();
+	for(int i=0;i<(int)paths.size();i++){
+		draw(paths[i]);
 	}
 
 	cairo_fill_rule_t cairo_poly_mode;
@@ -202,8 +200,8 @@ void ofCairoRenderer::draw(ofPath & shape){
 
 	if(shape.isFilled()){
 		if(shape.getUseShapeColor()){
-			ofColor c = shape.getFillColor();
-			c.a = shape.getFillColor().a;
+			ofColor c = shape.getFillColor() * ofGetStyle().color;
+			c.a = shape.getFillColor().a/255. * ofGetStyle().color.a;
 			cairo_set_source_rgba(cr, (float)c.r/255.0, (float)c.g/255.0, (float)c.b/255.0, (float)c.a/255.0);
 		}
 
@@ -216,8 +214,8 @@ void ofCairoRenderer::draw(ofPath & shape){
 	if(shape.hasOutline()){
 		float lineWidth = ofGetStyle().lineWidth;
 		if(shape.getUseShapeColor()){
-			ofColor c = shape.getStrokeColor();
-			c.a = shape.getStrokeColor().a;
+			ofColor c = shape.getStrokeColor() * ofGetStyle().color;
+			c.a = shape.getStrokeColor().a/255. * ofGetStyle().color.a;
 			cairo_set_source_rgba(cr, (float)c.r/255.0, (float)c.g/255.0, (float)c.b/255.0, (float)c.a/255.0);
 		}
 		cairo_set_line_width( cr, shape.getStrokeWidth() );
@@ -228,6 +226,7 @@ void ofCairoRenderer::draw(ofPath & shape){
 	if(shape.getUseShapeColor()){
 		setColor(prevColor);
 	}
+	ofPopStyle();
 }
 
 void ofCairoRenderer::draw(ofPolyline & poly){
@@ -320,7 +319,7 @@ void ofCairoRenderer::draw(ofMesh & primitive, bool useColors, bool useTextures,
 		draw(indexedMesh, useColors, useTextures, useNormals);
 		return;
 	}
-
+	
 	pushMatrix();
 	cairo_matrix_init_identity(getCairoMatrix());
 	cairo_new_path(cr);
@@ -383,115 +382,93 @@ void ofCairoRenderer::draw(ofMesh & primitive, bool useColors, bool useTextures,
 
 void ofCairoRenderer::draw(ofMesh & vertexData, ofPolyRenderMode mode, bool useColors, bool useTextures, bool useNormals){
     if(useColors || useTextures || useNormals){
-        ofLogWarning("ofCairoRenderer") << "draw(): cairo mesh rendering doesn't support colors, textures, or normals. drawing wireframe ...";
+        ofLog(OF_LOG_WARNING,"Cairo rendering for meshes doesn't support colors, textures, or normals. drawing wireframe...");
     }
 	draw(vertexData,false,false,false);
 }
 
-//----------------------------------------------------------
-void ofCairoRenderer::draw( of3dPrimitive& model, ofPolyRenderMode renderType  ) {
-
-    if(model.hasScaling()) {
-        ofLogWarning("ofCairoRenderer") << "draw(): cairo mesh rendering doesn't support scaling";
-        //glEnable( GL_NORMALIZE );
-        //glPushMatrix();
-        //ofVec3f scale = model.getScale();
-        //glScalef( scale.x, scale.y, scale.z);
-    }
-
-    ofMesh& mesh = model.getMesh();
-    draw( mesh, renderType, mesh.usingColors(), mesh.usingTextures(), mesh.usingNormals() );
-
-    if(model.hasScaling()) {
-        //glPopMatrix();
-        //glDisable( GL_NORMALIZE );
-    }
-
-}
-
-void ofCairoRenderer::draw(ofPath::Command & command){
+void ofCairoRenderer::draw(ofSubPath & path){
 	if(!surface || !cr) return;
-	switch(command.type){
-	case ofPath::Command::moveTo:
-		curvePoints.clear();
-		cairo_new_sub_path(cr);
-		break;
-
-	case ofPath::Command::lineTo:
-		curvePoints.clear();
-		cairo_line_to(cr,command.to.x,command.to.y);
-		break;
+	const vector<ofSubPath::Command> & commands = path.getCommands();
+	cairo_new_sub_path(cr);
+	for(int i=0; i<(int)commands.size(); i++){
+		switch(commands[i].type){
+		case ofSubPath::Command::lineTo:
+			curvePoints.clear();
+			cairo_line_to(cr,commands[i].to.x,commands[i].to.y);
+			break;
 
 
-	case ofPath::Command::curveTo:
-		curvePoints.push_back(command.to);
+		case ofSubPath::Command::curveTo:
+			curvePoints.push_back(commands[i].to);
 
-		//code adapted from ofxVectorGraphics to convert catmull rom to bezier
-		if(curvePoints.size()==4){
-			ofPoint p1=curvePoints[0];
-			ofPoint p2=curvePoints[1];
-			ofPoint p3=curvePoints[2];
-			ofPoint p4=curvePoints[3];
+			//code adapted from ofxVectorGraphics to convert catmull rom to bezier
+			if(curvePoints.size()==4){
+				ofPoint p1=curvePoints[0];
+				ofPoint p2=curvePoints[1];
+				ofPoint p3=curvePoints[2];
+				ofPoint p4=curvePoints[3];
 
-			//SUPER WEIRD MAGIC CONSTANT = 1/6 (this works 100% can someone explain it?)
-			ofPoint cp1 = p2 + ( p3 - p1 ) * (1.0/6);
-			ofPoint cp2 = p3 + ( p2 - p4 ) * (1.0/6);
+				//SUPER WEIRD MAGIC CONSTANT = 1/6 (this works 100% can someone explain it?)
+				ofPoint cp1 = p2 + ( p3 - p1 ) * (1.0/6);
+				ofPoint cp2 = p3 + ( p2 - p4 ) * (1.0/6);
 
-			cairo_curve_to( cr, cp1.x, cp1.y, cp2.x, cp2.y, p3.x, p3.y );
-			curvePoints.pop_front();
+				cairo_curve_to( cr, cp1.x, cp1.y, cp2.x, cp2.y, p3.x, p3.y );
+				curvePoints.pop_front();
+			}
+			break;
+
+
+		case ofSubPath::Command::bezierTo:
+			curvePoints.clear();
+			cairo_curve_to(cr,commands[i].cp1.x,commands[i].cp1.y,commands[i].cp2.x,commands[i].cp2.y,commands[i].to.x,commands[i].to.y);
+			break;
+
+		case ofSubPath::Command::quadBezierTo:
+			curvePoints.clear();
+			cairo_curve_to(cr,commands[i].cp1.x,commands[i].cp1.y,commands[i].cp2.x,commands[i].cp2.y,commands[i].to.x,commands[i].to.y);
+			break;
+
+
+		case ofSubPath::Command::arc:
+			curvePoints.clear();
+			// elliptic arcs not directly supported in cairo, lets scale y
+			if(commands[i].radiusX!=commands[i].radiusY){
+				float ellipse_ratio = commands[i].radiusY/commands[i].radiusX;
+				pushMatrix();
+				translate(0,-commands[i].to.y*ellipse_ratio);
+				scale(1,ellipse_ratio);
+				translate(0,commands[i].to.y/ellipse_ratio);
+				cairo_arc(cr,commands[i].to.x,commands[i].to.y,commands[i].radiusX,commands[i].angleBegin*DEG_TO_RAD,commands[i].angleEnd*DEG_TO_RAD);
+				//cairo_set_matrix(cr,&stored_matrix);
+				popMatrix();
+			}else{
+				cairo_arc(cr,commands[i].to.x,commands[i].to.y,commands[i].radiusX,commands[i].angleBegin*DEG_TO_RAD,commands[i].angleEnd*DEG_TO_RAD);
+			}
+			break;
+
+        case ofSubPath::Command::arcNegative:
+            curvePoints.clear();
+            // elliptic arcs not directly supported in cairo, lets scale y
+            if(commands[i].radiusX!=commands[i].radiusY){
+                float ellipse_ratio = commands[i].radiusY/commands[i].radiusX;
+                pushMatrix();
+                translate(0,-commands[i].to.y*ellipse_ratio);
+                scale(1,ellipse_ratio);
+                translate(0,commands[i].to.y/ellipse_ratio);
+                cairo_arc_negative(cr,commands[i].to.x,commands[i].to.y,commands[i].radiusX,commands[i].angleBegin*DEG_TO_RAD,commands[i].angleEnd*DEG_TO_RAD);
+                //cairo_set_matrix(cr,&stored_matrix);
+                popMatrix();
+            }else{
+                cairo_arc_negative(cr,commands[i].to.x,commands[i].to.y,commands[i].radiusX,commands[i].angleBegin*DEG_TO_RAD,commands[i].angleEnd*DEG_TO_RAD);
+            }
+        break;
+
 		}
-		break;
+	}
 
-
-	case ofPath::Command::bezierTo:
-		curvePoints.clear();
-		cairo_curve_to(cr,command.cp1.x,command.cp1.y,command.cp2.x,command.cp2.y,command.to.x,command.to.y);
-		break;
-
-	case ofPath::Command::quadBezierTo:
-		curvePoints.clear();
-		cairo_curve_to(cr,command.cp1.x,command.cp1.y,command.cp2.x,command.cp2.y,command.to.x,command.to.y);
-		break;
-
-
-	case ofPath::Command::arc:
-		curvePoints.clear();
-		// elliptic arcs not directly supported in cairo, lets scale y
-		if(command.radiusX!=command.radiusY){
-			float ellipse_ratio = command.radiusY/command.radiusX;
-			pushMatrix();
-			translate(0,-command.to.y*ellipse_ratio);
-			scale(1,ellipse_ratio);
-			translate(0,command.to.y/ellipse_ratio);
-			cairo_arc(cr,command.to.x,command.to.y,command.radiusX,command.angleBegin*DEG_TO_RAD,command.angleEnd*DEG_TO_RAD);
-			//cairo_set_matrix(cr,&stored_matrix);
-			popMatrix();
-		}else{
-			cairo_arc(cr,command.to.x,command.to.y,command.radiusX,command.angleBegin*DEG_TO_RAD,command.angleEnd*DEG_TO_RAD);
-		}
-		break;
-
-	case ofPath::Command::arcNegative:
-		curvePoints.clear();
-		// elliptic arcs not directly supported in cairo, lets scale y
-		if(command.radiusX!=command.radiusY){
-			float ellipse_ratio = command.radiusY/command.radiusX;
-			pushMatrix();
-			translate(0,-command.to.y*ellipse_ratio);
-			scale(1,ellipse_ratio);
-			translate(0,command.to.y/ellipse_ratio);
-			cairo_arc_negative(cr,command.to.x,command.to.y,command.radiusX,command.angleBegin*DEG_TO_RAD,command.angleEnd*DEG_TO_RAD);
-			//cairo_set_matrix(cr,&stored_matrix);
-			popMatrix();
-		}else{
-			cairo_arc_negative(cr,command.to.x,command.to.y,command.radiusX,command.angleBegin*DEG_TO_RAD,command.angleEnd*DEG_TO_RAD);
-		}
-	break;
-
-	case ofPath::Command::close:
+	if(path.isClosed()){
 		cairo_close_path(cr);
-		break;
-
 	}
 
 
@@ -507,7 +484,7 @@ void ofCairoRenderer::draw(ofImage & img, float x, float y, float z, float w, fl
 		raw.cropTo(cropped, sx, sy, sw, sh);
 	}
 	ofPixelsRef pix = shouldCrop ? cropped : raw;
-
+	
 	pushMatrix();
 	translate(x,y,z);
 	scale(w/pix.getWidth(),h/pix.getHeight());
@@ -570,7 +547,7 @@ void ofCairoRenderer::draw(ofImage & img, float x, float y, float z, float w, fl
 		break;
 	case OF_IMAGE_UNDEFINED:
 	default:
-		ofLogError("ofCairoRenderer") << "draw(): trying to draw undefined image type " << pix.getImageType();
+		ofLog(OF_LOG_ERROR,"ofCairoRenderer: trying to render undefined type image");
 		popMatrix();
 		return;
 		break;
@@ -619,11 +596,6 @@ void ofCairoRenderer::setLineWidth(float lineWidth){
 	cairo_set_line_width( cr, lineWidth );
 }
 
-//----------------------------------------------------------
-void ofCairoRenderer::setDepthTest(bool depthTest) {
-	// cairo does not do any depth testing
-}
-
 //--------------------------------------------
 void ofCairoRenderer::setBlendMode(ofBlendMode blendMode){
 	switch (blendMode){
@@ -636,7 +608,7 @@ void ofCairoRenderer::setBlendMode(ofBlendMode blendMode){
 			cairo_set_operator(cr,CAIRO_OPERATOR_ADD);
 			break;
 		}
-#if (CAIRO_VERSION_MAJOR==1 && CAIRO_VERSION_MINOR>=10) || CAIRO_VERSION_MAJOR>1
+
 		case OF_BLENDMODE_MULTIPLY:{
 			cairo_set_operator(cr,CAIRO_OPERATOR_MULTIPLY);
 			break;
@@ -651,7 +623,7 @@ void ofCairoRenderer::setBlendMode(ofBlendMode blendMode){
 			cairo_set_operator(cr,CAIRO_OPERATOR_DIFFERENCE);
 			break;
 		}
-#endif
+
 
 		default:
 			break;
@@ -814,13 +786,13 @@ void ofCairoRenderer::multMatrix (const float * m){
 
 void ofCairoRenderer::rotate(float degrees, float vecX, float vecY, float vecZ){
     if(!surface || !cr) return;
-
+    
     // we can only do Z-axis rotations via cairo_matrix_rotate.
     if(vecZ == 1.0f) {
         cairo_matrix_rotate(getCairoMatrix(),degrees*DEG_TO_RAD);
         setCairoMatrix();
     }
-
+    
     if(!b3D) return;
     modelView.glRotate(degrees,vecX,vecY,vecZ);
 }
@@ -860,7 +832,7 @@ void ofCairoRenderer::viewport(float x, float y, float width, float height, bool
 	if(height == 0) height = ofGetWindowHeight();
 
 	if (invertY){
-		y = -y;
+		y = ofGetWindowHeight() - (y + height);
 	}
 
 
@@ -875,14 +847,14 @@ void ofCairoRenderer::viewport(float x, float y, float width, float height, bool
 	cairo_clip(cr);
 };
 
-void ofCairoRenderer::setupScreenPerspective(float width, float height, float fov, float nearDist, float farDist){
+void ofCairoRenderer::setupScreenPerspective(float width, float height, ofOrientation orientation, bool vFlip, float fov, float nearDist, float farDist){
 	if(!b3D) return;
 	if(width == 0) width = ofGetWidth();
 	if(height == 0) height = ofGetHeight();
-	ofOrientation orientation = ofGetOrientation();
+	if( orientation == OF_ORIENTATION_UNKNOWN ) orientation = ofGetOrientation();
 
-	float viewW = viewportRect.width;
-	float viewH = viewportRect.height;
+	float viewW = ofGetViewportWidth();
+	float viewH = ofGetViewportHeight();
 
 	float eyeX = viewW / 2;
 	float eyeY = viewH / 2;
@@ -902,7 +874,7 @@ void ofCairoRenderer::setupScreenPerspective(float width, float height, float fo
 	switch(orientation) {
 		case OF_ORIENTATION_180:
 			modelView.glRotate(-180,0,0,1);
-			if(isVFlipped()){
+			if(vFlip){
 				modelView.glScale(-1,-1,1);
 				modelView.glTranslate(width,0,0);
 			}else{
@@ -913,7 +885,7 @@ void ofCairoRenderer::setupScreenPerspective(float width, float height, float fo
 
 		case OF_ORIENTATION_90_RIGHT:
 			modelView.glRotate(-90,0,0,1);
-			if(isVFlipped()){
+			if(vFlip){
 				modelView.glScale(1,1,1);
 			}else{
 				modelView.glScale(1,-1,1);
@@ -923,7 +895,7 @@ void ofCairoRenderer::setupScreenPerspective(float width, float height, float fo
 
 		case OF_ORIENTATION_90_LEFT:
 			modelView.glRotate(90,0,0,1);
-			if(isVFlipped()){
+			if(vFlip){
 				modelView.glScale(1,1,1);
 				modelView.glTranslate(0,-height,0);
 			}else{
@@ -935,7 +907,7 @@ void ofCairoRenderer::setupScreenPerspective(float width, float height, float fo
 
 		case OF_ORIENTATION_DEFAULT:
 		default:
-			if(isVFlipped()){
+			if(vFlip){
 				modelView.glScale(-1,-1,1);
 				modelView.glTranslate(-width,-height,0);
 			}
@@ -943,29 +915,29 @@ void ofCairoRenderer::setupScreenPerspective(float width, float height, float fo
 	}
 };
 
-void ofCairoRenderer::setupScreenOrtho(float width, float height, float nearDist, float farDist){
+void ofCairoRenderer::setupScreenOrtho(float width, float height, ofOrientation orientation, bool vFlip, float nearDist, float farDist){
 	if(!b3D) return;
 	if(width == 0) width = ofGetWidth();
 	if(height == 0) height = ofGetHeight();
-	ofOrientation orientation = ofGetOrientation();
+	if( orientation == OF_ORIENTATION_UNKNOWN ) orientation = ofGetOrientation();
 
-	float viewW = viewportRect.width;
-	float viewH = viewportRect.height;
+	float viewW = ofGetViewportWidth();
+	float viewH = ofGetViewportHeight();
 
 	ofSetCoordHandedness(OF_RIGHT_HANDED);
 
-	if(isVFlipped()) {
+	if(vFlip) {
 		ofSetCoordHandedness(OF_LEFT_HANDED);
 	}
 	projection.makeOrthoMatrix(0, viewW, 0, viewH, nearDist, farDist);
-
+	
 	modelView.makeIdentityMatrix();
-
+	
 	//note - theo checked this on iPhone and Desktop for both vFlip = false and true
 	switch(orientation) {
 		case OF_ORIENTATION_180:
 			modelView.glRotate(-180,0,0,1);
-			if(isVFlipped()){
+			if(vFlip){
 				modelView.glScale(-1,-1,1);
 				modelView.glTranslate(width,0,0);
 			}else{
@@ -976,7 +948,7 @@ void ofCairoRenderer::setupScreenOrtho(float width, float height, float nearDist
 
 		case OF_ORIENTATION_90_RIGHT:
 			modelView.glRotate(-90,0,0,1);
-			if(isVFlipped()){
+			if(vFlip){
 				modelView.glScale(1,1,1);
 			}else{
 				modelView.glScale(1,-1,1);
@@ -986,7 +958,7 @@ void ofCairoRenderer::setupScreenOrtho(float width, float height, float nearDist
 
 		case OF_ORIENTATION_90_LEFT:
 			modelView.glRotate(90,0,0,1);
-			if(isVFlipped()){
+			if(vFlip){
 				modelView.glScale(1,1,1);
 				modelView.glTranslate(0,-height,0);
 			}else{
@@ -998,12 +970,12 @@ void ofCairoRenderer::setupScreenOrtho(float width, float height, float nearDist
 
 		case OF_ORIENTATION_DEFAULT:
 		default:
-			if(isVFlipped()){
+			if(vFlip){
 				modelView.glScale(-1,-1,1);
 				modelView.glTranslate(-width,-height,0);
 			}
 			break;
-	}
+	}	
 };
 
 ofRectangle ofCairoRenderer::getCurrentViewport(){
@@ -1068,7 +1040,7 @@ void ofCairoRenderer::background(const ofColor & c){
 
 //----------------------------------------------------------
 void ofCairoRenderer::background(float brightness) {
-	background(ofColor(brightness));
+	background(brightness);
 }
 
 //----------------------------------------------------------
@@ -1154,14 +1126,14 @@ void ofCairoRenderer::setSphereResolution(int res) {
 	int n = res * 2;
 	float ndiv2=(float)n/2;
 	int stripVerts = (ndiv2*((n+1)*2));
-
+	
 	if((int)sphereVerts.size() != stripVerts ) {
 		sphereVerts.clear();
 		sphereVerts.resize( (ndiv2*((n+1)*2)) );
 	} else {
 		return;
 	}
-
+	
 	/*
 	 Original code by Paul Bourke
 	 A more efficient contribution by Federico Dosil (below)
@@ -1169,34 +1141,34 @@ void ofCairoRenderer::setSphereResolution(int res) {
 	 Use CCW facet ordering
 	 http://paulbourke.net/texture_colour/texturemap/
 	 */
-
+	
 	float theta2 = TWO_PI;
 	float phi1 = -HALF_PI;
 	float phi2 = HALF_PI;
 	float radius = 1.f; // normalize the verts //
-
+	
 	int i, j;
 	float j1divn,idivn,dosdivn,unodivn=1/(float)n,t1,t2,t3,cost1,cost2,cte1,cte3;
 	cte3 = (theta2)/n;
 	cte1 = (phi2-phi1)/ndiv2;
 	dosdivn = 2*unodivn;
 	ofVec3f e,p,e2,p2;
-
+	
 	// Handle special cases //
 	if (n < 0){
 		n = -n;
 		ndiv2 = -ndiv2;
 	}
 	if (n < 4) {
-		ofLogWarning("ofCairoRenderer") << "setSphereResolution(): ignoring low sphere resolution: " << n;
+		ofLogWarning() << "ofCairoRenderer::setSphereResolution(): sphere resolution is too low!";
 	}
-
+	
 	t2=phi1;
 	cost2=cos(phi1);
 	j1divn=0;
-
+	
 	int cindex = 0; // current index //
-
+	
 	for (j=0;j<ndiv2;j++) {
 		t1 = t2;
 		t2 += cte1;
@@ -1207,7 +1179,7 @@ void ofCairoRenderer::setSphereResolution(int res) {
 		e2.y = sin(t2);
 		p.y = radius * e.y;
 		p2.y = radius * e2.y;
-
+		
 		idivn=0;
 		j1divn+=dosdivn;
 		for (i=0;i<=n;i++) {
@@ -1216,30 +1188,20 @@ void ofCairoRenderer::setSphereResolution(int res) {
 			e.z = cost1 * sin(t3);
 			p.x = radius * e.x;
 			p.z = radius * e.z;
-
+			
 			cindex = (j * (n+1) + i) * 2;
 			sphereVerts[cindex].set(p.x,p.y,p.z);
-
+			
 			e2.x = cost2 * cos(t3);
 			e2.z = cost2 * sin(t3);
 			p2.x = radius * e2.x;
 			p2.z = radius * e2.z;
 			cindex = (j * (n+1) + i) * 2 + 1;
 			sphereVerts[cindex].set(p2.x,p2.y,p2.z);
-
+			
 			idivn += unodivn;
 		}
 	}
-}
-
-//----------------------------------------------------------
-void ofCairoRenderer::enableAntiAliasing(){
-	cairo_set_antialias(cr,CAIRO_ANTIALIAS_SUBPIXEL);
-}
-
-//----------------------------------------------------------
-void ofCairoRenderer::disableAntiAliasing(){
-	cairo_set_antialias(cr,CAIRO_ANTIALIAS_NONE);
 }
 
 //----------------------------------------------------------
@@ -1247,30 +1209,30 @@ void ofCairoRenderer::drawSphere(float x, float y, float z, float radius) {
 	int n = ofGetStyle().sphereResolution * 2;
 	float ndiv2=(float)n/2;
 	int cindex = 0;
-
+	
 	if(sphereVerts.size() < 1) {
 		// double check to make sure that setSphereResolution has been called at least once //
 		setSphereResolution( ofGetStyle().sphereResolution );
 	}
-
+	
 	spherePoints.resize( (n+1) * 2 );
-
+	
 	ofVec3f sp;
 	int i, j;
 	for (j=0;j<ndiv2;j++) {
 		for (i=0;i<=n;i++) {
 			cindex = (j * (n+1) + i) * 2;
 			sp = sphereVerts[cindex] * radius;
-
+			
 			spherePoints[i*2+0].set( sp.x+x, sp.y+y, sp.z+z );
-
+			
 			cindex = (j * (n+1) + i) * 2 + 1;
 			sp = sphereVerts[cindex] * radius;
 			spherePoints[i*2+1].set( sp.x+x, sp.y+y, sp.z+z );
 		}
 		draw(spherePoints, OF_PRIMITIVE_TRIANGLE_STRIP);
 	}
-
+	
 }
 
 //----------------------------------------------------------
@@ -1323,14 +1285,14 @@ void ofCairoRenderer::setCairoMatrix(){
 
 ofPixels & ofCairoRenderer::getImageSurfacePixels(){
 	if(type!=IMAGE){
-		ofLogError("ofCairoRenderer") << "getImageSurfacePixels(): can only get pixels from image surface";
+		ofLogError() << "ofCairoRenderer: can only get pixels from image surface";
 	}
 	return imageBuffer;
 }
 
 ofBuffer & ofCairoRenderer::getContentBuffer(){
 	if(filename!="" || (type!=SVG && type!=PDF)){
-		ofLogError("ofCairoRenderer") << "getContentBuffer(): can only get buffer from memory allocated renderer for svg or pdf";
+		ofLogError() << "ofCairoRenderer: can only get buffer from memory allocated renderer for svg or pdf";
 	}
 	return streamBuffer;
 }

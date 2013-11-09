@@ -22,16 +22,16 @@
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons">
-			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc85}</UniqueIdentifier>
+			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc8563776aec}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofx3DModelLoader">
-			<UniqueIdentifier>{90fa273a-87c3-2e0d-b66c-c2ad}</UniqueIdentifier>
+			<UniqueIdentifier>{90fa273a-87c3-2e0d-b66c-c2adf9841dee}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofx3DModelLoader\src">
-			<UniqueIdentifier>{77e86cda-1acf-7498-153c-9736}</UniqueIdentifier>
+			<UniqueIdentifier>{77e86cda-1acf-7498-153c-973692a0298a}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofx3DModelLoader\src\3DS">
-			<UniqueIdentifier>{34b3e336-f3fa-9140-9697-59c0}</UniqueIdentifier>
+			<UniqueIdentifier>{34b3e336-f3fa-9140-9697-59c057a654cf}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -53,8 +53,5 @@
 		<ClInclude Include="..\..\..\addons\ofx3DModelLoader\src\ofx3DModelLoader.h">
 			<Filter>addons\ofx3DModelLoader\src</Filter>
 		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
 	</ItemGroup>
 </Project>

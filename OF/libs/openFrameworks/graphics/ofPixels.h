@@ -15,6 +15,9 @@ enum ofInterpolationMethod {
 
 template <typename PixelType>
 class ofPixels_ {
+
+	friend class ofPixelUtils;
+
 public:
 
 	ofPixels_();
@@ -34,9 +37,9 @@ public:
 
 	void set(PixelType val);
 	void set(int channel,PixelType val);
-	void setFromPixels(const PixelType * newPixels, int w, int h, int channels);
-	void setFromPixels(const PixelType * newPixels, int w, int h, ofImageType type);
-	void setFromExternalPixels(PixelType * newPixels, int w, int h, int channels);
+	void setFromPixels(const PixelType * newPixels,int w, int h, int channels);
+	void setFromPixels(const PixelType * newPixels,int w, int h, ofImageType type);
+	void setFromExternalPixels(PixelType * newPixels,int w, int h, int channels);
 	void setFromAlignedPixels(const PixelType * newPixels, int width, int height, int channels, int stride);
 	void swap(ofPixels_<PixelType> & pix);
 
@@ -65,9 +68,7 @@ public:
 
 	int getPixelIndex(int x, int y) const;
 	ofColor_<PixelType> getColor(int x, int y) const;
-	void setColor(int x, int y, const ofColor_<PixelType>& color);
-	void setColor(int index, const ofColor_<PixelType>& color);
-	void setColor(const ofColor_<PixelType>& color);
+	void setColor(int x, int y, ofColor_<PixelType> color);
 
 	const PixelType& operator[](int pos) const;
 	PixelType& operator[](int pos);
@@ -101,10 +102,12 @@ private:
 	void copyFrom( const ofPixels_<SrcType>& mom );
 	
 	PixelType * pixels;
-	int 	width;
-	int 	height;
+	int width;
+	int height;
 
-	int 	channels; // 1, 3, 4 channels per pixel (grayscale, rgb, rgba)
+	int channels; // 1, 3, 4 channels per pixel (grayscale, rgb, rgba)
+	//GLint	glDataType;			// GL_LUMINANCE, GL_RGB, GL_RGBA
+	//ofImageType imageType;		// OF_IMAGE_GRAYSCALE, OF_IMAGE_COLOR, OF_IMAGE_COLOR_ALPHA
 	bool	bAllocated;
 	bool	pixelsOwner;			// if set from external data don't delete it
 
@@ -117,8 +120,7 @@ typedef ofPixels_<unsigned short> ofShortPixels;
 
 
 typedef ofPixels& ofPixelsRef;
-typedef ofFloatPixels& ofFloatPixelsRef;
-typedef ofShortPixels& ofShortPixelsRef;
+
 
 // sorry for these ones, being templated functions inside a template i needed to do it in the .h
 // they allow to do things like:
@@ -134,8 +136,6 @@ ofPixels_<PixelType>::ofPixels_(const ofPixels_<SrcType> & mom){
 	pixelsOwner = false;
 	channels = 0;
 	pixels = NULL;
-	width = 0;
-	height = 0;
 	copyFrom( mom );
 }
 
@@ -159,7 +159,7 @@ void ofPixels_<PixelType>::copyFrom(const ofPixels_<SrcType> & mom){
 		if(sizeof(SrcType) == sizeof(float)) {
 			// coming from float we need a special case to clamp the values
 			for(int i = 0; i < mom.size(); i++){
-				pixels[i] = CLAMP(mom[i], 0, 1) * factor;
+				pixels[i] = ofClamp(mom[i], 0, 1) * factor;
 			}
 		} else{
 			// everything else is a straight scaling
@@ -170,9 +170,3 @@ void ofPixels_<PixelType>::copyFrom(const ofPixels_<SrcType> & mom){
 	}
 }
 
-namespace std{
-template<typename PixelType>
-void swap(ofPixels_<PixelType> & src, ofPixels_<PixelType> & dst){
-	src.swap(dst);
-}
-}

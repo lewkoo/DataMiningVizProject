@@ -154,6 +154,7 @@ public:
     //
     float length() const;
     float lengthSquared() const;
+	OF_DEPRECATED_MSG("Use ofVec2f::lengthSquared() instead.", float squareLength() const);
 	
 	
     /**
@@ -711,6 +712,11 @@ inline float ofVec2f::length() const {
 inline float ofVec2f::lengthSquared() const {
 	return (float)(x*x + y*y);
 }
+
+inline float ofVec2f::squareLength() const {
+	return lengthSquared();
+}
+
 
 
 /**

@@ -1,14 +1,12 @@
 #include "ofMain.h"
 #include "testApp.h"
+#include "ofAppGlutWindow.h"
 
 //========================================================================
 int main( ){
 
-	ofSetupOpenGL(1024,768, OF_WINDOW);			// <-------- setup the GL context
-	if(!ofGLCheckExtension("GL_ARB_geometry_shader4") && !ofGLCheckExtension("GL_EXT_geometry_shader4") && !ofIsGLProgrammableRenderer()){
-		ofLogFatalError() << "geometry shaders not supported on this graphics card";
-		return 1;
-	}
+    ofAppGlutWindow window;
+	ofSetupOpenGL(&window, 1024,768, OF_WINDOW);			// <-------- setup the GL context
 
 	// this kicks off the running of my app
 	// can be OF_WINDOW or OF_FULLSCREEN

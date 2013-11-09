@@ -60,11 +60,11 @@ void testApp::draw(){
 	ofPushMatrix();
 	//add an extra spin at the rate of 1 degree per frame
 	ofRotate(ofGetFrameNum(), 0, 1, 0);
-	ofDrawSphere(0, 0, 0, 300);
+	ofSphere(0, 0, 0, 300);
 	ofPopMatrix();
 	
 	ofSetColor(255);	
-	for(unsigned int i = 0; i < cities.size(); i++){
+	for(int i = 0; i < cities.size(); i++){
 		
 		//three rotations
 		//two to represent the latitude and lontitude of the city

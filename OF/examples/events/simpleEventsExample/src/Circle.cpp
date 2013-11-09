@@ -6,28 +6,18 @@
 //  Copyright (c) 2012 micasa. All rights reserved.
 //
 
-#include "Circle.h"
+#include "circle.h"
 
 // the static event, or any static variable, must be initialized outside of the class definition.
 ofEvent<ofVec2f> Circle::clickedInsideGlobal = ofEvent<ofVec2f>(); 
-
-Circle::Circle() {
-    bRegisteredEvents = false;
-}
-
-Circle::~Circle() {
-    clear();
-}
 
 void Circle::setup(int radius, int x, int y, ofColor color){
     this->radius = radius;
     this->x = x;
     this->y = y;
     this->color = color;
-    if(!bRegisteredEvents) {
-        ofRegisterMouseEvents(this); // this will enable our circle class to listen to the mouse events.
-        bRegisteredEvents = true;
-    }
+    ofRegisterMouseEvents(this); // this will enable our circle class to listen to the mouse events.
+
 }
 void Circle::draw(){
     ofPushStyle();
@@ -36,12 +26,6 @@ void Circle::draw(){
     ofPopStyle();
 }
 
-void Circle::clear() {
-    if(bRegisteredEvents) {
-        ofUnregisterMouseEvents(this); // disable litening to mous events.
-        bRegisteredEvents = false;
-    }
-}
 
 void Circle::mouseMoved(ofMouseEventArgs & args){}
 void Circle::mouseDragged(ofMouseEventArgs & args){}

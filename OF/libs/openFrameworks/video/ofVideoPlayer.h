@@ -20,14 +20,9 @@
 	#define OF_VID_PLAYER_TYPE ofQTKitPlayer
 #endif
 
-#ifdef OF_VIDEO_PLAYER_IOS
-	#include "ofxiOSVideoPlayer.h"
-	#define OF_VID_PLAYER_TYPE ofxiOSVideoPlayer
-#endif
-
-#ifdef OF_VIDEO_PLAYER_ANDROID
-	#include "ofxAndroidVideoPlayer.h"
-	#define OF_VID_PLAYER_TYPE ofxAndroidVideoPlayer
+#ifdef OF_VIDEO_PLAYER_IPHONE
+	#include "ofiPhoneVideoPlayer.h"
+	#define OF_VID_PLAYER_TYPE ofiPhoneVideoPlayer
 #endif
 
 //---------------------------------------------
@@ -50,6 +45,7 @@ class ofVideoPlayer : public ofBaseVideoPlayer,public ofBaseVideoDraws{
 		void 				close();		
 
 		void				update();
+		OF_DEPRECATED_MSG("Use ofVideoPlayer::update() instead.", void idleMovie());
 		void 				play();
 		void 				stop();
 

@@ -45,17 +45,11 @@ public:
 	void bind();
 	void unbind();
 
-	bool checkStatus();
-	void createAndAttachTexture(GLenum internalFormat, GLenum attachmentPoint);
-	GLuint createAndAttachRenderbuffer(GLenum internalFormat, GLenum attachmentPoint);
-	void createAndAttachDepthStencilTexture(GLenum target, GLint internalformat, GLenum attachment );
-	void createAndAttachDepthStencilTexture(GLenum target, GLint internalformat, GLenum attachment, GLenum transferFormat, GLenum transferType );
-	
 	int	getNumTextures();
 
-	void setActiveDrawBuffer(int i);
-	void setActiveDrawBuffers(const vector<int>& i);
-	void activateAllDrawBuffers();
+  void setActiveDrawBuffer(int i);
+  void setActiveDrawBuffers(const vector<int>& i);
+  void activateAllDrawBuffers();
 
 	GLuint getFbo();	// returns GLuint of Fbo for advanced actions
 
@@ -72,7 +66,6 @@ public:
 		int		width;					// width of images attached to fbo
 		int		height;					// height of images attached to fbo
 		int		numColorbuffers;		// how many color buffers to create
-		vector<GLint> colorFormats;		// format of the color attachments for MRT.
 		bool	useDepth;				// whether to use depth buffer or not
 		bool	useStencil;				// whether to use stencil buffer or not
 		bool	depthStencilAsTexture;			// use a texture instead of a renderbuffer for depth (useful to draw it or use it in a shader later)
@@ -88,6 +81,7 @@ public:
 		Settings();
 	};
 private:
+
 	Settings 			settings;
 	int					isBound;
 
@@ -112,11 +106,12 @@ private:
 	int 				defaultTextureIndex; //used for getTextureReference
 	bool				bIsAllocated;
 
-#ifdef TARGET_OPENGLES
-	static bool bglFunctionsInitialized;
-#endif
-
 	void destroy();
+
+	bool checkStatus();
+	void createAndAttachTexture(GLenum attachmentPoint);
+	GLuint createAndAttachRenderbuffer(GLenum internalFormat, GLenum attachmentPoint);
+	void createAndAttachDepthStencilTexture(GLenum target, GLint internalformat, GLenum format, GLenum type, GLenum attachment);
 
 	// if using MSAA, we will have rendered into a colorbuffer, not directly into the texture
 	// call this to blit from the colorbuffer into the texture so we can use the results for rendering, or input to a shader etc.

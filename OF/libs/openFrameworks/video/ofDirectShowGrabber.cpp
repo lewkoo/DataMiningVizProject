@@ -42,7 +42,7 @@ bool ofDirectShowGrabber::initGrabber(int w, int h){
 
 		if (bChooseDevice){
 			device = deviceID;
-			ofLogNotice("ofDirectShowGrabber") << "initGrabber(): choosing " << deviceID;
+			ofLog(OF_LOG_NOTICE, "choosing %i", deviceID);
 		} else {
 			device = 0;
 		}
@@ -76,8 +76,8 @@ bool ofDirectShowGrabber::initGrabber(int w, int h){
 			pixels.allocate(width, height, 3);
 			return true;
 		} else {
-			ofLogError("ofDirectShowGrabber") << "initGrabber(): error allocating a video device";
-			ofLogError("ofDirectShowGrabber") << "initGrabber(): please check your camera with AMCAP or other software";
+			ofLog(OF_LOG_ERROR, "error allocating a video device");
+			ofLog(OF_LOG_ERROR, "please check your camera with AMCAP or other software");
 			bGrabberInited = false;
 			return false;
 		}
@@ -94,7 +94,7 @@ bool ofDirectShowGrabber::setPixelFormat(ofPixelFormat pixelFormat){
 	if( pixelFormat == OF_PIXELS_RGB ){
 		return true;
 	}
-	ofLogWarning("ofDirectShowGrabber") << "setPixelFormat(): requested pixel format not supported";
+	ofLogWarning("ofDirectShowGrabber") << "requested pixel format not supported" << endl;
 	return false;
 }
 
@@ -105,32 +105,19 @@ ofPixelFormat ofDirectShowGrabber::getPixelFormat(){
 }
 
 //--------------------------------------------------------------------
-vector<ofVideoDevice> ofDirectShowGrabber::listDevices(){
-    
-    vector <ofVideoDevice> devices; 
-	
-    //---------------------------------
+void ofDirectShowGrabber::listDevices(){
+
+	//---------------------------------
 	#ifdef OF_VIDEO_CAPTURE_DIRECTSHOW
 	//---------------------------------
-		ofLogNotice() << "---";
-        VI.listDevices();
-        ofLogNotice() << "---";
-        
-		vector <string> devList = VI.getDeviceList(); 
-        
-        for(int i = 0; i < devList.size(); i++){
-            ofVideoDevice vd; 
-            vd.deviceName = devList[i]; 
-            vd.id = i;  
-            vd.bAvailable = true; 
-            devices.push_back(vd); 
-        }
+		ofLog(OF_LOG_NOTICE, "---");
+		VI.listDevices();
+		ofLog(OF_LOG_NOTICE, "---");
 
 	//---------------------------------
 	#endif
 	//---------------------------------
-    
-    return devices;
+
 }
 
 //--------------------------------------------------------------------

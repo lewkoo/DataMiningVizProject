@@ -20,8 +20,4 @@ class ofBaseSoundStream{
 		virtual void close() = 0;
 
 		virtual long unsigned long getTickCount() = 0;
-		virtual int getNumInputChannels() = 0;
-		virtual int getNumOutputChannels() = 0;
-		virtual int getSampleRate() = 0;
-		virtual int getBufferSize() = 0;
 };

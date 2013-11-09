@@ -1,4 +1,6 @@
 #include "testApp.h"
+#include "ofCamera.h"
+//#include "ofMeshNode.h"
 
 #define kMoveInc 10
 #define kRotInc 5
@@ -30,7 +32,7 @@ void testApp::reset() {
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	ofEnableDepthTest();
+	glEnable(GL_DEPTH_TEST);
 	ofSetVerticalSync(true);
 	ofEnableLighting();
 	
@@ -152,17 +154,23 @@ void testApp::draw(){
 		// draw line from cam to its lookat
 		if(lookatIndex[i] >= 0) {
 			ofSetColor(0, 255, 255);
+			glBegin(GL_LINES);
 			ofVec3f v1 = cam[i].getGlobalPosition();
 			ofVec3f v2 = testNodes[lookatIndex[i]].getGlobalPosition();
-            ofLine(v1,v2);
+			glVertex3f(v1.x, v1.y, v1.z);
+			glVertex3f(v2.x, v2.y, v2.z);
+			glEnd();
 		}
 		
 		// draw line from cam to its parent
 		if(parentIndex[i] >= 0) {
 			ofSetColor(255, 255, 0);
+			glBegin(GL_LINES);
 			ofVec3f v1 = cam[i].getGlobalPosition();
 			ofVec3f v2 = testNodes[parentIndex[i]].getGlobalPosition();
-            ofLine(v1,v2);
+			glVertex3f(v1.x, v1.y, v1.z);
+			glVertex3f(v2.x, v2.y, v2.z);
+			glEnd();
 		}
 	}
 	
@@ -270,7 +278,11 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-
+	static float px = -1;
+	// if(doMouseOrbit) {
+	// if(px>=0) orbitRadius += x - px;
+	// px = x;
+	// }
 }
 
 //--------------------------------------------------------------

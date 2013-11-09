@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VEC_GRAPHICS
+#define VEC_GRAPHICS
 
 #include "CreEPS.hpp"
 #include "ofMain.h"
@@ -77,3 +78,8 @@ class ofxVectorGraphics{
 
 			vector<double *>curvePts;
 };
+
+
+#endif
+
+

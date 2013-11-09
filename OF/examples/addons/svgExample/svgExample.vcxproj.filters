@@ -28,22 +28,22 @@
 			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons">
-			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc85}</UniqueIdentifier>
+			<UniqueIdentifier>{71834f65-f3a9-211e-73b8-dc8563776aec}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxSvg">
-			<UniqueIdentifier>{3dd76815-827c-5f89-582d-2cf4}</UniqueIdentifier>
+			<UniqueIdentifier>{3dd76815-827c-5f89-582d-2cf42f3f93f5}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxSvg\src">
-			<UniqueIdentifier>{6a00b88f-1adb-bb17-8276-ed19}</UniqueIdentifier>
+			<UniqueIdentifier>{6a00b88f-1adb-bb17-8276-ed19a790baf1}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxSvg\libs">
-			<UniqueIdentifier>{c226e9c6-88c9-1f12-d422-3da3}</UniqueIdentifier>
+			<UniqueIdentifier>{c226e9c6-88c9-1f12-d422-3da3a94fb69b}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxSvg\libs\svgTiny">
-			<UniqueIdentifier>{0a0e4783-de3f-eb55-7775-3205}</UniqueIdentifier>
+			<UniqueIdentifier>{0a0e4783-de3f-eb55-7775-32050bb972b5}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="addons\ofxSvg\libs\svgTiny\src">
-			<UniqueIdentifier>{668f2528-598b-d351-b74f-9e6f}</UniqueIdentifier>
+			<UniqueIdentifier>{668f2528-598b-d351-b74f-9e6f4773440c}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -59,8 +59,5 @@
 		<ClInclude Include="..\..\..\addons\ofxSvg\libs\svgTiny\src\svgtiny_internal.h">
 			<Filter>addons\ofxSvg\libs\svgTiny\src</Filter>
 		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
 	</ItemGroup>
 </Project>

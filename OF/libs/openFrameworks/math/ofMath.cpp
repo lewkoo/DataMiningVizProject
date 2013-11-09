@@ -86,7 +86,7 @@ float ofNormalize(float value, float min, float max){
 float ofMap(float value, float inputMin, float inputMax, float outputMin, float outputMax, bool clamp) {
 
 	if (fabs(inputMin - inputMax) < FLT_EPSILON){
-		ofLogWarning("ofMath") << "ofMap(): avoiding possible divide by zero, check inputMin and inputMax: " << inputMin << " " << inputMax;
+		ofLog(OF_LOG_WARNING, "ofMap: avoiding possible divide by zero, check inputMin and inputMax\n");
 		return outputMin;
 	} else {
 		float outVal = ((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin);
@@ -148,25 +148,19 @@ float ofLerp(float start, float stop, float amt) {
 	return start + (stop-start) * amt;
 }
 
-float ofWrap(float value, float from, float to){
-	// algorithm from http://stackoverflow.com/a/5852628/599884
-	if(from > to){
-		swap(from, to);
-	}
-	float cycle = to - from;
-	if(cycle == 0){
-		return to;
-	}
-	return value - cycle * floor((value - from) / cycle);
-}
-
 //--------------------------------------------------
 float ofWrapRadians(float angle, float from, float to){
-	return ofWrap(angle, from, to);
+	while (angle > to ) angle -= TWO_PI;
+	while (angle < from ) angle += TWO_PI;
+	return angle;
 }
 
+
 float ofWrapDegrees(float angle, float from, float to){
-	return ofWrap(angle, from, to);
+	while (angle > to ) angle-=360;
+	while (angle < from ) angle+=360;
+	return angle;
+
 }
 
 //--------------------------------------------------
@@ -313,5 +307,3 @@ float ofAngleDifferenceDegrees(float currentAngle, float targetAngle) {
 float ofAngleDifferenceRadians(float currentAngle, float targetAngle) {
 	return  ofWrapRadians(targetAngle - currentAngle);
 }
-
-

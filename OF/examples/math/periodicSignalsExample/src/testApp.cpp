@@ -117,7 +117,7 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::speedChanged(){
-	for(unsigned int i=0;i<trail.size();i++){
+	for(int i=0;i<trail.size();i++){
 		trail[i].clear();
 	}
 }

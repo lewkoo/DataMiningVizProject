@@ -26,7 +26,9 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+
+#ifndef _ofxOscRECEIVER_H
+#define _ofxOscRECEIVER_H
 
 #include <deque>
 #include "ofMain.h"
@@ -62,8 +64,6 @@ public:
 	/// remove it from the queue. return false if there are no more messages to be got, otherwise
 	/// return true
 	bool getNextMessage( ofxOscMessage* );
-
-	bool getParameter(ofAbstractParameter & parameter);
 
 protected:
 	/// process an incoming osc message and add it to the queue
@@ -104,3 +104,5 @@ private:
 	bool socketHasShutdown;
 
 };
+
+#endif

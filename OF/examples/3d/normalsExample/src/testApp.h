@@ -20,7 +20,7 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
         ofEasyCam cam;
-        ofVboMesh mesh;
+        ofMesh mesh;
         ofLight light;
     
     float radius;

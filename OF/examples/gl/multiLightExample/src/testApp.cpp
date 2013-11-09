@@ -5,7 +5,7 @@ void testApp::setup(){
     ofSetVerticalSync(true);
 	ofSetFrameRate(60);
 	ofBackground(10, 10, 10);
-	ofEnableDepthTest();
+	glEnable(GL_DEPTH_TEST);
     
     // turn on smooth lighting //
     bSmoothLighting     = true;
@@ -99,20 +99,20 @@ void testApp::draw(){
     ofPushMatrix();
     ofTranslate(center.x, center.y, center.z-300);
     ofRotate(ofGetElapsedTimef() * .8 * RAD_TO_DEG, 0, 1, 0);
-	ofDrawSphere( 0,0,0, radius);
+	ofSphere( 0,0,0, radius);
     ofPopMatrix();
 	
 	ofPushMatrix();
 	ofTranslate(300, 300, cos(ofGetElapsedTimef()*1.4) * 300.f);
 	ofRotate(ofGetElapsedTimef()*.6 * RAD_TO_DEG, 1, 0, 0);
 	ofRotate(ofGetElapsedTimef()*.8 * RAD_TO_DEG, 0, 1, 0);
-	ofDrawBox(0, 0, 0, 60);
+	ofBox(0, 0, 0, 60);
 	ofPopMatrix();
 	
 	ofPushMatrix();
 	ofTranslate(center.x, center.y, -900);
 	ofRotate(ofGetElapsedTimef() * .2 * RAD_TO_DEG, 0, 1, 0);
-	ofDrawBox( 0, 0, 0, 850);
+	ofBox( 0, 0, 0, 850);
 	ofPopMatrix();
     
     if(bUseTexture) ofLogoImage.getTextureReference().unbind();

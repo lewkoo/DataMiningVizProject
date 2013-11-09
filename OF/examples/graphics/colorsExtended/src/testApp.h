@@ -1,9 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#if (_MSC_VER)
-	#define strcasecmp _stricmp
-#endif
 
 typedef struct {
     string name;

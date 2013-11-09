@@ -6,7 +6,7 @@ void testApp::setup(){
 
 	// this uses depth information for occlusion
 	// rather than always drawing things on top of each other
-	ofEnableDepthTest();
+	glEnable(GL_DEPTH_TEST);
 	
 	// ofBox uses texture coordinates from 0-1, so you can load whatever
 	// sized images you want and still use them to texture your box
@@ -57,12 +57,12 @@ void testApp::draw(){
 		ofLogo.bind();
 		ofFill();
 		ofSetColor(255);
-		ofDrawBox(boxSize);
+		ofBox(boxSize);
 		ofLogo.unbind();
 		
 		ofNoFill();
 		ofSetColor(ofColor::fromHsb(sinf(t) * 128 + 128, 255, 255));
-		ofDrawBox(boxSize * 1.1f);
+		ofBox(boxSize * 1.1f);
 		
 		ofPopMatrix();
 	}

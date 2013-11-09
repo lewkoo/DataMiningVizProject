@@ -11,25 +11,22 @@ enum ofLogLevel{
 	OF_LOG_ERROR,
 	OF_LOG_FATAL_ERROR,
 	OF_LOG_SILENT	// this one is special and should always be last,
-					// set ofSetLogLevel to OF_SILENT to not receive any messages
+					// set ofSetLogLevel to OF_SILENT to not recieve any messages
 };
 
+
+class ofBaseLoggerChannel;
+
 //--------------------------------------------------
-void ofSetLogLevel(ofLogLevel level);
-void ofSetLogLevel(string module, ofLogLevel level);
+void ofSetLogLevel(ofLogLevel logLevel);
+void ofSetLogLevel(string module, ofLogLevel logLevel);
 ofLogLevel ofGetLogLevel();
 
-/// get log level name as a string
-/// set pad to true if you want all log level names to be the same length
-string ofGetLogLevelName(ofLogLevel level, bool pad=false);
-
-//--------------------------------------------------
-class ofBaseLoggerChannel;
+void ofSetLoggerChannel(ofPtr<ofBaseLoggerChannel> loggerChannel);
+string ofGetLogLevelName(ofLogLevel level);
 
 void ofLogToFile(const string & path, bool append=false);
 void ofLogToConsole();
-
-void ofSetLoggerChannel(ofPtr<ofBaseLoggerChannel> loggerChannel);
 
 //------------------------------------------------------------------------------
 /// \class ofLog
@@ -61,11 +58,11 @@ class ofLog{
 		ofLog();
 		
 		/// set the log level
-		ofLog(ofLogLevel level);
+		ofLog(ofLogLevel logLevel);
 		
 		/// the legacy ofLog interfaces
-		ofLog(ofLogLevel level, const string & message);
-		ofLog(ofLogLevel level, const char* format, ...);
+		ofLog(ofLogLevel logLevel, const string & message);
+		ofLog(ofLogLevel logLevel, const char* format, ...);
 		
 		/// does the actual printing when the ostream is done
 		virtual ~ofLog();
@@ -98,8 +95,6 @@ class ofLog{
 		void _log(ofLogLevel level, const string & module, const string & message);
 		bool checkLog(ofLogLevel level, const string & module);
 	
-		static ofPtr<ofBaseLoggerChannel> channel;	///< the message destination
-	
 	private:
 		std::ostringstream message;	///< temp buffer
 		
@@ -108,6 +103,7 @@ class ofLog{
 		ofLog(ofLog const&) {}        					// not defined, not copyable
 		ofLog& operator=(ofLog& from) {return *this;}	// not defined, not assignable
 		
+		static ofPtr<ofBaseLoggerChannel> channel;	///< the message destination
 		static string padding;						///< the padding between ostream calls
 };
 
@@ -118,58 +114,48 @@ class ofLog{
 ///
 class ofLogVerbose : public ofLog{
 	public:
-		ofLogVerbose(const string &module="");
+		ofLogVerbose(const string &module="OF");
 		ofLogVerbose(const string & module, const string & message);
-		ofLogVerbose(const string & module, const char* format, ...);
 };
 
 class ofLogNotice : public ofLog{
 	public:
-		ofLogNotice(const string & module="");
+		ofLogNotice(const string & module="OF");
 		ofLogNotice(const string & module, const string & message);
-		ofLogNotice(const string & module, const char* format, ...);
 };
 
 class ofLogWarning : public ofLog{
 	public:
-		ofLogWarning(const string & module="");
+		ofLogWarning(const string & module="OF");
 		ofLogWarning(const string & module, const string & message);
-		ofLogWarning(const string & module, const char* format, ...);
 };
 
 class ofLogError : public ofLog{
 	public:
-		ofLogError(const string & module="");
+		ofLogError(const string & module="OF");
 		ofLogError(const string & module, const string & message);
-		ofLogError(const string & module, const char* format, ...);
 };
 
 class ofLogFatalError : public ofLog{
 	public:
-		ofLogFatalError(const string & module="");
+		ofLogFatalError(const string & module="OF");
 		ofLogFatalError(const string & module, const string & message);
-		ofLogFatalError(const string & module, const char* format, ...);
 };
 
-//--------------------------------------------------------------
-///
-/// \section Logger Channels
-/// swappable logging destinations, derive your own for custom logging
-///
 class ofBaseLoggerChannel{
 public:
 	virtual ~ofBaseLoggerChannel(){};
 	virtual void log(ofLogLevel level, const string & module, const string & message)=0;
-	virtual void log(ofLogLevel level, const string & module, const char* format, ...)=0;
-	virtual void log(ofLogLevel level, const string & module, const char* format, va_list args)=0;
+	virtual void log(ofLogLevel logLevel, const string & module, const char* format, ...)=0;
+	virtual void log(ofLogLevel logLevel, const string & module, const char* format, va_list args)=0;
 };
 
 class ofConsoleLoggerChannel: public ofBaseLoggerChannel{
 public:
 	virtual ~ofConsoleLoggerChannel(){};
 	void log(ofLogLevel level, const string & module, const string & message);
-	void log(ofLogLevel level, const string & module, const char* format, ...);
-	void log(ofLogLevel level, const string & module, const char* format, va_list args);
+	void log(ofLogLevel logLevel, const string & module, const char* format, ...);
+	void log(ofLogLevel logLevel, const string & module, const char* format, va_list args);
 };
 
 class ofFileLoggerChannel: public ofBaseLoggerChannel{
@@ -181,8 +167,8 @@ public:
 	void setFile(const string & path,bool append=false);
 
 	void log(ofLogLevel level, const string & module, const string & message);
-	void log(ofLogLevel level, const string & module, const char* format, ...);
-	void log(ofLogLevel level, const string & module, const char* format, va_list args);
+	void log(ofLogLevel logLevel, const string & module, const char* format, ...);
+	void log(ofLogLevel logLevel, const string & module, const char* format, va_list args);
 
 	void close();
 
