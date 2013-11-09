@@ -20,7 +20,11 @@
 *.tar
 *.zip
 
+# Visual Studio Debugging data #
+################################
 *.opensdsf
+*.sdf
+*.suo
 
 # Logs and databases #
 ######################
