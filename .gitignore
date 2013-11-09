@@ -22,7 +22,7 @@
 
 # Visual Studio Debugging data #
 ################################
-*.opensdsf
+*.opensdf
 *.sdf
 *.suo
 
