@@ -87,12 +87,16 @@ xcopy /e /i /y "$(ProjectDir)..\..\OF\export\vs2010\*.dll" "$(ProjectDir)..\bin"
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="coneVizApp.cpp" />
+    <ClCompile Include="GraphicsGenerator.cpp" />
     <ClCompile Include="Itemset.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coneVizApp.h" />
+    <ClInclude Include="GraphicsGenerator.h" />
     <ClInclude Include="Itemset.h" />
+    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

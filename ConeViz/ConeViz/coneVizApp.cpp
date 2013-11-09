@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void coneVizApp::setup(){
+	//GRAPHICS SET UP
 	ofSetVerticalSync(true);
 	
 	// this uses depth information for occlusion
@@ -13,6 +14,16 @@ void coneVizApp::setup(){
 	
 	ofSetCircleResolution(64);
 	bShowHelp = true;
+	//END OF GRAPHICS SET UP
+
+	//LOAD THE DATASET
+	itemsets = std::vector<Itemset>();
+
+	Utilities::loadItemsets("classDataset.txt", &itemsets);
+
+
+
+
 }
 
 //--------------------------------------------------------------
@@ -27,7 +38,7 @@ void coneVizApp::draw(){
 	ofRotateX(ofRadToDeg(.5));
 	ofRotateY(ofRadToDeg(-.5));
 	
-	ofBackground(255,255,255);
+	ofBackground(0);
 	
 	ofSetColor(255,0,0);
 	ofFill();
@@ -48,17 +59,9 @@ void coneVizApp::draw(){
 	cam.end();
 	drawInteractionArea();
 	ofSetColor(255);
-	string msg = string("Using mouse inputs to navigate (press 'c' to toggle): ") + (cam.getMouseInputEnabled() ? "YES" : "NO");
-	msg += string("\nShowing help (press 'h' to toggle): ")+ (bShowHelp ? "YES" : "NO");
-	if (bShowHelp) {
-		msg += "\n\nLEFT MOUSE BUTTON DRAG:\nStart dragging INSIDE the yellow circle -> camera XY rotation .\nStart dragging OUTSIDE the yellow circle -> camera Z rotation (roll).\n\n";
-		msg += "LEFT MOUSE BUTTON DRAG + TRANSLATION KEY (" + ofToString(cam.getTranslationKey()) + ") PRESSED\n";
-		msg += "OR MIDDLE MOUSE BUTTON (if available):\n";
-		msg += "move over XY axes (truck and boom).\n\n";
-		msg += "RIGHT MOUSE BUTTON:\n";
-		msg += "move over Z axis (dolly)";
-	}
-	msg += "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
+
+	//draw fps 
+	string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
 	ofDrawBitmapStringHighlight(msg, 10, 20);
 }
 //--------------------------------------------------------------

@@ -24,12 +24,24 @@
     <ClCompile Include="Itemset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coneVizApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Itemset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
