@@ -7,14 +7,14 @@ using namespace std;
 #define DEFAULT_CIRCLE_LOCATION_Y 0;
 #define DEFAULT_CIRCLE_LOCATION_Z 0;
 
+#define Y_RASING_FACTOR 10;
+#define RADIUS_EXPANSION_FACTOR 10;
+
 
 class Level
 {
 
 private:
-
-	static int levelNextId;
-	int getNextId() { return ++levelNextId; }
 
 	int levelId;
 	
@@ -27,7 +27,8 @@ private:
 public:
 	Level(void);
 	~Level(void);
-
+	
+	Level(int levelId);
 	Level(std::vector<Itemset> itemsets);
 
 	void addItemset(Itemset itemset);
@@ -39,6 +40,7 @@ public:
 	void setYCoordinate();
 
 	int getYCoordinate();
+	int getLevelId();
 
 };
 

@@ -1,11 +1,7 @@
 #include "Level.h"
 
-int Level::levelNextId = 0;
-
-
 Level::Level(void)
 {
-	this->levelId = getNextId();
 	circle_X = DEFAULT_CIRCLE_LOCATION_X;
 	circle_Y = DEFAULT_CIRCLE_LOCATION_Y;
 	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
@@ -18,8 +14,20 @@ Level::~Level(void)
 
 Level::Level(std::vector<Itemset> itemsets)
 {
-	Level();
+	circle_X = DEFAULT_CIRCLE_LOCATION_X;
+	circle_Y = DEFAULT_CIRCLE_LOCATION_Y;
+	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
 	this->itemsets = itemsets;
+}
+
+Level::Level(int levelId)
+{
+	circle_X = DEFAULT_CIRCLE_LOCATION_X;
+	circle_Y = levelId * Y_RASING_FACTOR;
+	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
+	this->levelId = levelId;
+	this->circle_radius = levelId * RADIUS_EXPANSION_FACTOR;
+	this->itemsets = std::vector<Itemset>();
 }
 
 void Level::addItemset(Itemset itemset)
@@ -51,4 +59,25 @@ void Level::calculateItemsetLocations()
     }
 }
 
+void Level::drawItemsets()
+{
+    for(int i = 0; i < itemsets.size(); i++)
+    {
+            Itemset currentItemset = itemsets[i];
+            ofPushMatrix();
+			ofFill();
+            ofTranslate(currentItemset.getLocation());
+            ofSetColor(currentItemset.getColor());
+            ofSphere(2);
+			ofNoFill();
+            ofPopMatrix();
+    }
+}
+
+
+//GETTER
+int Level::getLevelId()
+{
+	return this->levelId;
+}
 

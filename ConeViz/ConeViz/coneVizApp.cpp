@@ -18,8 +18,8 @@ void coneVizApp::setup(){
         //END OF GRAPHICS SET UP
 
         //LOAD THE DATASET
-        itemsets = std::vector<Itemset>();
-		levels = std::vector<Level>();
+        itemsets = std::vector<Itemset*>();
+		levels = std::vector<Level*>();
 
         Utilities::loadItemsets("classDataset.txt", &itemsets, &levels);
 
@@ -42,16 +42,10 @@ void coneVizApp::draw(){
         
         ofBackground(0);
         
-        for(int i = 0; i < itemsets.size(); i++)
+        for(int i = 0; i < levels.size(); i++)
         {
-                Itemset* currentItemset = &itemsets[i];
-                ofPushMatrix();
-				ofFill();
-                ofTranslate(currentItemset->getLocation());
-                ofSetColor(currentItemset->getColor());
-                ofSphere(2);
-				ofNoFill();
-                ofPopMatrix();
+			levels[i]->calculateItemsetLocations();
+			levels[i]->drawItemsets();
         }
 
         cam.end();

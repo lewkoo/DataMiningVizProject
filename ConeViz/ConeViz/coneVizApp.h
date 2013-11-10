@@ -11,8 +11,8 @@ using namespace std;
 class coneVizApp : public ofBaseApp {
 
 	private:
-		std::vector<Itemset> itemsets;
-		std::vector<Level> levels;
+		std::vector<Itemset*> itemsets;
+		std::vector<Level*> levels;
 
 
 	public:
