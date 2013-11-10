@@ -12,3 +12,14 @@ Level::Level(void)
 Level::~Level(void)
 {
 }
+
+Level::Level(std::vector<Itemset> itemsets)
+{
+
+	this->itemsets = itemsets;
+}
+
+//void Level::addItemset()
+//{
+//
+//}
