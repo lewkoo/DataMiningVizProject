@@ -8,6 +8,10 @@ class Level
 
 private:
 
+	static int levelNextId;
+	int getNextId() { return ++levelNextId; }
+
+	int levelId;
 	std::vector<Itemset> itemsets;
 
 public:

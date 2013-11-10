@@ -45,4 +45,6 @@ Thumbs.db
 
 # Build files #
 ###############
+ConeViz/bin/*.*
 ConeViz/ConeViz/Debug/*.*
+OF/libs/*
