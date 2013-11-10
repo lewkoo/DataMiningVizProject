@@ -19,46 +19,9 @@ void coneVizApp::setup(){
 
         //LOAD THE DATASET
         itemsets = std::vector<Itemset>();
+		levels = std::vector<Level>();
 
-        Utilities::loadItemsets("classDataset.txt", &itemsets);
-
-        //Generalize this code
-        //Determine the locations of the itemsets
-
-        int countLevel1 = 0;
-        int countLevel2 = 0;
-
-        for(int i = 0; i < itemsets.size(); i++)
-        {
-                if(itemsets[i].getLevel() == 1)
-                {
-                        countLevel1++;
-                }
-        }
-
-        countLevel1 = 7;
-
-        double distanceInDegrees = 360 / countLevel1;
-
-        double currentDistance = 0;
-
-        int circleRadius = 2;
-        int circleX = 0;
-        int circleY = 0;
-
-        for(int i = 0; i < countLevel1; i++)
-        {
-
-                double x = circleX + 10 * cos(2 * PI * i / countLevel1);                
-                double y = circleY + 10 * sin(2 * PI * i / countLevel1);
-
-                itemsets[i].setLocation(ofPoint(x,y));
-                itemsets[i].setColor(ofColor(30,30,30));
-
-                currentDistance += distanceInDegrees;
-
-        }
-
+        Utilities::loadItemsets("classDataset.txt", &itemsets, &levels);
 
 
 
@@ -83,24 +46,14 @@ void coneVizApp::draw(){
         {
                 Itemset* currentItemset = &itemsets[i];
                 ofPushMatrix();
+				ofFill();
                 ofTranslate(currentItemset->getLocation());
                 ofSetColor(currentItemset->getColor());
                 ofSphere(2);
+				ofNoFill();
                 ofPopMatrix();
-
-
         }
 
-
-        ofPushMatrix();
-        ofTranslate(0,0,20);
-        ofSetColor(0,0,255);
-        ofFill();
-        ofBox(5);
-        ofNoFill();
-        ofSetColor(0);
-        ofBox(5);
-        ofPopMatrix();
         cam.end();
         drawInteractionArea();
         ofSetColor(255);

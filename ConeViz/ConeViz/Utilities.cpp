@@ -15,7 +15,7 @@ void Utilities::generateRandomItemsets(std::vector<Itemset>* itemsets)
 
 }
 
-void Utilities::loadItemsets(char* fileName, std::vector<Itemset>* itemsets)
+void Utilities::loadItemsets(char* fileName, std::vector<Itemset>* itemsets, std::vector<Level>* levels)
 {
 	//1 - Generate the filepath
 	char* datasetFile = (char*) malloc(200 * sizeof(char));

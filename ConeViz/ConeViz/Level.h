@@ -3,6 +3,11 @@
 #include "Itemset.h"
 using namespace std;
 
+#define DEFAULT_CIRCLE_LOCATION_X 0;
+#define DEFAULT_CIRCLE_LOCATION_Y 0;
+#define DEFAULT_CIRCLE_LOCATION_Z 0;
+
+
 class Level
 {
 
@@ -12,7 +17,11 @@ private:
 	int getNextId() { return ++levelNextId; }
 
 	int levelId;
-	int y_coordinate;
+	
+	int circle_radius;
+	int circle_X;
+	int circle_Y;
+	int circle_Z;
 	std::vector<Itemset> itemsets;
 
 public:
@@ -21,15 +30,15 @@ public:
 
 	Level(std::vector<Itemset> itemsets);
 
-	//void addItemset(Itemset itemset);
-	//bool removeItemset(Itemset itemset); //success:failure
+	void addItemset(Itemset itemset);
+	bool removeItemset(Itemset itemset); //success:failure
 
-	//void calculateItemsetLocations();
-	//void drawItemsets();
+	void calculateItemsetLocations();
+	void drawItemsets();
 
-	//void setYCoordinate();
+	void setYCoordinate();
 
-	//int getYCoordinate();
+	int getYCoordinate();
 
 };
 
