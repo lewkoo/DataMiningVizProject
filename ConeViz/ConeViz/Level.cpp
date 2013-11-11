@@ -43,9 +43,6 @@ bool Level::removeItemset(Itemset itemset)
 
 void Level::calculateItemsetLocations()
 {
-	int circleRadius = 2;
-    int circleX = 0;
-    int circleY = 0;
 
     for(int i = 0; i < itemsets.size(); i++)
     {
@@ -61,6 +58,12 @@ void Level::calculateItemsetLocations()
 
 void Level::drawItemsets()
 {
+	ofPushMatrix();
+	ofRotateX(-90);
+	ofSetColor(0,0,255);
+	ofCircle(0,0,circle_Y, circle_radius);
+	ofPopMatrix();
+
     for(int i = 0; i < itemsets.size(); i++)
     {
             Itemset currentItemset = itemsets[i];
