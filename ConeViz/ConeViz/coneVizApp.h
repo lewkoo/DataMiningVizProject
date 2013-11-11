@@ -32,6 +32,7 @@ class coneVizApp : public ofBaseApp {
 		void gotMessage(ofMessage msg);		
 	
 		void drawInteractionArea();
+		void drawAxis();
 		bool bShowHelp;
 		ofEasyCam cam; // add mouse controls for camera movement
 };

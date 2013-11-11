@@ -36,25 +36,27 @@ void coneVizApp::update(){
 //--------------------------------------------------------------
 void coneVizApp::draw(){
         
-        cam.begin();                
-        ofRotateX(ofRadToDeg(.5));
-        ofRotateY(ofRadToDeg(-.5));
-        
-        ofBackground(0);
-        
-        for(int i = 0; i < levels.size(); i++)
-        {
-			levels[i]->calculateItemsetLocations();
-			levels[i]->drawItemsets();
-        }
+    cam.begin();                
+    //ofRotateX(ofRadToDeg(.5));
+    //ofRotateY(ofRadToDeg(-.5));
 
-        cam.end();
-        drawInteractionArea();
-        ofSetColor(255);
+	ofBackground(0);
 
-        //draw fps 
-        string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
-        ofDrawBitmapStringHighlight(msg, 10, 20);
+    drawAxis();
+        
+    for(int i = 0; i < levels.size(); i++)
+    {
+		levels[i]->calculateItemsetLocations();
+		levels[i]->drawItemsets();
+    }
+
+    cam.end();
+    drawInteractionArea();
+    ofSetColor(255);
+
+    //draw fps 
+    string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
+    ofDrawBitmapStringHighlight(msg, 10, 20);
 }
 //--------------------------------------------------------------
 void coneVizApp::drawInteractionArea(){
@@ -71,6 +73,29 @@ void coneVizApp::drawInteractionArea(){
         ofCircle(x, y, r);
         glDepthMask(true);
         ofPopStyle();
+}
+
+//--------------------------------------------------------------
+void coneVizApp::drawAxis()
+{
+    ofPoint origin = ofPoint(0,0,0);
+    ofFill();
+
+	ofSetLineWidth(2);
+
+    ofSetColor(255,0,0);
+    ofLine(origin, ofPoint(100,0,0));
+    ofLine(ofPoint(-100,0,0), origin);
+
+    ofSetColor(0,255,0);
+    ofLine(origin, ofPoint(0,100,0));
+    //ofLine(ofPoint(0,-100,0), origin);
+
+    ofSetColor(0,0,255);
+    ofLine(origin, ofPoint(0,0,100));
+    ofLine(ofPoint(0,0,-100), origin);
+
+	ofNoFill();
 }
 //--------------------------------------------------------------
 void coneVizApp::keyPressed(int key){
