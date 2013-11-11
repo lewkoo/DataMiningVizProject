@@ -66,3 +66,34 @@ void Utilities::loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, st
 
 }
 
+void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShape)
+{
+	switch(newShape)
+	{
+
+	case SHAPE_TYPES::FLAT_CONE : 
+			
+		for(int i = 0; i < levels->size(); i++)
+		{
+			levels->at(i)->setYCoordinate(0);
+		}
+
+		break;
+
+	case SHAPE_TYPES::INVERTED_CONE :
+
+		for(int i = 0; i < levels->size(); i++)
+		{
+			int newY = levels->at(i)->getLevelId() * Y_RASING_FACTOR;
+			levels->at(i)->setYCoordinate(newY);
+		}
+
+		break;
+
+	case SHAPE_TYPES::NORMAL_CONE :
+		
+		break;
+
+	}
+
+}

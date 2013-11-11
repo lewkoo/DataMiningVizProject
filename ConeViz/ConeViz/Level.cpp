@@ -23,8 +23,10 @@ Level::Level(std::vector<Itemset> itemsets)
 Level::Level(int levelId)
 {
 	circle_X = DEFAULT_CIRCLE_LOCATION_X;
-	circle_Y = levelId * Y_RASING_FACTOR;
+	circle_Y = DEFAULT_CIRCLE_LOCATION_Y;
 	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
+
+
 	this->levelId = levelId;
 	this->circle_radius = levelId * RADIUS_EXPANSION_FACTOR;
 	this->itemsets = std::vector<Itemset>();
@@ -51,16 +53,17 @@ void Level::calculateItemsetLocations()
 		double z = circle_Z + circle_radius * sin(2 * PI * i / itemsets.size());
 
 		itemsets[i].setLocation(ofPoint(x,circle_Y,z));
-		itemsets[i].setColor(ofColor(30,30,30));
+		itemsets[i].setColor(ofColor(150,150,150));
 
     }
 }
 
 void Level::drawItemsets()
 {
+	//draw the circle of the level
 	ofPushMatrix();
 	ofRotateX(-90);
-	ofSetColor(0,0,255);
+	ofSetColor(0,0,100);
 	ofCircle(0,0,circle_Y, circle_radius);
 	ofPopMatrix();
 
@@ -84,3 +87,8 @@ int Level::getLevelId()
 	return this->levelId;
 }
 
+//SETTER
+void Level::setYCoordinate(int newY)
+{
+	this->circle_Y = newY;
+}

@@ -23,7 +23,7 @@ void coneVizApp::setup(){
 
         Utilities::loadItemsets("classDataset.txt", &itemsets, &levels);
 
-		//Utilities::setYCoordinates(&levels); // goes over all the levels and sets the Y coordinates
+		Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
 
 
@@ -39,8 +39,8 @@ void coneVizApp::update(){
 void coneVizApp::draw(){
         
     cam.begin();                
-    //ofRotateX(ofRadToDeg(.5));
-    //ofRotateY(ofRadToDeg(-.5));
+    ofRotateX(ofRadToDeg(.5));
+    ofRotateY(ofRadToDeg(-.5));
 
 	ofBackground(255);
 

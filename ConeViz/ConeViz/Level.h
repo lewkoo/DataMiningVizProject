@@ -37,7 +37,7 @@ public:
 	void calculateItemsetLocations();
 	void drawItemsets();
 
-	void setYCoordinate();
+	void setYCoordinate(int newY);
 
 	int getYCoordinate();
 	int getLevelId();
