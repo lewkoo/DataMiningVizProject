@@ -48,8 +48,6 @@ void Utilities::loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, st
 			//Push the level to the pool
 			current_level = new Level(strlen(current_line)-1);
 			levels->push_back(current_level);
-
-
 		}
 
 		Itemset newItemset = Itemset(current_line);
@@ -91,6 +89,12 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 		break;
 
 	case SHAPE_TYPES::NORMAL_CONE :
+
+		for(int i = 0; i < levels->size(); i++)
+		{
+			int newY = abs((int)((i+1)-levels->size())) * Y_RASING_FACTOR;
+			levels->at(i)->setYCoordinate(newY);
+		}
 		
 		break;
 

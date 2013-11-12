@@ -80,6 +80,10 @@ void Level::drawItemsets()
     }
 }
 
+void Level::drawConnections(Level top, Level bottom)
+{
+}
+
 
 //GETTER
 int Level::getLevelId()
