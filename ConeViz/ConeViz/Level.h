@@ -36,7 +36,7 @@ public:
 
 	void calculateItemsetLocations();
 	void drawItemsets();
-	void drawConnections(Level top, Level bottom);
+	void drawConnections(Level *top, Level *bottom);
 
 	void setYCoordinate(int newY);
 

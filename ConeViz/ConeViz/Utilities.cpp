@@ -101,3 +101,11 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 	}
 
 }
+
+void Utilities::connectLevels(std::vector<Level*>* levels)
+{
+	for(int i = 0; i+1 < levels->size(); i++)
+	{
+		levels->at(i)->drawConnections(levels->at(i), levels->at(i+1));
+	}
+}

@@ -80,8 +80,20 @@ void Level::drawItemsets()
     }
 }
 
-void Level::drawConnections(Level top, Level bottom)
+void Level::drawConnections(Level *top, Level *bottom)
 {
+	for(int i = 0; i < top->itemsets.size(); i++)
+	{
+		for(int j = 0; j < bottom->itemsets.size(); j++)
+		{
+			//cout << "DUMMY "<< i << " \n";
+			if(bottom->itemsets[j].getName().find(top->itemsets[i].getName()) != string::npos)
+			{
+				ofLine(top->itemsets[i].getLocation(), bottom->itemsets[j].getLocation());
+				cout << "DUMMY "<< i << " \n"; 
+			}
+		}
+	}
 }
 
 

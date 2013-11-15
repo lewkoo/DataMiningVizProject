@@ -20,7 +20,7 @@ public:
 	static void generateRandomItemsets(std::vector<Itemset>* itemsets); //TODO: add number of elements
 	static void loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels);
 	static void setYCoordinates(std::vector<Level*>* levels, SHAPE_TYPES newShape);
-
+	static void connectLevels(std::vector<Level*>* levels);
 
 	Utilities(void);
 	~Utilities(void);

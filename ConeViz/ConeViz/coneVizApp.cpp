@@ -25,6 +25,8 @@ void coneVizApp::setup(){
 
 		Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
+		Utilities::connectLevels(&levels);
+
 
 
 

@@ -39,6 +39,11 @@ void Itemset::setColor(ofColor newColor)
 	this->color=newColor;
 }
 
+string Itemset::getName()
+{
+	return name;
+}
+
 int Itemset::getLevel()
 {
 	return level;
