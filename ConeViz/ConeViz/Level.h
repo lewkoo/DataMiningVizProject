@@ -36,12 +36,13 @@ public:
 
 	void calculateItemsetLocations();
 	void drawItemsets();
-	void drawConnections(Level *top, Level *bottom);
 
 	void setYCoordinate(int newY);
 
 	int getYCoordinate();
 	int getLevelId();
+
+	std::vector<Itemset> getItemsets();
 
 };
 

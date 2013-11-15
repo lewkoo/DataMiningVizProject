@@ -25,11 +25,6 @@ void coneVizApp::setup(){
 
 		Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
-		Utilities::connectLevels(&levels);
-
-
-
-
 }
 
 //--------------------------------------------------------------
@@ -48,11 +43,16 @@ void coneVizApp::draw(){
 
     drawAxis();
         
-    for(int i = 0; i < levels.size(); i++)
+    for(int i = 0; i < levels.size()-1; i++)
     {
 		levels[i]->calculateItemsetLocations();
 		levels[i]->drawItemsets();
     }
+
+	for(int i = 0; i < levels.size()-1; i++)
+	{
+		Utilities::drawConnections(*levels[i], *levels[i+1]);
+	}
 
 
 

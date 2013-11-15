@@ -102,10 +102,24 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 
 }
 
-void Utilities::connectLevels(std::vector<Level*>* levels)
+void Utilities::drawConnections(Level top, Level bottom)
 {
-	for(int i = 0; i+1 < levels->size(); i++)
+	std::vector<Itemset> top_itemsets = top.getItemsets();
+	std::vector<Itemset> bottom_itemsets = bottom.getItemsets();
+
+	for(int i = 0; i < top_itemsets.size(); i++)
 	{
-		levels->at(i)->drawConnections(levels->at(i), levels->at(i+1));
+		for(int j = 0; j < bottom_itemsets.size(); j++)
+		{
+			const char top_itemset_string = *top_itemsets[i].getName().data();
+			string bottom_itemset_name = bottom_itemsets[j].getName();
+
+			string::size_type return_value = bottom_itemset_name.find(top_itemset_string);
+
+			if(return_value != string::npos)
+			{
+				ofLine(top_itemsets[i].getLocation(), bottom_itemsets[j].getLocation());
+			}
+		}
 	}
 }
