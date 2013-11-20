@@ -25,6 +25,7 @@
 *.opensdf
 *.sdf
 *.suo
+*.obj
 
 # Logs and databases #
 ######################

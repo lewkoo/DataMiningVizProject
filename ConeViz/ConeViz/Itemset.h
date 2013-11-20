@@ -32,6 +32,7 @@ public:
 	void setColor(ofColor newColor);
 
 	int getLevel();
+	string getName();
 	ofPoint getLocation();
 	ofColor getColor();
 

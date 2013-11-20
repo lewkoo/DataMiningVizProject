@@ -43,13 +43,11 @@ void Utilities::loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, st
     while (fgets(current_line, 200, stream)) //loops while there is data in the file
     {
 		
-		if(strlen(current_line)-1 != current_level->getLevelId())
+		if((unsigned)strlen(current_line)-1 != current_level->getLevelId())
 		{
 			//Push the level to the pool
 			current_level = new Level(strlen(current_line)-1);
 			levels->push_back(current_level);
-
-
 		}
 
 		Itemset newItemset = Itemset(current_line);
@@ -59,6 +57,8 @@ void Utilities::loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, st
 
 		//add to the general pool of itemsets
 		itemsets->push_back(&newItemset);
+
+		memset(&current_line, 0, sizeof(char) * 200);
 
 
     }
@@ -91,6 +91,12 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 		break;
 
 	case SHAPE_TYPES::NORMAL_CONE :
+
+		for(int i = 0; i < levels->size(); i++)
+		{
+			int newY = abs((int)((i+1)-levels->size())) * Y_RASING_FACTOR;
+			levels->at(i)->setYCoordinate(newY);
+		}
 		
 		for(int i = 0; i < levels->size(); i++)
 		{
@@ -104,4 +110,26 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 
 	}
 
+}
+
+void Utilities::drawConnections(Level top, Level bottom)
+{
+	std::vector<Itemset> top_itemsets = top.getItemsets();
+	std::vector<Itemset> bottom_itemsets = bottom.getItemsets();
+
+	for(int i = 0; i < top_itemsets.size(); i++)
+	{
+		for(int j = 0; j < bottom_itemsets.size(); j++)
+		{
+			const char top_itemset_string = *top_itemsets[i].getName().data();
+			string bottom_itemset_name = bottom_itemsets[j].getName();
+
+			string::size_type return_value = bottom_itemset_name.find(top_itemset_string);
+
+			if(return_value != string::npos)
+			{
+				ofLine(top_itemsets[i].getLocation(), bottom_itemsets[j].getLocation());
+			}
+		}
+	}
 }

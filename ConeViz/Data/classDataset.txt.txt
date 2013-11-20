@@ -1,9 +1,0 @@
-a
-b
-c
-e
-ac
-bc
-be
-ce
-bce

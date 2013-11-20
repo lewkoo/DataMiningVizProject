@@ -25,9 +25,6 @@ void coneVizApp::setup(){
 
 		Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
-
-
-
 }
 
 //--------------------------------------------------------------
@@ -52,6 +49,13 @@ void coneVizApp::draw(){
 		levels[i]->drawItemsets();
     }
 
+	for(int i = 0; i < levels.size()-1; i++)
+	{
+		Utilities::drawConnections(*levels[i], *levels[i+1]);
+	}
+
+
+
     cam.end();
     drawInteractionArea();
     ofSetColor(255);
@@ -59,6 +63,18 @@ void coneVizApp::draw(){
     //draw fps 
     string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
     ofDrawBitmapStringHighlight(msg, 10, 20);
+
+	msg = "\nMouse location : ";
+
+	ostringstream convert;
+
+	convert << mouseX;
+	convert << " ";
+	convert << mouseY;
+
+	msg = msg + (convert.str());
+    ofDrawBitmapStringHighlight(msg, 10, 80);
+
 }
 //--------------------------------------------------------------
 void coneVizApp::drawInteractionArea(){
@@ -126,7 +142,10 @@ void coneVizApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void coneVizApp::mouseMoved(int x, int y ){
-        
+ 
+	mouseX = x;
+	mouseY = y;
+
 }
 
 //--------------------------------------------------------------
