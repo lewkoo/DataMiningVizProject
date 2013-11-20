@@ -14,6 +14,8 @@ class coneVizApp : public ofBaseApp {
 		std::vector<Itemset*> itemsets;
 		std::vector<Level*> levels;
 
+		int mouseX;
+		int mouseY;
 
 	public:
 	

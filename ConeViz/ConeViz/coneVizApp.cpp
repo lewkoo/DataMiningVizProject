@@ -63,6 +63,18 @@ void coneVizApp::draw(){
     //draw fps 
     string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
     ofDrawBitmapStringHighlight(msg, 10, 20);
+
+	msg = "\nMouse location : ";
+
+	ostringstream convert;
+
+	convert << mouseX;
+	convert << " ";
+	convert << mouseY;
+
+	msg = msg + (convert.str());
+    ofDrawBitmapStringHighlight(msg, 10, 80);
+
 }
 //--------------------------------------------------------------
 void coneVizApp::drawInteractionArea(){
@@ -130,7 +142,10 @@ void coneVizApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void coneVizApp::mouseMoved(int x, int y ){
-        
+ 
+	mouseX = x;
+	mouseY = y;
+
 }
 
 //--------------------------------------------------------------
