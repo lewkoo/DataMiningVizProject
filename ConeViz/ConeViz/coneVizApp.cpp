@@ -43,7 +43,7 @@ void coneVizApp::draw(){
 
     drawAxis();
         
-    for(int i = 0; i < levels.size()-1; i++)
+    for(int i = 0; i < levels.size(); i++)
     {
 		levels[i]->calculateItemsetLocations();
 		levels[i]->drawItemsets();

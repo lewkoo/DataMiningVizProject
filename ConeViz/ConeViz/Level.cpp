@@ -46,6 +46,8 @@ bool Level::removeItemset(Itemset itemset)
 void Level::calculateItemsetLocations()
 {
 
+	this->circle_radius = itemsets.size() * RADIUS_EXPANSION_FACTOR;
+
     for(int i = 0; i < itemsets.size(); i++)
     {
 

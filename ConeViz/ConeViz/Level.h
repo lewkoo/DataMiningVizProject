@@ -8,7 +8,7 @@ using namespace std;
 #define DEFAULT_CIRCLE_LOCATION_Z 0;
 
 #define Y_RASING_FACTOR 10;
-#define RADIUS_EXPANSION_FACTOR 10;
+#define RADIUS_EXPANSION_FACTOR 2;
 
 
 class Level

@@ -43,7 +43,7 @@ void Utilities::loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, st
     while (fgets(current_line, 200, stream)) //loops while there is data in the file
     {
 		
-		if(strlen(current_line)-1 != current_level->getLevelId())
+		if((unsigned)strlen(current_line)-1 != current_level->getLevelId())
 		{
 			//Push the level to the pool
 			current_level = new Level(strlen(current_line)-1);
@@ -57,6 +57,8 @@ void Utilities::loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, st
 
 		//add to the general pool of itemsets
 		itemsets->push_back(&newItemset);
+
+		memset(&current_line, 0, sizeof(char) * 200);
 
 
     }
