@@ -12,7 +12,7 @@ Level::~Level(void)
 {
 }
 
-Level::Level(std::vector<Itemset> itemsets)
+Level::Level(std::vector<Itemset*> itemsets)
 {
 	circle_X = DEFAULT_CIRCLE_LOCATION_X;
 	circle_Y = DEFAULT_CIRCLE_LOCATION_Y;
@@ -29,33 +29,27 @@ Level::Level(int levelId)
 
 	this->levelId = levelId;
 	this->circle_radius = levelId * RADIUS_EXPANSION_FACTOR;
-	this->itemsets = std::vector<Itemset>();
+	this->itemsets = std::vector<Itemset*>();
 }
 
-void Level::addItemset(Itemset itemset)
+void Level::addItemset(Itemset* itemset)
 {
 	itemsets.push_back(itemset);
-}
-
-bool Level::removeItemset(Itemset itemset)
-{
-	//bad solution - iterate over the list, remove the item
-	return true;
 }
 
 void Level::calculateItemsetLocations()
 {
 
-	this->circle_radius = itemsets.size() * RADIUS_EXPANSION_FACTOR;
+	this->circle_radius = 4 * RADIUS_EXPANSION_FACTOR;
 
     for(int i = 0; i < itemsets.size(); i++)
     {
 
-		double x = circle_X + circle_radius * cos(2 * PI * i / itemsets.size());                
-		double z = circle_Z + circle_radius * sin(2 * PI * i / itemsets.size());
+		float x = circle_X + circle_radius * cos(2 * PI * (i+1) / (itemsets.size()+1));                
+		float z = circle_Z + circle_radius * sin(2 * PI * (i+1) / (itemsets.size()+1));
 
-		itemsets[i].setLocation(ofPoint(x,circle_Y,z));
-		itemsets[i].setColor(ofColor(150,150,150));
+		itemsets[i]->setLocation(ofPoint(x,circle_Y,z));
+		itemsets[i]->setColor(ofColor(150,150,150));
 
     }
 }
@@ -63,22 +57,42 @@ void Level::calculateItemsetLocations()
 void Level::drawItemsets()
 {
 	//draw the circle of the level
+	ofPushStyle();
 	ofPushMatrix();
 	ofRotateX(-90);
 	ofSetColor(0,0,100);
+	ofSetLineWidth(2);
 	ofCircle(0,0,circle_Y, circle_radius);
 	ofPopMatrix();
+	ofPopStyle();
 
     for(int i = 0; i < itemsets.size(); i++)
     {
-            Itemset currentItemset = itemsets[i];
+            Itemset* currentItemset = itemsets[i];
+			ofPushStyle();
             ofPushMatrix();
-			ofFill();
-            ofTranslate(currentItemset.getLocation());
-            ofSetColor(currentItemset.getColor());
-            ofSphere(2);
-			ofNoFill();
+
+			if(currentItemset->isCurrentlySelected == true)
+			{
+				ofSetLineWidth(0.1);
+				//ofTranslate(currentItemset->getLocation());
+				ofSetColor(ofColor(0,139,238));
+				ofSphere(currentItemset->getLocation(),currentItemset->getRadius()+SELECTED_SPHERE_RADIUS_EXPANSION_FACTOR);
+
+			}else
+			{
+				ofFill();
+				//ofTranslate(currentItemset->getLocation());
+				ofSetColor(currentItemset->getColor());
+				ofSphere(currentItemset->getLocation(), currentItemset->getRadius());
+				ofNoFill();
+			}
+				
+				
+
+
             ofPopMatrix();
+			ofPopStyle();
     }
 }
 
@@ -88,7 +102,7 @@ int Level::getLevelId()
 	return this->levelId;
 }
 
-std::vector<Itemset> Level::getItemsets()
+std::vector<Itemset*> Level::getItemsets()
 {
 	return this->itemsets;
 }

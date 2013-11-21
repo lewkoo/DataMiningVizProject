@@ -50,13 +50,13 @@ void Utilities::loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, st
 			levels->push_back(current_level);
 		}
 
-		Itemset newItemset = Itemset(current_line);
+		Itemset* newItemset = new Itemset(current_line);
 	
 		//add the itemset to the level
 		current_level->addItemset(newItemset);
 
 		//add to the general pool of itemsets
-		itemsets->push_back(&newItemset);
+		itemsets->push_back(newItemset);
 
 		memset(&current_line, 0, sizeof(char) * 200);
 
@@ -114,21 +114,21 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 
 void Utilities::drawConnections(Level top, Level bottom)
 {
-	std::vector<Itemset> top_itemsets = top.getItemsets();
-	std::vector<Itemset> bottom_itemsets = bottom.getItemsets();
+	std::vector<Itemset*> top_itemsets = top.getItemsets();
+	std::vector<Itemset*> bottom_itemsets = bottom.getItemsets();
 
 	for(int i = 0; i < top_itemsets.size(); i++)
 	{
 		for(int j = 0; j < bottom_itemsets.size(); j++)
 		{
-			const char top_itemset_string = *top_itemsets[i].getName().data();
-			string bottom_itemset_name = bottom_itemsets[j].getName();
+			const char top_itemset_string = *top_itemsets[i]->getName().data();
+			string bottom_itemset_name = bottom_itemsets[j]->getName();
 
 			string::size_type return_value = bottom_itemset_name.find(top_itemset_string);
 
 			if(return_value != string::npos)
 			{
-				ofLine(top_itemsets[i].getLocation(), bottom_itemsets[j].getLocation());
+				ofLine(top_itemsets[i]->getLocation(), bottom_itemsets[j]->getLocation());
 			}
 		}
 	}

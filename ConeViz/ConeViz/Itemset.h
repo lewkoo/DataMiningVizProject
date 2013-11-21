@@ -5,6 +5,8 @@
 
 using namespace std;
 
+#define DEFAULT_SPHERE_RADIUS 2
+
 class Itemset
 {
 
@@ -17,10 +19,13 @@ private:
 	
 	int itemsetId; //Id of the current itemset
 	int level; //represents the level of the itemset (singleton, 2itemset, 3itemset, etc)
+	int radius; //represents the radius of the sphere
 
 	string name; //Itemset name (is also unique)
 	ofPoint location; //location in the visualization
 	ofColor color; //color
+
+	
 	
 public:
 	Itemset(void);
@@ -31,10 +36,13 @@ public:
 	void setLocation(ofPoint newLocation);
 	void setColor(ofColor newColor);
 
+	bool isCurrentlySelected;
+
 	int getLevel();
 	string getName();
 	ofPoint getLocation();
 	ofColor getColor();
+	int getRadius();
 
 
 };

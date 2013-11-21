@@ -6,6 +6,8 @@ int Itemset::sNextId = 0;
 Itemset::Itemset(void)
 {
 	this->itemsetId = getNextId();
+	this->isCurrentlySelected = false;
+	this->radius = DEFAULT_SPHERE_RADIUS;
 }
 
 
@@ -22,6 +24,8 @@ Itemset::Itemset(string name, ofPoint location, ofColor color)
 
 	this->location = location;
 	this->color = color;
+	this->isCurrentlySelected = false;
+	this->radius = DEFAULT_SPHERE_RADIUS;
 }
 
 void Itemset::setLocation(ofPoint newPoint)
@@ -42,6 +46,11 @@ void Itemset::setColor(ofColor newColor)
 string Itemset::getName()
 {
 	return name;
+}
+
+int Itemset::getRadius()
+{
+	return radius;
 }
 
 int Itemset::getLevel()

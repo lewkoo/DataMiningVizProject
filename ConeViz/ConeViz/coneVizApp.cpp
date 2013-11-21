@@ -25,6 +25,16 @@ void coneVizApp::setup(){
 
 		Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
+		for(int i = 0; i < levels.size(); i++)
+		{
+			levels[i]->calculateItemsetLocations();
+		}
+
+		for(int i = 0; i < itemsets.size(); i++)
+		{
+			mesh.addVertex(itemsets[i]->getLocation());
+		}
+
 }
 
 //--------------------------------------------------------------
@@ -34,31 +44,67 @@ void coneVizApp::update(){
 
 //--------------------------------------------------------------
 void coneVizApp::draw(){
-        
-    cam.begin();                
-    ofRotateX(ofRadToDeg(.5));
-    ofRotateY(ofRadToDeg(-.5));
+    
+	ofBackgroundGradient(ofColor(64), ofColor(0));
 
-	ofBackground(255);
+    cam.begin();                
 
     drawAxis();
         
-    for(int i = 0; i < levels.size(); i++)
-    {
-		levels[i]->calculateItemsetLocations();
-		levels[i]->drawItemsets();
-    }
+	ofSetColor(ofColor::gray);
+	
+	glPointSize(6);
+	ofSetColor(ofColor::white);
+	mesh.drawVertices();
+
+	for(int i = 0; i < levels.size(); i ++)
+	{
+		this->levels[i]->drawItemsets();
+	}
 
 	for(int i = 0; i < levels.size()-1; i++)
 	{
 		Utilities::drawConnections(*levels[i], *levels[i+1]);
 	}
 
+	cam.end();
 
 
-    cam.end();
-    drawInteractionArea();
+
+
+    //drawInteractionArea();
     ofSetColor(255);
+
+	int num_itemsets = mesh.getNumVertices();
+	float nearestDistance = 0;
+	ofVec2f nearestVertex;
+	int nearestIndex;
+	ofVec2f mouse(mouseX, mouseY);
+
+	for(int i = 0; i < num_itemsets; i++) {
+		ofVec3f cur = cam.worldToScreen(mesh.getVertex(i));
+		float distance = cur.distance(mouse);
+		if(i == 0 || distance < nearestDistance) {
+			nearestDistance = distance;
+			nearestVertex = cur;
+			nearestIndex = i;
+		}
+	}
+
+
+	
+	ofSetColor(ofColor::gray);
+	ofLine(nearestVertex, mouse);
+	
+	ofNoFill();
+	ofSetColor(ofColor::yellow);
+	ofSetLineWidth(2);
+	ofCircle(nearestVertex, 4);
+	ofSetLineWidth(1);
+	
+	ofVec2f offset(10, -10);
+	ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + offset);
+
 
     //draw fps 
     string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
@@ -88,6 +134,10 @@ void coneVizApp::draw(){
 	convert2 << worldCoordinates.z;
 
 	ofDrawBitmapStringHighlight(convert2.str(), 10, 120);
+
+	if(isItemsetSelected)
+		ofDrawBitmapStringHighlight("Itemset selected!", 10, 150);
+
 
 }
 //--------------------------------------------------------------

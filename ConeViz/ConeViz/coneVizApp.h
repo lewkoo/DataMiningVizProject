@@ -17,6 +17,8 @@ class coneVizApp : public ofBaseApp {
 		int mouseX;
 		int mouseY;
 
+		bool isItemsetSelected;
+
 	public:
 	
 		void setup();
@@ -37,4 +39,5 @@ class coneVizApp : public ofBaseApp {
 		void drawAxis();
 		bool bShowHelp;
 		ofEasyCam cam; // add mouse controls for camera movement
+		ofMesh	  mesh;	
 };

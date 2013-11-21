@@ -52,6 +52,10 @@ void testApp::draw(){
 	
 	ofVec2f offset(10, -10);
 	ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + offset);
+
+	    //draw fps 
+    string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
+    ofDrawBitmapStringHighlight(msg, 10, 20);
 }
 
 //--------------------------------------------------------------
