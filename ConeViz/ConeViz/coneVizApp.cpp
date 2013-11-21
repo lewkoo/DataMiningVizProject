@@ -75,6 +75,20 @@ void coneVizApp::draw(){
 	msg = msg + (convert.str());
     ofDrawBitmapStringHighlight(msg, 10, 80);
 
+	msg = "\nWorld locaiton: ";
+
+	ofVec3f worldCoordinates = cam.screenToWorld(ofVec3f((float)mouseX, (float)mouseY));
+
+	ostringstream convert2;
+
+	convert2 << worldCoordinates.x;
+	convert2 << " ";
+	convert2 << worldCoordinates.y;
+	convert2 << " ";
+	convert2 << worldCoordinates.z;
+
+	ofDrawBitmapStringHighlight(convert2.str(), 10, 120);
+
 }
 //--------------------------------------------------------------
 void coneVizApp::drawInteractionArea(){
