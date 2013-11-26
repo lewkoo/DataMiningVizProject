@@ -4,7 +4,11 @@
 #include "Itemset.h"
 #include "Utilities.h"
 #include "ofMain.h"
+#include "ofxUI\src\ofxUI.h"
 #include <math.h>
+
+#define GUI_WIDTH 600
+#define GUI_HEIGHT 300
 
 using namespace std;
 
@@ -19,9 +23,14 @@ class coneVizApp : public ofBaseApp {
 
 		bool isItemsetSelected;
 
+		//GUI canvas
+		ofxUICanvas* mainGUI;
+		ofxUILabel*  helpLabel;
+
 	public:
 	
 		void setup();
+		void setUpGUI(); //this sets up the ofxUI GUI
 		void update();
 		void draw();
 		

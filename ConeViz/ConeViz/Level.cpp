@@ -40,7 +40,7 @@ void Level::addItemset(Itemset* itemset)
 void Level::calculateItemsetLocations()
 {
 
-	this->circle_radius = 4 * RADIUS_EXPANSION_FACTOR;
+	this->circle_radius = levelId * RADIUS_EXPANSION_FACTOR;
 
     for(int i = 0; i < itemsets.size(); i++)
     {

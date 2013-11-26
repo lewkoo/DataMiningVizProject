@@ -17,6 +17,9 @@ void coneVizApp::setup(){
         bShowHelp = true;
         //END OF GRAPHICS SET UP
 
+		//Set up the GUI
+		setUpGUI();
+
         //LOAD THE DATASET
         itemsets = std::vector<Itemset*>();
 		levels = std::vector<Level*>();
@@ -179,6 +182,7 @@ void coneVizApp::drawAxis()
 
 	ofNoFill();
 }
+
 //--------------------------------------------------------------
 void coneVizApp::keyPressed(int key){
         switch(key) {
@@ -194,7 +198,8 @@ void coneVizApp::keyPressed(int key){
                         break;
                 case 'H':
                 case 'h':
-                        bShowHelp ^=true;
+						if(helpLabel->isVisible()) helpLabel->setVisible(false);
+						else helpLabel->setVisible(true);
                         break;
         }
 }
@@ -238,6 +243,24 @@ void coneVizApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void coneVizApp::dragEvent(ofDragInfo dragInfo){ 
+void coneVizApp::dragEvent(ofDragInfo dragInfo)
+{ 
         
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}            
+
+void coneVizApp::setUpGUI()
+{
+	
+
+	mainGUI = new ofxUICanvas( 30, ofGetScreenHeight()-GUI_HEIGHT, GUI_WIDTH, GUI_HEIGHT);
+	mainGUI->addWidgetDown(new ofxUILabel("ConeViz Visualization Tool", OFX_UI_FONT_LARGE)); 
+	mainGUI->addWidgetEastOf(new ofxUILabel("     * press 'h' for help & controls", OFX_UI_FONT_MEDIUM), "ConeViz Visualization Tool", false);
+
+	helpLabel = mainGUI->addLabel("Help & Controls", "\n\n\nPress \"F\" for full screen/window mode \n\nPress \"M\" and drag the mouse to shift the centre of the shape \n\nPress \"C\" to turn off the camera interactions \n\nPress \"A\" to turn axis rendering on/off");
+
+	helpLabel->setVisible(false);
+	
+
+	
+
+}

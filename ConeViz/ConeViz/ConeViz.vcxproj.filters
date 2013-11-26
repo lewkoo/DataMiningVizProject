@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\XmlSettingsSource">
+      <UniqueIdentifier>{e984cee5-b40b-47ee-8181-865dac7c36b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\XmlSettingsHeaders">
+      <UniqueIdentifier>{a7feb179-c653-4a4c-ae17-da88b79ec6cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,6 +39,18 @@
     <ClCompile Include="Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\OF\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
+      <Filter>Source Files\XmlSettingsSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxml.cpp">
+      <Filter>Source Files\XmlSettingsSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxmlerror.cpp">
+      <Filter>Source Files\XmlSettingsSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
+      <Filter>Source Files\XmlSettingsSource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coneVizApp.h">
@@ -41,14 +59,17 @@
     <ClInclude Include="Itemset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OF\addons\ofxXmlSettings\src\ofxXmlSettings.h">
+      <Filter>Header Files\XmlSettingsHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxml.h">
+      <Filter>Header Files\XmlSettingsHeaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

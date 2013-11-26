@@ -52,6 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\OF\addons\ofxXmlSettings\src;..\..\OF\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -86,6 +87,10 @@ xcopy /e /i /y "$(ProjectDir)..\..\OF\export\vs2010\*.dll" "$(ProjectDir)..\bin"
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxml.cpp" />
+    <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\OF\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
     <ClCompile Include="coneVizApp.cpp" />
     <ClCompile Include="GraphicsGenerator.cpp" />
     <ClCompile Include="Itemset.cpp" />
@@ -94,11 +99,12 @@ xcopy /e /i /y "$(ProjectDir)..\..\OF\export\vs2010\*.dll" "$(ProjectDir)..\bin"
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxml.h" />
+    <ClInclude Include="..\..\OF\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
     <ClInclude Include="coneVizApp.h" />
     <ClInclude Include="GraphicsGenerator.h" />
     <ClInclude Include="Itemset.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
