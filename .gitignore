@@ -49,3 +49,5 @@ ConeViz/bin/*.*
 ConeViz/ConeViz/Debug/*.*
 ConeViz/ipch/*
 OF/libs/*
+
+!OF/addons/*
