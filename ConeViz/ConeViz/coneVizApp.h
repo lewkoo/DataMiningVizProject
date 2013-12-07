@@ -4,7 +4,7 @@
 #include "Itemset.h"
 #include "Utilities.h"
 #include "ofMain.h"
-#include "ofxUI\src\ofxUI.h"
+#include "ofxUI\ofxUI.h"
 #include <math.h>
 
 #define GUI_WIDTH 600
