@@ -15,31 +15,25 @@ void Utilities::generateRandomItemsets(std::vector<Itemset>* itemsets)
 
 }
 
-void Utilities::loadItemsets(char* fileName, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels)
+void Utilities::loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels)
 {
-	//1 - Generate the filepath
-	char* datasetFile = (char*) malloc(200 * sizeof(char));
-    _getcwd(datasetFile, 200);
-    strcat(datasetFile, "\\..\\Data\\");
-	strcat(datasetFile, fileName);
-    printf("%s \n", datasetFile);
 
 	
-	//2 - Open the file
-    FILE* stream = fopen(datasetFile, "r");
+	//1 - Open the file
+	FILE* stream = fopen(fileToOpen.getAbsolutePath().c_str(), "r");
     if(stream == NULL){
             perror("File open error");
             exit(EXIT_FAILURE);
     }
 
 
-    //3 - Populate the dataset
+    //2 - Populate the dataset
     char current_line[200]; //to store the retreived line from the file
     char* line_tokenized; //to store the tokenized line
 
 	Level* current_level = new Level(0);
 
-    //4 - Read all the lines
+    //3 - Read all the lines
     while (fgets(current_line, 200, stream)) //loops while there is data in the file
     {
 		

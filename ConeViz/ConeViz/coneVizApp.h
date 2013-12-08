@@ -22,15 +22,27 @@ class coneVizApp : public ofBaseApp {
 		int mouseY;
 
 		bool isItemsetSelected;
+		bool renderAxis;
 
 		//GUI canvas
 		ofxUICanvas* mainGUI;
 		ofxUILabel*  helpLabel;
+		ofxUIDropDownList* filesDropDown;
+
+		//Dataset files variables
+		ofFile currentDataset;
+		vector< ofFile > datasetFiles;
+		vector< string > datasetFileNames;
+		int numFiles; // total number of dataset files
+
+
+		//Methods
+		void setUpGUI(); //     this sets up the ofxUI GUI
+		void scanForFiles(); // this scans the data folder for dataset files
 
 	public:
 	
 		void setup();
-		void setUpGUI(); //this sets up the ofxUI GUI
 		void update();
 		void draw();
 		

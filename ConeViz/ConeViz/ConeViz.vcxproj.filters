@@ -71,5 +71,8 @@
     <ClInclude Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxml.h">
       <Filter>Header Files\XmlSettingsHeaders</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

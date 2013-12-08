@@ -20,11 +20,15 @@ void coneVizApp::setup(){
 		//Set up the GUI
 		setUpGUI();
 
-        //LOAD THE DATASET
+		renderAxis = false;
+
+        //PROCESS THE DATASETS
+		scanForFiles(); // populate the combo box with data file names
+
         itemsets = std::vector<Itemset*>();
 		levels = std::vector<Level*>();
 
-        Utilities::loadItemsets("classDataset.txt", &itemsets, &levels);
+		Utilities::loadItemsets(currentDataset, &itemsets, &levels);
 
 		Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
@@ -163,6 +167,9 @@ void coneVizApp::drawInteractionArea(){
 //--------------------------------------------------------------
 void coneVizApp::drawAxis()
 {
+	if(!renderAxis)
+		return;
+
     ofPoint origin = ofPoint(0,0,0);
     ofFill();
 
@@ -198,9 +205,20 @@ void coneVizApp::keyPressed(int key){
                         break;
                 case 'H':
                 case 'h':
-						if(helpLabel->isVisible()) helpLabel->setVisible(false);
-						else helpLabel->setVisible(true);
+						if(helpLabel->isVisible()){ 
+							helpLabel->setVisible(false);
+							filesDropDown->setVisible(true);
+						}
+						else{ 
+							helpLabel->setVisible(true);
+							filesDropDown->setVisible(false);
+						}
+
                         break;
+				case 'A':
+				case 'a':
+						renderAxis = !renderAxis;
+						break;
         }
 }
 
@@ -257,10 +275,43 @@ void coneVizApp::setUpGUI()
 	mainGUI->addWidgetEastOf(new ofxUILabel("     * press 'h' for help & controls", OFX_UI_FONT_MEDIUM), "ConeViz Visualization Tool", false);
 
 	helpLabel = mainGUI->addLabel("Help & Controls", "\n\n\nPress \"F\" for full screen/window mode \n\nPress \"M\" and drag the mouse to shift the centre of the shape \n\nPress \"C\" to turn off the camera interactions \n\nPress \"A\" to turn axis rendering on/off");
-
 	helpLabel->setVisible(false);
-	
 
 	
 
+	
+
+}
+
+void coneVizApp::scanForFiles()
+{
+	ofDirectory dataDirectory = ofDirectory("datasets/");
+
+	cout << "SETUP: Reading datasets from : " << dataDirectory.getAbsolutePath() << endl;
+	
+	if(dataDirectory.exists() == false)
+		cout << "SETUP: FATAL ERROR! Data directory does not exist in " << dataDirectory.getOriginalDirectory() << endl;
+
+	// filter the directory listing for txt files, ignore anything else
+	dataDirectory.allowExt("txt"); 
+
+	numFiles = dataDirectory.listDir();
+
+	cout << "SETUP: Total number of dataset files found: " << numFiles << endl;
+
+	//load the files
+	datasetFiles = dataDirectory.getFiles();
+
+	//load the filenames
+	for(int i = 0; i < datasetFiles.size(); i++)
+	{
+		datasetFileNames.push_back(datasetFiles[i].getBaseName());
+		cout << "SETUP: Loading the file: " << datasetFileNames[i] << endl;
+	}
+
+	//set up the current file pointer
+	currentDataset = datasetFiles[0];
+
+	//Add the drop down GUI
+	filesDropDown = mainGUI->addDropDownList("DATASETS", datasetFileNames, 200);
 }
