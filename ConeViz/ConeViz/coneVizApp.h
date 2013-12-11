@@ -29,6 +29,7 @@ class coneVizApp : public ofBaseApp {
 		ofxUILabel*  helpLabel;
 		ofxUIDropDownList* filesDropDown;
 
+
 		//Dataset files variables
 		ofFile currentDataset;
 		vector< ofFile > datasetFiles;
@@ -58,6 +59,9 @@ class coneVizApp : public ofBaseApp {
 	
 		void drawInteractionArea();
 		void drawAxis();
+
+		void guiEvent(ofxUIEventArgs &e);
+
 		bool bShowHelp;
 		ofEasyCam cam; // add mouse controls for camera movement
 		ofMesh	  mesh;	

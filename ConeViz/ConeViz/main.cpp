@@ -4,6 +4,7 @@
 int main() {
 	ofAppGlutWindow window;
 	ofPoint screenSize = window.getScreenSize();
-	ofSetupOpenGL(&window, screenSize.x, screenSize.y, OF_FULLSCREEN);
+	ofSetupOpenGL(&window, screenSize.x, screenSize.y, OF_WINDOW);
+	//ofSetupOpenGL(&window, screenSize.x, screenSize.y, OF_FULLSCREEN);
 	ofRunApp(new coneVizApp());
 }

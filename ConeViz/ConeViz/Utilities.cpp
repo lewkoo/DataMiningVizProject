@@ -17,15 +17,14 @@ void Utilities::generateRandomItemsets(std::vector<Itemset>* itemsets)
 
 void Utilities::loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels)
 {
-
-	
 	//1 - Open the file
+	ofBuffer fileBuffer = ofBufferFromFile("datasets/" + fileToOpen.getFileName());
+	
 	FILE* stream = fopen(fileToOpen.getAbsolutePath().c_str(), "r");
     if(stream == NULL){
-            perror("File open error");
-            exit(EXIT_FAILURE);
+		perror("File open error");
+        exit(EXIT_FAILURE);
     }
-
 
     //2 - Populate the dataset
     char current_line[200]; //to store the retreived line from the file

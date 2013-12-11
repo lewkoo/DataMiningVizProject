@@ -1,6 +1,3 @@
-===== FP-Growth TDB=Precise Datasets/10k5L.txt minsup=5 =====
-
-Frequent itemsets:
 1 (37) 
 1 (37) 4 (6) 
 1 (37) 4 (6) 21 (6) 
@@ -29475,21 +29472,4 @@ Frequent itemsets:
 996 (51) 
 997 (95) 
 998 (8) 
-999 (112) 
-
-Frequent level statistics:
-|L1| = 900
-|L2| = 9090
-|L3| = 6785
-|L4| = 5644
-|L5| = 3768
-|L6| = 2030
-|L7| = 877
-|L8| = 295
-|L9| = 73
-|L10| = 12
-|L11| = 1
-
-|FPs| = 29475
-
-===== FP-Growth TDB=Precise Datasets/10k5L.txt minsup=5: Completed =====
+999 (112)

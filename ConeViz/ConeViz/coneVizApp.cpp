@@ -266,9 +266,40 @@ void coneVizApp::dragEvent(ofDragInfo dragInfo)
         
 }            
 
+void coneVizApp::guiEvent(ofxUIEventArgs &e)
+{
+	string name = e.widget->getName(); 
+	int kind = e.widget->getKind(); 
+	cout << "got event from: " << name << endl; 	
+	
+	if(name == "DATASETS") //catch an event from the drop down
+	{
+		ofxUIDropDownList *dropdown = (ofxUIDropDownList *) e.widget; 
+
+		vector<ofxUIWidget *> &selected = dropdown->getSelected(); 
+
+        if (selected.size() > 0)
+        {
+			std::string selected_name = selected[0]->getName();
+
+			for(int i = 0; i < datasetFiles.size(); i++)
+			{
+				if(selected_name.compare(datasetFiles[i].getBaseName()) == 0)
+				{
+					currentDataset = datasetFiles[i];
+					Utilities::loadItemsets(currentDataset, &itemsets, &levels);
+				}
+			}
+
+		}
+
+	}
+
+}
+
+
 void coneVizApp::setUpGUI()
 {
-	
 
 	mainGUI = new ofxUICanvas( 30, ofGetScreenHeight()-GUI_HEIGHT, GUI_WIDTH, GUI_HEIGHT);
 	mainGUI->addWidgetDown(new ofxUILabel("ConeViz Visualization Tool", OFX_UI_FONT_LARGE)); 
@@ -277,10 +308,9 @@ void coneVizApp::setUpGUI()
 	helpLabel = mainGUI->addLabel("Help & Controls", "\n\n\nPress \"F\" for full screen/window mode \n\nPress \"M\" and drag the mouse to shift the centre of the shape \n\nPress \"C\" to turn off the camera interactions \n\nPress \"A\" to turn axis rendering on/off");
 	helpLabel->setVisible(false);
 
+	//hook up the listener
+	ofAddListener(mainGUI->newGUIEvent, this, &coneVizApp::guiEvent); 
 	
-
-	
-
 }
 
 void coneVizApp::scanForFiles()
