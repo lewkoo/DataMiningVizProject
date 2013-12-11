@@ -19,8 +19,8 @@ Itemset::Itemset(string name, ofPoint location, ofColor color)
 {
 	this->itemsetId = getNextId();
 
-	this->name = name;
-	this->level = this->name.length()-1;
+	//this->name = name;
+	//this->level = this->name.length()-1;
 
 	this->location = location;
 	this->color = color;
@@ -45,7 +45,7 @@ void Itemset::setColor(ofColor newColor)
 
 string Itemset::getName()
 {
-	return name;
+	return "|";
 }
 
 int Itemset::getRadius()

@@ -19,42 +19,42 @@ void Utilities::loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets,
 {
 	//1 - Open the file
 	ofBuffer fileBuffer = ofBufferFromFile("datasets/" + fileToOpen.getFileName());
+
+	//2 - Parse all the lines
+	while(fileBuffer.isLastLine() == false)
+	{
+		Utilities::parseLine(fileBuffer.getNextLine(), itemsets, levels);	
+	}
+
+}
+
+void Utilities::parseLine(std::string lineToParse, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels)
+{
+	/**Observations: format is as follows: 
+		itemsetID (frequency) itemset (frequency) itemset (frequency) 
+
+		the number of these compinations corresponds to the Level ID
+
+		a way to do it: create a temp list of itemsets, go over the entire line and parse the itemsets data
+		the length of that temporary list will determine the level, the smallest frequency value will represent the frequency of that itemset
+
+	*/
+
+	//1 - Instanciate a temporary list of itemsets
+	vector <Itemset*> itemsetsToAdd = vector <Itemset*>();
+
+	//2 - Split the line by space, if begins with ( - it is a frequency, else it is an itemset
+    std::istringstream buf(lineToParse);
+    std::istream_iterator<std::string> beg(buf), end;
+	std::vector<std::string> tokens(beg, end); // string is tokenized, parse it
+
 	
-	FILE* stream = fopen(fileToOpen.getAbsolutePath().c_str(), "r");
-    if(stream == NULL){
-		perror("File open error");
-        exit(EXIT_FAILURE);
-    }
-
-    //2 - Populate the dataset
-    char current_line[200]; //to store the retreived line from the file
-    char* line_tokenized; //to store the tokenized line
-
-	Level* current_level = new Level(0);
-
-    //3 - Read all the lines
-    while (fgets(current_line, 200, stream)) //loops while there is data in the file
-    {
-		
-		if((unsigned)strlen(current_line)-1 != current_level->getLevelId())
-		{
-			//Push the level to the pool
-			current_level = new Level(strlen(current_line)-1);
-			levels->push_back(current_level);
-		}
-
-		Itemset* newItemset = new Itemset(current_line);
-	
-		//add the itemset to the level
-		current_level->addItemset(newItemset);
-
-		//add to the general pool of itemsets
-		itemsets->push_back(newItemset);
-
-		memset(&current_line, 0, sizeof(char) * 200);
 
 
-    }
+
+	//171 (68)
+	//parse this: 180 (105) 730 (22) 783 (21) 
+
 
 
 }

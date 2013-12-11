@@ -21,7 +21,8 @@ private:
 	int level; //represents the level of the itemset (singleton, 2itemset, 3itemset, etc)
 	int radius; //represents the radius of the sphere
 
-	string name; //Itemset name (is also unique)
+	vector< string > name; //Itemset name (is also unique)
+	int frequency; //Itemset frequency
 	ofPoint location; //location in the visualization
 	ofColor color; //color
 

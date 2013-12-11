@@ -7,12 +7,19 @@
 #include <sstream>
 #include <direct.h>
 
+#include <string>
+#include <algorithm>
+#include <iterator>
+
 using namespace std;
 
 
 
 class Utilities
 {
+private:
+	static void parseLine(std::string lineToParse, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels);
+
 public:
 
 	static enum SHAPE_TYPES {FLAT_CONE, NORMAL_CONE, INVERTED_CONE};
