@@ -6,6 +6,9 @@
 *.exe
 *.o
 *.so
+*.exp
+*.lib
+*.pdb
 
 # Packages #
 ############
@@ -45,7 +48,6 @@ Thumbs.db
 
 # Build files #
 ###############
-ConeViz/bin/*.*
 ConeViz/ConeViz/Debug/*.*
 ConeViz/ipch/*
 OF/libs/*

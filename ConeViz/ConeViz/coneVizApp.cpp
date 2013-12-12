@@ -287,6 +287,8 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 				if(selected_name.compare(datasetFiles[i].getBaseName()) == 0)
 				{
 					currentDataset = datasetFiles[i];
+					itemsets = std::vector<Itemset*>();
+					levels = std::vector<Level*>();
 					Utilities::loadItemsets(currentDataset, &itemsets, &levels);
 				}
 			}
