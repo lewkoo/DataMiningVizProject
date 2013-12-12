@@ -39,7 +39,7 @@ void coneVizApp::setup(){
 
 		for(int i = 0; i < itemsets.size(); i++)
 		{
-			mesh.addVertex(itemsets[i]->getLocation());
+			//mesh.addVertex(itemsets[i]->getLocation());
 		}
 
 }

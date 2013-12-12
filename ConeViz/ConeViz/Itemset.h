@@ -39,6 +39,7 @@ public:
 	bool isCurrentlySelected;
 
 	int getLevel();
+	int getFrequency();
 	string getName();
 	ofPoint getLocation();
 	ofColor getColor();

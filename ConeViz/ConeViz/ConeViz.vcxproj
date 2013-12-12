@@ -91,6 +91,7 @@ xcopy /e /i /y "$(ProjectDir)..\..\OF\export\vs2010\*.dll" "$(ProjectDir)..\bin"
     <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\OF\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="Cluster.cpp" />
     <ClCompile Include="coneVizApp.cpp" />
     <ClCompile Include="GraphicsGenerator.cpp" />
     <ClCompile Include="Itemset.cpp" />
@@ -101,6 +102,7 @@ xcopy /e /i /y "$(ProjectDir)..\..\OF\export\vs2010\*.dll" "$(ProjectDir)..\bin"
   <ItemGroup>
     <ClInclude Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\OF\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="Cluster.h" />
     <ClInclude Include="coneVizApp.h" />
     <ClInclude Include="GraphicsGenerator.h" />
     <ClInclude Include="Itemset.h" />

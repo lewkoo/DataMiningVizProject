@@ -59,6 +59,11 @@ int Itemset::getLevel()
 	return singletons.size();
 }
 
+int Itemset::getFrequency()
+{
+	return frequency;
+}
+
 ofPoint Itemset::getLocation()
 {
 	return location;

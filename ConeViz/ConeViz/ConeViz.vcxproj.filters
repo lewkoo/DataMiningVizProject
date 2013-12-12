@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
       <Filter>Source Files\XmlSettingsSource</Filter>
     </ClCompile>
+    <ClCompile Include="Cluster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coneVizApp.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files\XmlSettingsHeaders</Filter>
     </ClInclude>
     <ClInclude Include="Utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cluster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Itemset.h"
+#include "Cluster.h"
+#include <limits.h>
 using namespace std;
 
 #define DEFAULT_CIRCLE_LOCATION_X 0;
@@ -18,11 +20,17 @@ class Level
 private:
 
 	int levelId;
+	int minFrequency;
+	int maxFrequency;
+
+	bool isClustered;
 	
 	int circle_radius;
 	int circle_X;
 	int circle_Y;
 	int circle_Z;
+	
+	std::vector<Cluster*> clusters;
 	std::vector<Itemset*> itemsets;
 
 public:

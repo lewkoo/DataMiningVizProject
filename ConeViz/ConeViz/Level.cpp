@@ -5,6 +5,10 @@ Level::Level(void)
 	circle_X = DEFAULT_CIRCLE_LOCATION_X;
 	circle_Y = DEFAULT_CIRCLE_LOCATION_Y;
 	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
+
+	minFrequency = 0;
+	maxFrequency = 0;
+
 }
 
 
@@ -18,6 +22,10 @@ Level::Level(std::vector<Itemset*> itemsets)
 	circle_Y = DEFAULT_CIRCLE_LOCATION_Y;
 	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
 	this->itemsets = itemsets;
+
+	minFrequency = 0;
+	maxFrequency = 0;
+
 }
 
 Level::Level(int levelId)
@@ -25,6 +33,9 @@ Level::Level(int levelId)
 	circle_X = DEFAULT_CIRCLE_LOCATION_X;
 	circle_Y = DEFAULT_CIRCLE_LOCATION_Y;
 	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
+
+	minFrequency = INT_MAX;
+	maxFrequency = INT_MIN;
 
 
 	this->levelId = levelId;
@@ -34,13 +45,19 @@ Level::Level(int levelId)
 
 void Level::addItemset(Itemset* itemset)
 {
+	if(itemset->getFrequency() > maxFrequency)
+		maxFrequency = itemset->getFrequency();
+
+	if(itemset->getFrequency() < minFrequency)
+		minFrequency = itemset->getFrequency();
+
 	itemsets.push_back(itemset);
 }
 
 void Level::calculateItemsetLocations()
 {
 
-	this->circle_radius = levelId * RADIUS_EXPANSION_FACTOR;
+	this->circle_radius = levelId * itemsets.size() * RADIUS_EXPANSION_FACTOR;
 
     for(int i = 0; i < itemsets.size(); i++)
     {
