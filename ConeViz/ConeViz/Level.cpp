@@ -1,5 +1,8 @@
 #include "Level.h"
 
+int Level::clusteringFactor = 10;
+int Level::clusteringBoundary = 200;
+
 Level::Level(void)
 {
 	circle_X = DEFAULT_CIRCLE_LOCATION_X;
@@ -129,4 +132,9 @@ std::vector<Itemset*> Level::getItemsets()
 void Level::setYCoordinate(int newY)
 {
 	this->circle_Y = newY;
+}
+
+void Level::setClusteringFactor(int newClusteringFactor)
+{
+	Level::clusteringFactor = newClusteringFactor;
 }

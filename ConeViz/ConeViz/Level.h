@@ -19,6 +19,9 @@ class Level
 
 private:
 
+	static int clusteringFactor; //cluster by frequency
+	static int clusteringBoundary; // clusters if the number of itemsets reaches over this number
+
 	int levelId;
 	int minFrequency;
 	int maxFrequency;
@@ -45,6 +48,8 @@ public:
 
 	void calculateItemsetLocations();
 	void drawItemsets();
+
+	static void setClusteringFactor(int newClusteringFactor);
 
 	void setYCoordinate(int newY);
 

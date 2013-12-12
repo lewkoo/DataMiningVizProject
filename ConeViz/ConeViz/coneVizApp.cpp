@@ -32,6 +32,8 @@ void coneVizApp::setup(){
 
 		Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
+		Level::setClusteringFactor(20);
+
 		for(int i = 0; i < levels.size(); i++)
 		{
 			levels[i]->calculateItemsetLocations();
@@ -39,7 +41,7 @@ void coneVizApp::setup(){
 
 		for(int i = 0; i < itemsets.size(); i++)
 		{
-			//mesh.addVertex(itemsets[i]->getLocation());
+			mesh.addVertex(itemsets[i]->getLocation());
 		}
 
 }
