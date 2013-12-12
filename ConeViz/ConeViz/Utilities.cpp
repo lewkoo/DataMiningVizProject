@@ -17,45 +17,70 @@ void Utilities::generateRandomItemsets(std::vector<Itemset>* itemsets)
 
 void Utilities::loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels)
 {
-	//1 - Open the file
+	//1 - Clear the itemsets and levels
+	//delete levels;
+	//levels->clear();
+	//levels = new std::vector<Level*>();
+
+	////delete itemsets;
+	//itemsets->clear();
+	//itemsets = new std::vector<Itemset*>();
+
+	//2 - Open the file
 	ofBuffer fileBuffer = ofBufferFromFile("datasets/" + fileToOpen.getFileName());
 
-	//2 - Parse all the lines
+	//3 - Parse all the lines
 	while(fileBuffer.isLastLine() == false)
 	{
-		Utilities::parseLine(fileBuffer.getNextLine(), itemsets, levels);	
+		string lineToParse = fileBuffer.getNextLine();
+
+		//1 - Instanciate a temporary list of itemsets
+		Itemset *itemset = new Itemset();
+
+		//2 - Split the line by space, if begins with ( - it is a frequency, else it is an itemset
+		std::istringstream buf(lineToParse);
+		std::istream_iterator<std::string> beg(buf), end;
+		std::vector<std::string> tokens(beg, end); // string is tokenized, parse it
+
+		//3 - Construct an itemset
+		for (int i = 0; i < tokens.size(); i+=2)
+		{
+			//i - itemset name
+			//i+1 - itemset frequency
+
+			itemset->addSingletonToItemset(tokens[i]);
+
+			//process the frequency string as it constains (xxxx)
+			string frequency_string = tokens[i+1];
+			frequency_string.erase(frequency_string.begin());
+			frequency_string.erase(frequency_string.end()-1);
+
+
+			itemset->setFrequency(std::stoi(frequency_string));
+
+		}
+
+		//4 - Add itemset to itemsets collection
+		itemsets->push_back(itemset);
+
+		//5 - Add it to a level or create a new level if does not exist
+
+		Level *level;
+
+		try{
+			level = levels->at(itemset->getLevel()-1);
+			level->addItemset(itemset);
+		}catch(std::exception& e)
+		{
+			cout << "WARNING: No level " << itemset->getLevel()  << " exists. Creating.";
+
+			level = new Level(itemset->getLevel());
+			level->addItemset(itemset);
+
+			levels->push_back(level);
+
+		}
 	}
-
-}
-
-void Utilities::parseLine(std::string lineToParse, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels)
-{
-	/**Observations: format is as follows: 
-		itemsetID (frequency) itemset (frequency) itemset (frequency) 
-
-		the number of these compinations corresponds to the Level ID
-
-		a way to do it: create a temp list of itemsets, go over the entire line and parse the itemsets data
-		the length of that temporary list will determine the level, the smallest frequency value will represent the frequency of that itemset
-
-	*/
-
-	//1 - Instanciate a temporary list of itemsets
-	vector <Itemset*> itemsetsToAdd = vector <Itemset*>();
-
-	//2 - Split the line by space, if begins with ( - it is a frequency, else it is an itemset
-    std::istringstream buf(lineToParse);
-    std::istream_iterator<std::string> beg(buf), end;
-	std::vector<std::string> tokens(beg, end); // string is tokenized, parse it
-
-	
-
-
-
-	//171 (68)
-	//parse this: 180 (105) 730 (22) 783 (21) 
-
-
 
 }
 

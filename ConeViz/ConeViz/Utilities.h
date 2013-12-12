@@ -17,8 +17,6 @@ using namespace std;
 
 class Utilities
 {
-private:
-	static void parseLine(std::string lineToParse, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels);
 
 public:
 

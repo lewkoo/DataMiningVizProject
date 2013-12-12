@@ -15,27 +15,9 @@ Itemset::~Itemset(void)
 {
 }
 
-Itemset::Itemset(string name, ofPoint location, ofColor color)
-{
-	this->itemsetId = getNextId();
-
-	//this->name = name;
-	//this->level = this->name.length()-1;
-
-	this->location = location;
-	this->color = color;
-	this->isCurrentlySelected = false;
-	this->radius = DEFAULT_SPHERE_RADIUS;
-}
-
 void Itemset::setLocation(ofPoint newPoint)
 {
 	this->location = newPoint;
-}
-
-void Itemset::setLevel(int newLevel)
-{
-	this->level = newLevel;
 }
 
 void Itemset::setColor(ofColor newColor)
@@ -43,9 +25,27 @@ void Itemset::setColor(ofColor newColor)
 	this->color=newColor;
 }
 
+void Itemset::setFrequency(int newFrequency)
+{
+	this->frequency = newFrequency;
+}
+
+void Itemset::addSingletonToItemset(string singletonName)
+{
+	singletons.push_back(singletonName);
+}
+
 string Itemset::getName()
 {
-	return "|";
+	string toReturn = "";
+
+	for(int i = 0; i < singletons.size(); i++)
+	{
+		toReturn.append(singletons[i]);
+		toReturn.append(" ");
+	}
+
+	return toReturn;
 }
 
 int Itemset::getRadius()
@@ -55,7 +55,8 @@ int Itemset::getRadius()
 
 int Itemset::getLevel()
 {
-	return level;
+	//returns the number of singletons in the itemset
+	return singletons.size();
 }
 
 ofPoint Itemset::getLocation()
@@ -67,3 +68,4 @@ ofColor Itemset::getColor()
 {
 	return color;
 }
+
