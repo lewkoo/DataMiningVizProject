@@ -24,6 +24,7 @@ public:
 	//getters
 	int getMinFrequency();
 	int getMaxFrequency();
+	string getName();
 
 	//setters
 	void setMinFrequency(int newFrequency);

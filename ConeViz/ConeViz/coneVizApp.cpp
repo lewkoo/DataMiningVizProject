@@ -38,23 +38,11 @@ void coneVizApp::setup(){
 		{
 			levels[i]->calculateItemsetLocations();
 
-			if(levels[i]->getIsClustered() == true)
+			std::vector<VizElement*> elements = levels[i]->getVizElements();
+
+			for(int j = 0; j < elements.size(); j++)
 			{
-				std::vector<Cluster*> clusters = levels[i]->getClusters();
-
-				for(int j = 0; j < clusters.size(); j++)
-				{
-					mesh.addVertex(clusters[j]->getLocation());
-				}
-
-			}else
-			{
-				std::vector<Itemset*> itemsets = levels[i]->getItemsets();
-
-				for(int j = 0; j < itemsets.size(); j++)
-				{
-					mesh.addVertex(itemsets[j]->getLocation());
-				}
+				mesh.addVertex(elements[j]->getLocation());
 			}
 
 		}

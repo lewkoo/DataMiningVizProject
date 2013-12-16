@@ -132,8 +132,8 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 
 void Utilities::drawConnections(Level top, Level bottom)
 {
-	std::vector<Itemset*> top_itemsets = top.getItemsets();
-	std::vector<Itemset*> bottom_itemsets = bottom.getItemsets();
+	std::vector<VizElement*> top_itemsets = top.getVizElements();
+	std::vector<VizElement*> bottom_itemsets = bottom.getVizElements();
 
 	for(int i = 0; i < top_itemsets.size(); i++)
 	{

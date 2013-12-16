@@ -1,5 +1,6 @@
 #pragma once
 
+#include "VizElement.h"
 #include "Itemset.h"
 #include "Cluster.h"
 #include <limits.h>
@@ -38,7 +39,8 @@ private:
 	int circle_Y;
 	int circle_Z;
 	
-	std::vector<Cluster*> clusters;
+	std::vector<VizElement*> elements;
+
 	std::vector<Itemset*> itemsets;
 
 public:
@@ -46,7 +48,7 @@ public:
 	~Level(void);
 	
 	Level(int levelId);
-	Level(std::vector<Itemset*> itemsets);
+	Level(std::vector<VizElement*> itemsets);
 
 	void addItemset(Itemset* itemset);
 	//bool removeItemset(Itemset itemset); //success:failure
@@ -62,8 +64,7 @@ public:
 	int getLevelId();
 	bool getIsClustered();
 
+	std::vector<VizElement*> getVizElements();
 	std::vector<Itemset*> getItemsets();
-	std::vector<Cluster*> getClusters();
-
 };
 

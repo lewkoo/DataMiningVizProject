@@ -21,6 +21,8 @@ public:
 	int getRadius();
 	bool getIsCurrentlySelected();
 
+	virtual string getName() = 0;
+
 	void setLocation(ofPoint newLocation);
 	void setColor(ofColor newColor);
 	void setRadius(int newRadius);

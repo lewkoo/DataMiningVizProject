@@ -35,6 +35,7 @@ public:
 	int getLevel();
 	int getFrequency();
 	string getName();
+	
 
 
 	void addSingletonToItemset(string singletonName);

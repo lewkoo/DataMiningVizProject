@@ -29,6 +29,20 @@ int Cluster::getMaxFrequency()
 	return this->maxFrequency;
 }
 
+string Cluster::getName()
+{
+	string toReturn = "";
+
+	for(int j = 0; j < itemsets.size(); j++)
+	{
+		toReturn.append(itemsets[j]->getName());
+		toReturn.append(" ");
+	}
+
+	return toReturn;
+}
+
+
 void Cluster::setMinFrequency(int newFrequency)
 {
 	this->minFrequency = newFrequency;
