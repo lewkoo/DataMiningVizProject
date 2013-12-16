@@ -76,10 +76,10 @@ void coneVizApp::draw(){
 		this->levels[i]->drawItemsets();
 	}
 
-	for(int i = 0; i < levels.size()-1; i++)
-	{
-		Utilities::drawConnections(*levels[i], *levels[i+1]);
-	}
+	//for(int i = 0; i < levels.size()-1; i++)
+	//{
+	//	Utilities::drawConnections(*levels[i], *levels[i+1]);
+	//}
 
 	cam.end();
 
@@ -296,7 +296,25 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 					currentDataset = datasetFiles[i];
 					itemsets = std::vector<Itemset*>();
 					levels = std::vector<Level*>();
+					mesh = ofMesh();
 					Utilities::loadItemsets(currentDataset, &itemsets, &levels);
+					Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
+
+					Level::setClusteringFactor(20);
+
+					for(int i = 0; i < levels.size(); i++)
+					{
+						levels[i]->calculateItemsetLocations();
+
+						std::vector<VizElement*> elements = levels[i]->getVizElements();
+
+						for(int j = 0; j < elements.size(); j++)
+						{
+							mesh.addVertex(elements[j]->getLocation());
+						}
+
+					}
+
 				}
 			}
 
