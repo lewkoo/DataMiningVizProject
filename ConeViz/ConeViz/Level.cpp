@@ -73,15 +73,24 @@ void Level::calculateItemsetLocations()
 		//Sort the itemsets by frequency
 		sort(itemsets.begin(), itemsets.end(), Itemset::sortByFrequency);
 		//Push the itemsets to a cluster
-		for(int i = 0; i < clusters.size(); i++)
-		{
-			Cluster* currentCluster = clusters[i];
 
-			for(int j = 0; j < clusteringFactor; j++)
+		int currentClusterIndex = 0;
+		int currentItemsetIndex = 0;
+
+		for(int i = 0; i < itemsets.size(); i++)
+		{
+			if(currentItemsetIndex == clusteringFactor)
 			{
-				
+				currentClusterIndex++;
+				currentItemsetIndex = 0;
 			}
+			Cluster* currentCluster = clusters[currentClusterIndex];
+			currentItemsetIndex++;
+
+			currentCluster->addItemset(itemsets[i]);
 		}
+
+		//test this code! 
 
 	}
 
