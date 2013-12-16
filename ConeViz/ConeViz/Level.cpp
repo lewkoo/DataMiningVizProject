@@ -59,6 +59,16 @@ void Level::addItemset(Itemset* itemset)
 
 void Level::calculateItemsetLocations()
 {
+	//Determine if clustering should be used
+	if(itemsets.size() >= clusteringBoundary){
+		isClustered = true;
+
+		//Generate the clusters
+		//clusteringFactor
+
+	}
+
+
 
 	this->circle_radius = levelId * itemsets.size() * RADIUS_EXPANSION_FACTOR;
 
