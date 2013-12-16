@@ -9,8 +9,8 @@ Level::Level(void)
 	circle_Y = DEFAULT_CIRCLE_LOCATION_Y;
 	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
 
-	minFrequency = 0;
-	maxFrequency = 0;
+	minFrequency = INT_MAX;
+	maxFrequency = INT_MIN;
 
 }
 
@@ -26,8 +26,8 @@ Level::Level(std::vector<Itemset*> itemsets)
 	circle_Z = DEFAULT_CIRCLE_LOCATION_Z;
 	this->itemsets = itemsets;
 
-	minFrequency = 0;
-	maxFrequency = 0;
+	minFrequency = INT_MAX;
+	maxFrequency = INT_MIN;
 
 }
 
@@ -90,9 +90,9 @@ void Level::calculateItemsetLocations()
 			currentCluster->addItemset(itemsets[i]);
 		}
 
-		//test this code! 
+		
 
-	}
+	}//end if
 
 
 

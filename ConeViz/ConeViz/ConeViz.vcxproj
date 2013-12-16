@@ -98,6 +98,7 @@ xcopy /e /i /y "$(ProjectDir)..\..\OF\export\vs2010\*.dll" "$(ProjectDir)..\bin"
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="VizElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\OF\addons\ofxXmlSettings\libs\tinyxml.h" />
@@ -108,6 +109,7 @@ xcopy /e /i /y "$(ProjectDir)..\..\OF\export\vs2010\*.dll" "$(ProjectDir)..\bin"
     <ClInclude Include="Itemset.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Utilities.h" />
+    <ClInclude Include="VizElement.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

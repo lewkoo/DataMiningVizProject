@@ -3,6 +3,9 @@
 
 Cluster::Cluster(void)
 {
+	minFrequency = INT_MAX;
+	maxFrequency = INT_MIN;
+
 }
 
 

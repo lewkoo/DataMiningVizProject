@@ -1,9 +1,11 @@
 #pragma once
 
+#include <limits.h>
 #include "Itemset.h"
+#include "VizElement.h"
 using namespace std;
 
-class Cluster
+class Cluster : public VizElement
 {
 private:
 

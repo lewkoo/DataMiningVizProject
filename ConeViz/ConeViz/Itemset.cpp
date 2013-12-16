@@ -4,7 +4,6 @@ int Itemset::sNextId = 0;
 
 bool Itemset::sortByFrequency(Itemset* lhs, Itemset* rhs) { return lhs->getFrequency() < rhs->getFrequency(); }
 
-
 Itemset::Itemset(void)
 {
 	this->itemsetId = getNextId();
@@ -12,19 +11,8 @@ Itemset::Itemset(void)
 	this->radius = DEFAULT_SPHERE_RADIUS;
 }
 
-
 Itemset::~Itemset(void)
 {
-}
-
-void Itemset::setLocation(ofPoint newPoint)
-{
-	this->location = newPoint;
-}
-
-void Itemset::setColor(ofColor newColor)
-{
-	this->color=newColor;
 }
 
 void Itemset::setFrequency(int newFrequency)
@@ -50,11 +38,6 @@ string Itemset::getName()
 	return toReturn;
 }
 
-int Itemset::getRadius()
-{
-	return radius;
-}
-
 int Itemset::getLevel()
 {
 	//returns the number of singletons in the itemset
@@ -66,13 +49,4 @@ int Itemset::getFrequency()
 	return frequency;
 }
 
-ofPoint Itemset::getLocation()
-{
-	return location;
-}
-
-ofColor Itemset::getColor()
-{
-	return color;
-}
 
