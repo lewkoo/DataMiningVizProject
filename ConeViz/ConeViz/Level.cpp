@@ -65,7 +65,7 @@ void Level::calculateItemsetLocations()
 
 		//Generate the clusters
 		int numOfClusters = (int) ceil( (double) itemsets.size()/clusteringFactor);
-	
+
 		for(int i = 0; i < numOfClusters; i++)
 		{
 			clusters.push_back(new Cluster());
@@ -90,24 +90,45 @@ void Level::calculateItemsetLocations()
 			currentCluster->addItemset(itemsets[i]);
 		}
 
-		
+		this->circle_radius = levelId * clusters.size() * RADIUS_EXPANSION_FACTOR;
+
+		for(int i = 0; i < clusters.size(); i++)
+		{
+
+			float x = circle_X + circle_radius * cos(2 * PI * (i+1) / (clusters.size()+1));                
+			float z = circle_Z + circle_radius * sin(2 * PI * (i+1) / (clusters.size()+1));
+
+			clusters[i]->setLocation(ofPoint(x,circle_Y,z));
+			clusters[i]->setColor(ofColor(150,150,150));
+			clusters[i]->setRadius(15);
+
+		}
 
 	}//end if
 
+	else
+	{
+
+		isClustered = false;
+
+		this->circle_radius = levelId * itemsets.size() * RADIUS_EXPANSION_FACTOR;
+
+		for(int i = 0; i < itemsets.size(); i++)
+		{
+
+			float x = circle_X + circle_radius * cos(2 * PI * (i+1) / (itemsets.size()+1));                
+			float z = circle_Z + circle_radius * sin(2 * PI * (i+1) / (itemsets.size()+1));
+
+			itemsets[i]->setLocation(ofPoint(x,circle_Y,z));
+			itemsets[i]->setColor(ofColor(150,150,150));
+			itemsets[i]->setRadius(15);
+
+		}
+	}
 
 
-	this->circle_radius = levelId * itemsets.size() * RADIUS_EXPANSION_FACTOR;
 
-    for(int i = 0; i < itemsets.size(); i++)
-    {
 
-		float x = circle_X + circle_radius * cos(2 * PI * (i+1) / (itemsets.size()+1));                
-		float z = circle_Z + circle_radius * sin(2 * PI * (i+1) / (itemsets.size()+1));
-
-		itemsets[i]->setLocation(ofPoint(x,circle_Y,z));
-		itemsets[i]->setColor(ofColor(150,150,150));
-
-    }
 }
 
 void Level::drawItemsets()
@@ -122,13 +143,15 @@ void Level::drawItemsets()
 	ofPopMatrix();
 	ofPopStyle();
 
-    for(int i = 0; i < itemsets.size(); i++)
-    {
-            Itemset* currentItemset = itemsets[i];
+	if(isClustered)
+	{
+		for(int i = 0; i < clusters.size(); i++)
+		{
+			Cluster* currentItemset = clusters[i];
 			ofPushStyle();
-            ofPushMatrix();
+			ofPushMatrix();
 
-			if(currentItemset->isCurrentlySelected == true)
+			if(currentItemset->getIsCurrentlySelected() == true)
 			{
 				ofSetLineWidth(0.1);
 				//ofTranslate(currentItemset->getLocation());
@@ -143,13 +166,42 @@ void Level::drawItemsets()
 				ofSphere(currentItemset->getLocation(), currentItemset->getRadius());
 				ofNoFill();
 			}
-				
-				
 
-
-            ofPopMatrix();
+			ofPopMatrix();
 			ofPopStyle();
-    }
+		}
+	}
+
+	else
+	{
+		for(int i = 0; i < itemsets.size(); i++)
+		{
+			Itemset* currentItemset = itemsets[i];
+			ofPushStyle();
+			ofPushMatrix();
+
+			if(currentItemset->getIsCurrentlySelected() == true)
+			{
+				ofSetLineWidth(0.1);
+				//ofTranslate(currentItemset->getLocation());
+				ofSetColor(ofColor(0,139,238));
+				ofSphere(currentItemset->getLocation(),currentItemset->getRadius()+SELECTED_SPHERE_RADIUS_EXPANSION_FACTOR);
+
+			}else
+			{
+				ofFill();
+				//ofTranslate(currentItemset->getLocation());
+				ofSetColor(currentItemset->getColor());
+				ofSphere(currentItemset->getLocation(), currentItemset->getRadius());
+				ofNoFill();
+			}
+
+			ofPopMatrix();
+			ofPopStyle();
+		}
+	}
+
+    
 }
 
 //GETTER
@@ -158,10 +210,21 @@ int Level::getLevelId()
 	return this->levelId;
 }
 
+bool Level::getIsClustered()
+{
+	return isClustered;
+}
+
 std::vector<Itemset*> Level::getItemsets()
 {
 	return this->itemsets;
 }
+
+std::vector<Cluster*> Level::getClusters()
+{
+	return this->clusters;
+}
+
 
 
 //SETTER

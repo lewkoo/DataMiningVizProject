@@ -19,7 +19,6 @@ private:
 	static int sNextId;
 	int getNextId() { return ++sNextId; }
 
-	
 	int itemsetId; //Id of the current itemset
 	vector< string > singletons; //Itemset singletons (is also unique)
 	int frequency; //Itemset frequency
@@ -32,8 +31,6 @@ public:
 	
 
 	void setFrequency(int newFrequency);
-
-	bool isCurrentlySelected;
 
 	int getLevel();
 	int getFrequency();

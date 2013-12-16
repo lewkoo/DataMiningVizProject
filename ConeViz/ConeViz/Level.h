@@ -60,8 +60,10 @@ public:
 
 	int getYCoordinate();
 	int getLevelId();
+	bool getIsClustered();
 
 	std::vector<Itemset*> getItemsets();
+	std::vector<Cluster*> getClusters();
 
 };
 
