@@ -2,6 +2,8 @@
 
 int Itemset::sNextId = 0;
 
+bool Itemset::sortByFrequency(Itemset* lhs, Itemset* rhs) { return lhs->getFrequency() < rhs->getFrequency(); }
+
 
 Itemset::Itemset(void)
 {

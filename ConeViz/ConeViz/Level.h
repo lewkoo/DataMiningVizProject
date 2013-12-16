@@ -3,6 +3,11 @@
 #include "Itemset.h"
 #include "Cluster.h"
 #include <limits.h>
+#include <math.h>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
 using namespace std;
 
 #define DEFAULT_CIRCLE_LOCATION_X 0;

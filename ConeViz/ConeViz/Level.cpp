@@ -64,7 +64,24 @@ void Level::calculateItemsetLocations()
 		isClustered = true;
 
 		//Generate the clusters
-		//clusteringFactor
+		int numOfClusters = (int) ceil( (double) itemsets.size()/clusteringFactor);
+	
+		for(int i = 0; i < numOfClusters; i++)
+		{
+			clusters.push_back(new Cluster());
+		}
+		//Sort the itemsets by frequency
+		sort(itemsets.begin(), itemsets.end(), Itemset::sortByFrequency);
+		//Push the itemsets to a cluster
+		for(int i = 0; i < clusters.size(); i++)
+		{
+			Cluster* currentCluster = clusters[i];
+
+			for(int j = 0; j < clusteringFactor; j++)
+			{
+				
+			}
+		}
 
 	}
 

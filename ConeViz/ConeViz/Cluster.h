@@ -1,4 +1,8 @@
 #pragma once
+
+#include "Itemset.h"
+using namespace std;
+
 class Cluster
 {
 private:
@@ -7,7 +11,7 @@ private:
 	int minFrequency;
 	int maxFrequency;
 
-
+	std::vector<Itemset*> itemsets;
 
 public:
 	Cluster(void);
@@ -22,6 +26,8 @@ public:
 	//setters
 	void setMinFrequency(int newFrequency);
 	void setMaxFrequency(int newFrequency);
+
+	void addItemset(Itemset* newItemset);
 
 };
 

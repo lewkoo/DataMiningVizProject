@@ -10,6 +10,8 @@ using namespace std;
 class Itemset
 {
 
+
+
 private:
 	
 	//ID generator
@@ -31,6 +33,8 @@ private:
 public:
 	Itemset(void);
 	~Itemset(void);
+
+	static bool sortByFrequency(Itemset* lhs, Itemset* rhs);
 	
 	void setLocation(ofPoint newLocation);
 	void setColor(ofColor newColor);
@@ -46,6 +50,8 @@ public:
 	int getRadius();
 
 	void addSingletonToItemset(string singletonName);
+
+
 
 
 };

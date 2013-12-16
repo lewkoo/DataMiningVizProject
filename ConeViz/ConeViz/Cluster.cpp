@@ -35,3 +35,14 @@ void Cluster::setMaxFrequency(int newFrequency)
 {
 	this->maxFrequency = newFrequency;
 }
+
+void Cluster::addItemset(Itemset* itemset)
+{
+	if(itemset->getFrequency() > maxFrequency)
+		maxFrequency = itemset->getFrequency();
+
+	if(itemset->getFrequency() < minFrequency)
+		minFrequency = itemset->getFrequency();
+
+	itemsets.push_back(itemset);
+}
