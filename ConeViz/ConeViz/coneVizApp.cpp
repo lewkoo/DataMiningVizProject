@@ -34,6 +34,13 @@ void coneVizApp::setup(){
 
 		Level::setClusteringFactor(20);
 
+		//finding the max frequency in the dataset
+		int maxFreq = Utilities::findMaxFreq(&levels);
+
+		//color coding
+		ofColor green(0,255,0);
+		ofColor red(255,0,0);
+
 		for(int i = 0; i < levels.size(); i++)
 		{
 			levels[i]->calculateItemsetLocations();
@@ -43,13 +50,16 @@ void coneVizApp::setup(){
 			for(int j = 0; j < elements.size(); j++)
 			{
 				mesh.addVertex(elements[j]->getLocation());
+
+				elements[j]->setColor(red.lerp(green, itemsets[j]->getFrequency() / maxFreq));
 			}
 
 		}
 
-
+		
 
 }
+
 
 //--------------------------------------------------------------
 void coneVizApp::update(){
@@ -302,6 +312,13 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 
 					Level::setClusteringFactor(20);
 
+					//finding the max frequency in the dataset
+					int maxFreq = Utilities::findMaxFreq(&levels);
+
+					//color coding
+					ofColor green(0,255,0);
+					ofColor red(255,0,0);
+
 					for(int i = 0; i < levels.size(); i++)
 					{
 						levels[i]->calculateItemsetLocations();
@@ -311,6 +328,7 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 						for(int j = 0; j < elements.size(); j++)
 						{
 							mesh.addVertex(elements[j]->getLocation());
+							elements[j]->setColor(red.lerp(green, itemsets[j]->getFrequency() / maxFreq));
 						}
 
 					}

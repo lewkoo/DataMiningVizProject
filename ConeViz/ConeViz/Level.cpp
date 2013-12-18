@@ -116,9 +116,8 @@ void Level::calculateItemsetLocations()
 		elements[i]->setLocation(ofPoint(x,circle_Y,z));
 		elements[i]->setColor(ofColor(150,150,150));
 		elements[i]->setRadius(15);
-
 	}
-
+	
 
 }
 
@@ -170,6 +169,11 @@ void Level::drawItemsets()
 int Level::getLevelId()
 {
 	return this->levelId;
+}
+
+int Level::getMaxFrequency()
+{
+	return this->maxFrequency;
 }
 
 bool Level::getIsClustered()

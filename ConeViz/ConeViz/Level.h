@@ -61,6 +61,7 @@ public:
 	void setYCoordinate(int newY);
 
 	int getYCoordinate();
+	int getMaxFrequency();
 	int getLevelId();
 	bool getIsClustered();
 

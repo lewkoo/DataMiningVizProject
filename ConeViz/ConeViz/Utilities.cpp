@@ -84,6 +84,22 @@ void Utilities::loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets,
 
 }
 
+//finds the max frequency in the dataset
+int Utilities::findMaxFreq(std::vector<Level*> *levels)
+{
+	int maxFrequency = 0;
+	int i;
+	for(i = 0; i < levels->size(); i++)
+	{
+		if(maxFrequency < levels->at(i)->getMaxFrequency() )
+		{
+			maxFrequency = levels->at(i)->getMaxFrequency();
+		}
+	}
+
+	return maxFrequency;
+}
+
 void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShape)
 {
 	switch(newShape)
