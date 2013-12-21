@@ -17,16 +17,21 @@ using namespace std;
 
 class Utilities
 {
+private: 
+	static int Y_RASING_FACTOR;
 
 public:
 
-	static enum SHAPE_TYPES {FLAT_CONE, NORMAL_CONE, INVERTED_CONE};
+	
 
-	static void generateRandomItemsets(std::vector<Itemset>* itemsets); //TODO: add number of elements
+	static enum SHAPE_TYPES {FLAT_CONE, NORMAL_CONE, INVERTED_CONE};
 	static void loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels);
 	static void setYCoordinates(std::vector<Level*>* levels, SHAPE_TYPES newShape);
 	static void drawConnections(Level top, Level bottom);
 	static int findMaxFreq(std::vector<Level*>* levels);
+
+	static int getYRasingFactor();
+	static void setYRasingFactor(int newY);
 
 	Utilities(void);
 	~Utilities(void);

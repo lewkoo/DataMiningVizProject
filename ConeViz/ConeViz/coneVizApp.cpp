@@ -28,48 +28,24 @@ void coneVizApp::setup(){
         itemsets = std::vector<Itemset*>();
 		levels = std::vector<Level*>();
 
-		Utilities::loadItemsets(currentDataset, &itemsets, &levels);
+		//prepare the shape
+		refreshViz();
 
-		Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
-		Level::setClusteringFactor(20);
 
-		//finding the max frequency in the dataset
-		int maxFreq = Utilities::findMaxFreq(&levels);
-
-		//color coding
-		ofColor green(0,255,0);
-		ofColor red(255,0,0);
-
-		for(int i = 0; i < levels.size(); i++)
-		{
-			levels[i]->calculateItemsetLocations();
-
-			std::vector<VizElement*> elements = levels[i]->getVizElements();
-
-			for(int j = 0; j < elements.size(); j++)
-			{
-				mesh.addVertex(elements[j]->getLocation());
-
-				elements[j]->setColor(red.lerp(green, itemsets[j]->getFrequency() / maxFreq));
-			}
-
-		}
-
-		
 
 }
 
 
 //--------------------------------------------------------------
 void coneVizApp::update(){
-        
+	refreshViz();
 }
 
 //--------------------------------------------------------------
 void coneVizApp::draw(){
     
-	ofBackgroundGradient(ofColor(64), ofColor(0));
+	//ofBackgroundGradient(ofColor(64), ofColor(0));
 
     cam.begin();                
 
@@ -81,10 +57,10 @@ void coneVizApp::draw(){
 	ofSetColor(ofColor::white);
 	mesh.drawVertices();
 
-	for(int i = 0; i < levels.size(); i ++)
-	{
-		this->levels[i]->drawItemsets();
-	}
+	//for(int i = 0; i < levels.size(); i ++)
+	//{
+	//	this->levels[i]->drawItemsets();
+	//}
 
 	//for(int i = 0; i < levels.size()-1; i++)
 	//{
@@ -283,11 +259,55 @@ void coneVizApp::dragEvent(ofDragInfo dragInfo)
         
 }            
 
+void coneVizApp::refreshViz()
+{
+
+	if(refreshRequested == false)
+		return;
+
+	itemsets = std::vector<Itemset*>();
+	levels = std::vector<Level*>();
+	mesh = ofMesh();
+
+	Utilities::loadItemsets(currentDataset, &itemsets, &levels);
+
+	Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
+
+	Level::setClusteringFactor(20);
+
+	//finding the max frequency in the dataset
+	int maxFreq = Utilities::findMaxFreq(&levels);
+
+	//color coding
+	ofColor green(0,255,0);
+	ofColor red(255,0,0);
+
+	for(int i = 0; i < levels.size(); i++)
+	{
+		levels[i]->calculateItemsetLocations();
+
+		std::vector<VizElement*> elements = levels[i]->getVizElements();
+
+		for(int j = 0; j < elements.size(); j++)
+		{
+			mesh.addVertex(elements[j]->getLocation());
+
+			elements[j]->setColor(green.lerp(red, elements[j]->getFrequency() / maxFreq));
+		}
+
+	}
+
+
+	//set the flag to false, just do rendering from now on
+	refreshRequested = false;
+
+}
+
 void coneVizApp::guiEvent(ofxUIEventArgs &e)
 {
 	string name = e.widget->getName(); 
 	int kind = e.widget->getKind(); 
-	cout << "got event from: " << name << endl; 	
+	//cout << "got event from: " << name << endl; 	
 	
 	if(name == "DATASETS") //catch an event from the drop down
 	{
@@ -304,40 +324,21 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 				if(selected_name.compare(datasetFiles[i].getBaseName()) == 0)
 				{
 					currentDataset = datasetFiles[i];
-					itemsets = std::vector<Itemset*>();
-					levels = std::vector<Level*>();
-					mesh = ofMesh();
-					Utilities::loadItemsets(currentDataset, &itemsets, &levels);
-					Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
-
-					Level::setClusteringFactor(20);
-
-					//finding the max frequency in the dataset
-					int maxFreq = Utilities::findMaxFreq(&levels);
-
-					//color coding
-					ofColor green(0,255,0);
-					ofColor red(255,0,0);
-
-					for(int i = 0; i < levels.size(); i++)
-					{
-						levels[i]->calculateItemsetLocations();
-
-						std::vector<VizElement*> elements = levels[i]->getVizElements();
-
-						for(int j = 0; j < elements.size(); j++)
-						{
-							mesh.addVertex(elements[j]->getLocation());
-							elements[j]->setColor(red.lerp(green, itemsets[j]->getFrequency() / maxFreq));
-						}
-
-					}
+					refreshRequested = true;
 
 				}
 			}
 
 		}
 
+	}
+	
+	else if(name == "Shape height")
+	{
+	
+		ofxUISlider *slider = (ofxUISlider *) e.widget;
+		Utilities::setYRasingFactor(slider->getValue()*1000);
+		refreshRequested = true;	
 	}
 
 }
@@ -352,6 +353,8 @@ void coneVizApp::setUpGUI()
 
 	helpLabel = mainGUI->addLabel("Help & Controls", "\n\n\nPress \"F\" for full screen/window mode \n\nPress \"M\" and drag the mouse to shift the centre of the shape \n\nPress \"C\" to turn off the camera interactions \n\nPress \"A\" to turn axis rendering on/off");
 	helpLabel->setVisible(false);
+
+	mainGUI->addSlider("Shape height", 0, 1000, 10, 100, 10);
 
 	//hook up the listener
 	ofAddListener(mainGUI->newGUIEvent, this, &coneVizApp::guiEvent); 

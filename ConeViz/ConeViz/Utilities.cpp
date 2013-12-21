@@ -1,5 +1,6 @@
 #include "Utilities.h"
 
+int Utilities::Y_RASING_FACTOR = 20;
 
 Utilities::Utilities(void)
 {
@@ -8,11 +9,6 @@ Utilities::Utilities(void)
 
 Utilities::~Utilities(void)
 {
-}
-
-void Utilities::generateRandomItemsets(std::vector<Itemset>* itemsets)
-{
-
 }
 
 void Utilities::loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels)
@@ -126,15 +122,15 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 
 	case SHAPE_TYPES::NORMAL_CONE :
 
-		for(int i = 0; i < levels->size(); i++)
-		{
-			int newY = abs((int)((i+1)-levels->size())) * Y_RASING_FACTOR;
-			levels->at(i)->setYCoordinate(newY);
-		}
+		//for(int i = 0; i < levels->size(); i++)
+		//{
+		//	int newY = abs((int)((i+1)-levels->size())) * Y_RASING_FACTOR;
+		//	levels->at(i)->setYCoordinate(newY);
+		//}
 		
 		for(int i = 0; i < levels->size(); i++)
 		{
-			int level_id = abs( (int)(levels->at(i)->getLevelId()-levels->size()) );
+			int level_id = abs( (int)(levels->size() - i) );
 
 			int newY = level_id * Y_RASING_FACTOR;
 			levels->at(i)->setYCoordinate(newY);
@@ -166,4 +162,15 @@ void Utilities::drawConnections(Level top, Level bottom)
 			}
 		}
 	}
+}
+
+int Utilities::getYRasingFactor()
+{
+	return Y_RASING_FACTOR;
+}
+
+void Utilities::setYRasingFactor(int newY)
+{
+	Y_RASING_FACTOR = newY;
+
 }

@@ -22,6 +22,7 @@ public:
 	bool getIsCurrentlySelected();
 
 	virtual string getName() = 0;
+	virtual int getFrequency() = 0;
 
 	void setLocation(ofPoint newLocation);
 	void setColor(ofColor newColor);

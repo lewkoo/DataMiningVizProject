@@ -21,6 +21,7 @@ class coneVizApp : public ofBaseApp {
 		int mouseX;
 		int mouseY;
 
+		bool refreshRequested;
 		bool isItemsetSelected;
 		bool renderAxis;
 
@@ -40,6 +41,7 @@ class coneVizApp : public ofBaseApp {
 		//Methods
 		void setUpGUI(); //     this sets up the ofxUI GUI
 		void scanForFiles(); // this scans the data folder for dataset files
+		void refreshViz(); //reloads and resets the visualization 
 
 	public:
 	

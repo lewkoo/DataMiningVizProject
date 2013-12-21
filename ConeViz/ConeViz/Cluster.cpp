@@ -42,6 +42,23 @@ string Cluster::getName()
 	return toReturn;
 }
 
+int Cluster::getFrequency() //frequency of a cluster is a simple average
+{
+	int toReturn = 0;
+
+	for(int j = 0; j < itemsets.size(); j++)
+	{
+		toReturn+=itemsets[j]->getFrequency();
+	}
+
+	toReturn = toReturn / itemsets.size();
+	
+	toReturn = abs(toReturn);
+
+	return toReturn;
+
+}
+
 
 void Cluster::setMinFrequency(int newFrequency)
 {
