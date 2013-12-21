@@ -57,10 +57,10 @@ void coneVizApp::draw(){
 	ofSetColor(ofColor::white);
 	mesh.drawVertices();
 
-	//for(int i = 0; i < levels.size(); i ++)
-	//{
-	//	this->levels[i]->drawItemsets();
-	//}
+	for(int i = 0; i < levels.size(); i ++)
+	{
+		this->levels[i]->drawItemsets();
+	}
 
 	//for(int i = 0; i < levels.size()-1; i++)
 	//{
