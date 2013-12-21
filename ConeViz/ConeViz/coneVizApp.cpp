@@ -10,8 +10,11 @@ void coneVizApp::setup(){
         // rather than always drawing things on top of each other
         glEnable(GL_DEPTH_TEST);
         
+
+		mesh.setMode(OF_PRIMITIVE_LINES);
         // this sets the camera's distance from the object
-        cam.setDistance(100);
+		cam.setAutoDistance(true);
+		
         
         ofSetCircleResolution(64);
         bShowHelp = true;
@@ -47,6 +50,9 @@ void coneVizApp::draw(){
     
 	//ofBackgroundGradient(ofColor(64), ofColor(0));
 
+
+
+
     cam.begin();                
 
     drawAxis();
@@ -55,17 +61,15 @@ void coneVizApp::draw(){
 	
 	glPointSize(6);
 	ofSetColor(ofColor::white);
-	mesh.drawVertices();
+	
+	//Draw Lines
+	mesh.setMode(OF_PRIMITIVE_LINES);
+	mesh.draw();
 
 	for(int i = 0; i < levels.size(); i ++)
 	{
 		this->levels[i]->drawItemsets();
 	}
-
-	//for(int i = 0; i < levels.size()-1; i++)
-	//{
-	//	Utilities::drawConnections(*levels[i], *levels[i+1]);
-	//}
 
 	cam.end();
 
@@ -297,6 +301,12 @@ void coneVizApp::refreshViz()
 
 	}
 
+	for(int i = 0; i < levels.size()-1; i++)
+	{
+		Utilities::setConnections(*levels[i], *levels[i+1], mesh);
+	}
+
+	//mesh.add
 
 	//set the flag to false, just do rendering from now on
 	refreshRequested = false;
