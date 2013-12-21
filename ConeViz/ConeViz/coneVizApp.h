@@ -2,6 +2,7 @@
 
 #include "Level.h"
 #include "Itemset.h"
+#include "VizElement.h"
 #include "Utilities.h"
 #include "ofMain.h"
 #include "ofUI\ofxUI.h"
@@ -17,6 +18,7 @@ class coneVizApp : public ofBaseApp {
 	private:
 		std::vector<Itemset*> itemsets;
 		std::vector<Level*> levels;
+		std::vector<VizElement*> spheres;
 
 		int mouseX;
 		int mouseY;
@@ -37,6 +39,8 @@ class coneVizApp : public ofBaseApp {
 		vector< string > datasetFileNames;
 		int numFiles; // total number of dataset files
 
+		//Current intarectivity state
+		VizElement* currentlySelectedSphere;
 
 		//Methods
 		void setUpGUI(); //     this sets up the ofxUI GUI

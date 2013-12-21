@@ -12,6 +12,7 @@ void coneVizApp::setup(){
         
 
 		mesh.setMode(OF_PRIMITIVE_LINES);
+		mesh.clear();
         // this sets the camera's distance from the object
 		cam.setAutoDistance(true);
 		
@@ -63,6 +64,7 @@ void coneVizApp::draw(){
 	ofSetColor(ofColor::white);
 	
 	//Draw Lines
+	
 	mesh.setMode(OF_PRIMITIVE_LINES);
 	mesh.draw();
 
@@ -94,9 +96,14 @@ void coneVizApp::draw(){
 			nearestIndex = i;
 		}
 	}
-
-
 	
+	
+	currentlySelectedSphere->setSelected(false);
+	currentlySelectedSphere = spheres.at(nearestIndex);
+	currentlySelectedSphere->setSelected(true);
+
+
+
 	ofSetColor(ofColor::gray);
 	ofLine(nearestVertex, mouse);
 	
@@ -109,38 +116,11 @@ void coneVizApp::draw(){
 	ofVec2f offset(10, -10);
 	ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + offset);
 
+	
 
     //draw fps 
     string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
     ofDrawBitmapStringHighlight(msg, 10, 20);
-
-	msg = "\nMouse location : ";
-
-	ostringstream convert;
-
-	convert << mouseX;
-	convert << " ";
-	convert << mouseY;
-
-	msg = msg + (convert.str());
-    ofDrawBitmapStringHighlight(msg, 10, 80);
-
-	msg = "\nWorld locaiton: ";
-
-	ofVec3f worldCoordinates = cam.screenToWorld(ofVec3f((float)mouseX, (float)mouseY));
-
-	ostringstream convert2;
-
-	convert2 << worldCoordinates.x;
-	convert2 << " ";
-	convert2 << worldCoordinates.y;
-	convert2 << " ";
-	convert2 << worldCoordinates.z;
-
-	ofDrawBitmapStringHighlight(convert2.str(), 10, 120);
-
-	if(isItemsetSelected)
-		ofDrawBitmapStringHighlight("Itemset selected!", 10, 150);
 
 
 }
@@ -271,7 +251,9 @@ void coneVizApp::refreshViz()
 
 	itemsets = std::vector<Itemset*>();
 	levels = std::vector<Level*>();
+	spheres = std::vector<VizElement*>();
 	mesh = ofMesh();
+	mesh.clear();
 
 	Utilities::loadItemsets(currentDataset, &itemsets, &levels);
 
@@ -295,8 +277,12 @@ void coneVizApp::refreshViz()
 		for(int j = 0; j < elements.size(); j++)
 		{
 			mesh.addVertex(elements[j]->getLocation());
+			spheres.push_back(elements[j]);
 
-			elements[j]->setColor(green.lerp(red, elements[j]->getFrequency() / maxFreq));
+			float colorPercent = (float)elements[j]->getFrequency() / (float)maxFreq;
+			colorPercent = ofClamp(colorPercent, 0, 1);
+
+			elements[j]->setColor(green.getLerped(red, colorPercent));
 		}
 
 	}
@@ -310,6 +296,8 @@ void coneVizApp::refreshViz()
 
 	//set the flag to false, just do rendering from now on
 	refreshRequested = false;
+
+	currentlySelectedSphere = new Itemset();
 
 }
 

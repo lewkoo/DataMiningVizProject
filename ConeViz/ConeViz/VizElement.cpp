@@ -3,6 +3,7 @@
 
 VizElement::VizElement(void)
 {
+	isCurrentlySelected = false;
 }
 
 

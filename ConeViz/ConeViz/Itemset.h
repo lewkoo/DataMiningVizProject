@@ -28,16 +28,12 @@ public:
 	~Itemset(void);
 
 	static bool sortByFrequency(Itemset* lhs, Itemset* rhs);
-	
-
 	void setFrequency(int newFrequency);
 
 	int getLevel();
 	int getFrequency();
 	string getName();
 	
-
-
 	void addSingletonToItemset(string singletonName);
 
 
