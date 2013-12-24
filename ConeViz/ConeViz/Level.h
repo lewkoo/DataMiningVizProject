@@ -50,12 +50,12 @@ public:
 	Level(std::vector<VizElement*> itemsets);
 
 	void addItemset(Itemset* itemset);
-	//bool removeItemset(Itemset itemset); //success:failure
 
 	void calculateItemsetLocations();
 	void drawItemsets();
 
 	static void setClusteringFactor(int newClusteringFactor);
+	static void setClusteringBoundary(int newBoundary);
 
 	void setYCoordinate(int newY);
 
@@ -66,5 +66,7 @@ public:
 
 	std::vector<VizElement*> getVizElements();
 	std::vector<Itemset*> getItemsets();
+
+	
 };
 

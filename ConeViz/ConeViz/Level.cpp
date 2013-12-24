@@ -3,6 +3,16 @@
 int Level::clusteringFactor = 10;
 int Level::clusteringBoundary = 200;
 
+void Level::setClusteringFactor(int newClusteringFactor)
+{
+	clusteringFactor = newClusteringFactor;
+}
+void Level::setClusteringBoundary(int newBoundary)
+{
+	clusteringBoundary = newBoundary;
+}
+
+
 Level::Level(void)
 {
 	circle_X = DEFAULT_CIRCLE_LOCATION_X;
@@ -60,6 +70,9 @@ void Level::addItemset(Itemset* itemset)
 
 void Level::calculateItemsetLocations()
 {
+
+	elements = std::vector<VizElement*>();
+
 	//Determine if clustering should be used
 	if(itemsets.size() >= clusteringBoundary){
 		isClustered = true;
@@ -196,9 +209,4 @@ std::vector<Itemset*> Level::getItemsets()
 void Level::setYCoordinate(int newY)
 {
 	this->circle_Y = newY;
-}
-
-void Level::setClusteringFactor(int newClusteringFactor)
-{
-	Level::clusteringFactor = newClusteringFactor;
 }

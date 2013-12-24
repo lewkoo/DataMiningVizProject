@@ -337,10 +337,24 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 		refreshRequested = true;	
 	}
 
-	else if(name == "Frequency Line threshold")
+	else if(name == "Line drawing threshold")
 	{
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
 		lineFrequencyThreshold = slider->getValue()*maxFrequency;
+		refreshRequested = true;
+	}
+
+	else if(name == "Clustering factor")
+	{
+		ofxUISlider *slider = (ofxUISlider *) e.widget;
+		Level::setClusteringFactor(slider->getValue()*100);
+		refreshRequested = true;
+	}
+
+	else if(name == "Clustering boundary")
+	{
+		ofxUISlider *slider = (ofxUISlider *) e.widget;
+		Level::setClusteringBoundary(slider->getValue()*1000);
 		refreshRequested = true;
 	}
 
@@ -359,7 +373,11 @@ void coneVizApp::setUpGUI()
 
 	mainGUI->addSlider("Shape height", 0, 1000, 10, 100, 10);
 
-	frequencyLineThreshold = mainGUI->addSlider("Frequency Line threshold", 1, maxFrequency, 10, 100, 10);
+	frequencyLineThreshold = mainGUI->addSlider("Line drawing threshold", 1, maxFrequency, 1, 100, 10);
+
+	mainGUI->addSlider("Clustering factor", 1, 100, 1, 100, 10);
+	mainGUI->addSlider("Clustering boundary", 1, 1000, 1, 100, 10);
+
 	
 
 	//hook up the listener
