@@ -7,6 +7,7 @@ class VizElement
 
 protected:
 	
+	int meshId; //represents the vertex id in the mesh
 	int radius; //represents the radius of the sphere
 	ofPoint location; //location in the visualization
 	ofColor color; //color
@@ -16,6 +17,7 @@ public:
 	VizElement(void);
 	~VizElement(void);
 
+	int getMeshID();
 	ofPoint getLocation();
 	ofColor getColor();
 	int getRadius();
@@ -28,5 +30,6 @@ public:
 	void setColor(ofColor newColor);
 	void setRadius(int newRadius);
 	void setSelected(bool newValue);
+	void setMeshID(int newID);
 };
 

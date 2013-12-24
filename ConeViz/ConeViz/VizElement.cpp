@@ -26,6 +26,11 @@ int VizElement::getRadius()
 	return radius;
 }
 
+int VizElement::getMeshID()
+{
+	return meshId;
+}
+
 bool VizElement::getIsCurrentlySelected()
 {
 	return isCurrentlySelected;
@@ -49,4 +54,9 @@ void VizElement::setRadius(int newRadius)
 void VizElement::setSelected(bool newValue)
 {
 	this->isCurrentlySelected = newValue;
+}
+
+void VizElement::setMeshID(int newId)
+{
+	this->meshId = newId;
 }

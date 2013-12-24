@@ -51,36 +51,27 @@ void coneVizApp::draw(){
     
 	//ofBackgroundGradient(ofColor(64), ofColor(0));
 
-
-
-
     cam.begin();                
-
     drawAxis();
-        
 	ofSetColor(ofColor::gray);
-	
 	glPointSize(6);
 	ofSetColor(ofColor::white);
 	
 	//Draw Lines
-	
 	mesh.setMode(OF_PRIMITIVE_LINES);
 	mesh.draw();
 
+	//Draw the spheres
 	for(int i = 0; i < levels.size(); i ++)
 	{
 		this->levels[i]->drawItemsets();
 	}
-
 	cam.end();
-
-
-
-
-    //drawInteractionArea();
+    drawInteractionArea();
     ofSetColor(255);
 
+	
+	//Locate the sphere that is closest to the mouse cursor
 	int num_itemsets = mesh.getNumVertices();
 	float nearestDistance = 0;
 	ofVec2f nearestVertex;
@@ -97,7 +88,8 @@ void coneVizApp::draw(){
 		}
 	}
 	
-	
+
+	//Draw the line between the current itemset + the data about it
 	currentlySelectedSphere->setSelected(false);
 	currentlySelectedSphere = spheres.at(nearestIndex);
 	currentlySelectedSphere->setSelected(true);
@@ -114,7 +106,10 @@ void coneVizApp::draw(){
 	ofSetLineWidth(1);
 	
 	ofVec2f offset(10, -10);
-	ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + offset);
+	ofDrawBitmapStringHighlight(currentlySelectedSphere->getName(), mouse + offset);
+	ofDrawBitmapStringHighlight(ofToString(currentlySelectedSphere->getMeshID()), mouse + offset);
+	//ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + offset);
+
 
 	
 
@@ -253,8 +248,7 @@ void coneVizApp::refreshViz()
 	levels = std::vector<Level*>();
 	spheres = std::vector<VizElement*>();
 	mesh = ofMesh();
-	mesh.clear();
-
+	
 	Utilities::loadItemsets(currentDataset, &itemsets, &levels);
 
 	Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
@@ -276,7 +270,9 @@ void coneVizApp::refreshViz()
 
 		for(int j = 0; j < elements.size(); j++)
 		{
+			
 			mesh.addVertex(elements[j]->getLocation());
+			elements[j]->setMeshID(mesh.getNumVertices()-1);
 			spheres.push_back(elements[j]);
 
 			float colorPercent = (float)elements[j]->getFrequency() / (float)maxFreq;
@@ -289,10 +285,8 @@ void coneVizApp::refreshViz()
 
 	for(int i = 0; i < levels.size()-1; i++)
 	{
-		Utilities::setConnections(*levels[i], *levels[i+1], mesh);
+		Utilities::setConnections(*levels[i], *levels[i+1], &mesh);
 	}
-
-	//mesh.add
 
 	//set the flag to false, just do rendering from now on
 	refreshRequested = false;
