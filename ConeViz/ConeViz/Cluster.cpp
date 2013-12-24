@@ -42,6 +42,11 @@ string Cluster::getName()
 	return toReturn;
 }
 
+string Cluster::getType()
+{
+	return "Cluster";
+}
+
 int Cluster::getFrequency() //frequency of a cluster is a simple average
 {
 	int toReturn = 0;

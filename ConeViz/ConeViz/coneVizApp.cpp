@@ -31,6 +31,7 @@ void coneVizApp::setup(){
 
         itemsets = std::vector<Itemset*>();
 		levels = std::vector<Level*>();
+		lineFrequencyThreshold = 1;
 
 		//prepare the shape
 		refreshViz();
@@ -100,18 +101,15 @@ void coneVizApp::draw(){
 	ofLine(nearestVertex, mouse);
 	
 	ofNoFill();
-	ofSetColor(ofColor::yellow);
-	ofSetLineWidth(2);
-	ofCircle(nearestVertex, 4);
-	ofSetLineWidth(1);
+	//ofSetColor(ofColor::yellow);
+	//ofSetLineWidth(2);
+	//ofCircle(nearestVertex, 4);
+	//ofSetLineWidth(1);
 	
 	ofVec2f offset(10, -10);
-	ofDrawBitmapStringHighlight(currentlySelectedSphere->getName(), mouse + offset);
-	ofDrawBitmapStringHighlight(ofToString(currentlySelectedSphere->getMeshID()), mouse + offset);
+
+	ofDrawBitmapStringHighlight(currentlySelectedSphere->getType() + "\n" + ofToString(currentlySelectedSphere->getFrequency()) + "\n" + currentlySelectedSphere->getName(), mouse + offset);
 	//ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + offset);
-
-
-	
 
     //draw fps 
     string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
@@ -248,7 +246,9 @@ void coneVizApp::refreshViz()
 	levels = std::vector<Level*>();
 	spheres = std::vector<VizElement*>();
 	mesh = ofMesh();
-	
+	mesh.clearIndices();
+	mesh.clear();
+
 	Utilities::loadItemsets(currentDataset, &itemsets, &levels);
 
 	Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
@@ -256,7 +256,7 @@ void coneVizApp::refreshViz()
 	Level::setClusteringFactor(20);
 
 	//finding the max frequency in the dataset
-	int maxFreq = Utilities::findMaxFreq(&levels);
+	maxFrequency = Utilities::findMaxFreq(&levels);
 
 	//color coding
 	ofColor green(0,255,0);
@@ -275,7 +275,7 @@ void coneVizApp::refreshViz()
 			elements[j]->setMeshID(mesh.getNumVertices()-1);
 			spheres.push_back(elements[j]);
 
-			float colorPercent = (float)elements[j]->getFrequency() / (float)maxFreq;
+			float colorPercent = (float)elements[j]->getFrequency() / (float)maxFrequency;
 			colorPercent = ofClamp(colorPercent, 0, 1);
 
 			elements[j]->setColor(green.getLerped(red, colorPercent));
@@ -285,13 +285,17 @@ void coneVizApp::refreshViz()
 
 	for(int i = 0; i < levels.size()-1; i++)
 	{
-		Utilities::setConnections(*levels[i], *levels[i+1], &mesh);
+		Utilities::setConnections(*levels[i], *levels[i+1], &mesh, lineFrequencyThreshold);
 	}
 
 	//set the flag to false, just do rendering from now on
 	refreshRequested = false;
 
 	currentlySelectedSphere = new Itemset();
+
+	if(frequencyLineThreshold != NULL)
+		frequencyLineThreshold->setMax(maxFrequency);
+
 
 }
 
@@ -333,6 +337,13 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 		refreshRequested = true;	
 	}
 
+	else if(name == "Frequency Line threshold")
+	{
+		ofxUISlider *slider = (ofxUISlider *) e.widget;
+		lineFrequencyThreshold = slider->getValue()*maxFrequency;
+		refreshRequested = true;
+	}
+
 }
 
 
@@ -347,6 +358,9 @@ void coneVizApp::setUpGUI()
 	helpLabel->setVisible(false);
 
 	mainGUI->addSlider("Shape height", 0, 1000, 10, 100, 10);
+
+	frequencyLineThreshold = mainGUI->addSlider("Frequency Line threshold", 1, maxFrequency, 10, 100, 10);
+	
 
 	//hook up the listener
 	ofAddListener(mainGUI->newGUIEvent, this, &coneVizApp::guiEvent); 

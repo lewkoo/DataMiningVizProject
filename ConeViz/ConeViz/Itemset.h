@@ -33,6 +33,7 @@ public:
 	int getLevel();
 	int getFrequency();
 	string getName();
+	string getType();
 	
 	void addSingletonToItemset(string singletonName);
 

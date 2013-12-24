@@ -38,6 +38,11 @@ string Itemset::getName()
 	return toReturn;
 }
 
+string Itemset::getType()
+{
+	return "Itemset";
+}
+
 int Itemset::getLevel()
 {
 	//returns the number of singletons in the itemset

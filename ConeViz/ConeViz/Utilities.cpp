@@ -142,7 +142,7 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 
 }
 
-void Utilities::setConnections(Level top, Level bottom, ofMesh* mesh)
+void Utilities::setConnections(Level top, Level bottom, ofMesh* mesh, int lineFrequencyThreshold)
 {
 	std::vector<VizElement*> top_itemsets = top.getVizElements();
 	std::vector<VizElement*> bottom_itemsets = bottom.getVizElements();
@@ -156,7 +156,10 @@ void Utilities::setConnections(Level top, Level bottom, ofMesh* mesh)
 
 			string::size_type return_value = bottom_itemset_name.find(top_itemset_string);
 
-			if(return_value != string::npos)
+			if(return_value != string::npos 
+				&&( top_itemsets[i]->getFrequency() > lineFrequencyThreshold 
+				&&  bottom_itemsets[j]->getFrequency() > lineFrequencyThreshold )
+			)
 			{
 				mesh->addIndex(top_itemsets[i]->getMeshID());
 				mesh->addIndex(bottom_itemsets[j]->getMeshID());

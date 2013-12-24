@@ -25,6 +25,7 @@ public:
 	int getMinFrequency();
 	int getMaxFrequency();
 	string getName();
+	string getType();
 	int getFrequency();
 
 	//setters

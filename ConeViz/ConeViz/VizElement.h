@@ -24,6 +24,7 @@ public:
 	bool getIsCurrentlySelected();
 
 	virtual string getName() = 0;
+	virtual string getType() = 0;
 	virtual int getFrequency() = 0;
 
 	void setLocation(ofPoint newLocation);

@@ -27,7 +27,7 @@ public:
 	static enum SHAPE_TYPES {FLAT_CONE, NORMAL_CONE, INVERTED_CONE};
 	static void loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets, std::vector<Level*>* levels);
 	static void setYCoordinates(std::vector<Level*>* levels, SHAPE_TYPES newShape);
-	static void setConnections(Level top, Level bottom, ofMesh* mesh);
+	static void setConnections(Level top, Level bottom, ofMesh* mesh, int lineFrequencyThreshold);
 	static int findMaxFreq(std::vector<Level*>* levels);
 
 	static int getYRasingFactor();
