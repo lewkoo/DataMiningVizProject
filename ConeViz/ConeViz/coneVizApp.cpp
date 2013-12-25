@@ -9,13 +9,9 @@ void coneVizApp::setup(){
         // this uses depth information for occlusion
         // rather than always drawing things on top of each other
         glEnable(GL_DEPTH_TEST);
-        
-
-		mesh.setMode(OF_PRIMITIVE_LINES);
-		mesh.clear();
         // this sets the camera's distance from the object
 		cam.setAutoDistance(true);
-		
+		cam.setFarClip((float)60000.0);
         
         ofSetCircleResolution(64);
         bShowHelp = true;
@@ -32,6 +28,7 @@ void coneVizApp::setup(){
         itemsets = std::vector<Itemset*>();
 		levels = std::vector<Level*>();
 		lineFrequencyThreshold = 1;
+		Utilities::setYRasingFactor(DEFAULT_SHAPE_HEIGHT);
 
 		//prepare the shape
 		refreshViz();
@@ -44,6 +41,7 @@ void coneVizApp::setup(){
 
 //--------------------------------------------------------------
 void coneVizApp::update(){
+
 	refreshViz();
 }
 
@@ -52,7 +50,9 @@ void coneVizApp::draw(){
     
 	//ofBackgroundGradient(ofColor(64), ofColor(0));
 
-    cam.begin();                
+    cam.begin(); 
+	
+
     drawAxis();
 	ofSetColor(ofColor::gray);
 	glPointSize(6);
@@ -114,6 +114,9 @@ void coneVizApp::draw(){
     //draw fps 
     string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
     ofDrawBitmapStringHighlight(msg, 10, 20);
+
+
+
 
 
 }
@@ -178,10 +181,18 @@ void coneVizApp::keyPressed(int key){
 						if(helpLabel->isVisible()){ 
 							helpLabel->setVisible(false);
 							filesDropDown->setVisible(true);
+							shapeHeightSlider->setVisible(true);
+							clusteringFactorSlider->setVisible(true);
+							clusteringBoundarySlider->setVisible(true);
+							frequencyLineThreshold->setVisible(true);
 						}
 						else{ 
 							helpLabel->setVisible(true);
 							filesDropDown->setVisible(false);
+							shapeHeightSlider->setVisible(false);
+							clusteringFactorSlider->setVisible(false);
+							clusteringBoundarySlider->setVisible(false);
+							frequencyLineThreshold->setVisible(false);
 						}
 
                         break;
@@ -212,12 +223,32 @@ void coneVizApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void coneVizApp::mousePressed(int x, int y, int button){
-        
+
 }
 
 //--------------------------------------------------------------
 void coneVizApp::mouseReleased(int x, int y, int button){
-        
+	ofVec2f mouse(mouseX, mouseY);
+	ofVec3f cur = cam.worldToScreen(currentlySelectedSphere->getLocation());
+
+	float distance = cur.distance(mouse);
+	
+	if(distance <= currentlySelectedSphere->getRadius()){
+		
+		//1 - Determine if it is an itemset or a cluster
+
+		if(currentlySelectedSphere->getType() == "Itemset")
+		{
+			//just use it to determine your path
+			currentlySelectedItemset = dynamic_cast<Itemset*>(currentlySelectedSphere);
+		}else //we have a cluster. Build a GUI, make is visible, wait for an event... 
+		{
+			
+		}
+		
+	}
+		
+
 }
 
 //--------------------------------------------------------------
@@ -241,6 +272,9 @@ void coneVizApp::refreshViz()
 
 	if(refreshRequested == false)
 		return;
+
+	loadingMessage->setVisible(true);
+	loadingMessage->draw();
 
 	itemsets = std::vector<Itemset*>();
 	levels = std::vector<Level*>();
@@ -296,6 +330,8 @@ void coneVizApp::refreshViz()
 	if(frequencyLineThreshold != NULL)
 		frequencyLineThreshold->setMax(maxFrequency);
 
+	loadingMessage->setVisible(false);
+	loadingMessage->draw();
 
 }
 
@@ -358,6 +394,15 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 		refreshRequested = true;
 	}
 
+	if(refreshRequested == true)
+	{
+		loadingMessage->setVisible(true);
+	}else
+	{
+		loadingMessage->setVisible(false);
+	}
+
+
 }
 
 
@@ -371,14 +416,17 @@ void coneVizApp::setUpGUI()
 	helpLabel = mainGUI->addLabel("Help & Controls", "\n\n\nPress \"F\" for full screen/window mode \n\nPress \"M\" and drag the mouse to shift the centre of the shape \n\nPress \"C\" to turn off the camera interactions \n\nPress \"A\" to turn axis rendering on/off");
 	helpLabel->setVisible(false);
 
-	mainGUI->addSlider("Shape height", 0, 1000, 10, 100, 10);
+	shapeHeightSlider = mainGUI->addSlider("Shape height", 0, 1000, DEFAULT_SHAPE_HEIGHT, 500, 10);
 
-	frequencyLineThreshold = mainGUI->addSlider("Line drawing threshold", 1, maxFrequency, 1, 100, 10);
+	frequencyLineThreshold = mainGUI->addSlider("Line drawing threshold", 1, maxFrequency, 1, 500, 10);
 
-	mainGUI->addSlider("Clustering factor", 1, 100, 1, 100, 10);
-	mainGUI->addSlider("Clustering boundary", 1, 1000, 1, 100, 10);
+	clusteringFactorSlider = mainGUI->addSlider("Clustering factor", 1, 100, 1, 500, 10);
+	clusteringBoundarySlider = mainGUI->addSlider("Clustering boundary", 1, 1000, 1, 500, 10);
 
-	
+	loadingMessage = new ofxUICanvas( ofGetScreenWidth()/2-150, ofGetScreenHeight()/2-12, 300,25);
+	loadingMessage->addLabel("LOADING. HAVE PATIENCE.", "LOADING. HAVE PATIENCE.", OFX_UI_FONT_LARGE);
+	loadingMessage->setVisible(true);
+
 
 	//hook up the listener
 	ofAddListener(mainGUI->newGUIEvent, this, &coneVizApp::guiEvent); 

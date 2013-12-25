@@ -68,7 +68,7 @@ void Utilities::loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets,
 			level->addItemset(itemset);
 		}catch(std::exception& e)
 		{
-			cout << "WARNING: No level " << itemset->getLevel()  << " exists. Creating.";
+			cout << "WARNING: No level " << itemset->getLevel()  << " exists. Creating." << endl;
 
 			level = new Level(itemset->getLevel());
 			level->addItemset(itemset);
@@ -121,12 +121,6 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 		break;
 
 	case SHAPE_TYPES::NORMAL_CONE :
-
-		//for(int i = 0; i < levels->size(); i++)
-		//{
-		//	int newY = abs((int)((i+1)-levels->size())) * Y_RASING_FACTOR;
-		//	levels->at(i)->setYCoordinate(newY);
-		//}
 		
 		for(int i = 0; i < levels->size(); i++)
 		{

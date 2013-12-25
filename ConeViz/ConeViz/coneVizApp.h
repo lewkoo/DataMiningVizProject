@@ -11,6 +11,8 @@
 #define GUI_WIDTH 600
 #define GUI_HEIGHT 300
 
+#define DEFAULT_SHAPE_HEIGHT 200
+
 using namespace std;
 
 class coneVizApp : public ofBaseApp {
@@ -29,8 +31,12 @@ class coneVizApp : public ofBaseApp {
 
 		//GUI canvas
 		ofxUICanvas* mainGUI;
+		ofxUICanvas* loadingMessage;
 		ofxUILabel*  helpLabel;
 		ofxUIDropDownList* filesDropDown;
+		ofxUISlider* shapeHeightSlider;
+		ofxUISlider* clusteringFactorSlider;
+		ofxUISlider* clusteringBoundarySlider;
 		ofxUISlider* frequencyLineThreshold;
 
 		//Visualization variables
@@ -45,6 +51,7 @@ class coneVizApp : public ofBaseApp {
 
 		//Current intarectivity state
 		VizElement* currentlySelectedSphere;
+		Itemset* currentlySelectedItemset;
 
 		//Methods
 		void setUpGUI(); //     this sets up the ofxUI GUI
