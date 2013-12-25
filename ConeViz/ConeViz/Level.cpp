@@ -118,7 +118,7 @@ void Level::calculateItemsetLocations()
 
 	}
 
-	this->circle_radius = levelId * elements.size() * RADIUS_EXPANSION_FACTOR;
+	this->circle_radius = 50 * levelId * RADIUS_EXPANSION_FACTOR;
 
 	for(int i = 0; i < elements.size(); i++)
 	{
