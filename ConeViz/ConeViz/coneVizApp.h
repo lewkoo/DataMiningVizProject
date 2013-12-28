@@ -31,17 +31,17 @@ class coneVizApp : public ofBaseApp {
 
 		//GUI canvas
 		ofxUICanvas* mainGUI;
-		ofxUICanvas* loadingMessage;
 		ofxUILabel*  helpLabel;
 		ofxUIDropDownList* filesDropDown;
 		ofxUISlider* shapeHeightSlider;
-		ofxUISlider* clusteringFactorSlider;
 		ofxUISlider* clusteringBoundarySlider;
 		ofxUISlider* frequencyLineThreshold;
+		ofxUIToggle* lineCalculation;
 
 		//Visualization variables
 		int maxFrequency;
 		int lineFrequencyThreshold;
+		bool calculateLines;
 
 		//Dataset files variables
 		ofFile currentDataset;

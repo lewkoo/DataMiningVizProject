@@ -21,6 +21,7 @@ void coneVizApp::setup(){
 		setUpGUI();
 
 		renderAxis = false;
+		calculateLines = true;
 
         //PROCESS THE DATASETS
 		scanForFiles(); // populate the combo box with data file names
@@ -182,17 +183,17 @@ void coneVizApp::keyPressed(int key){
 							helpLabel->setVisible(false);
 							filesDropDown->setVisible(true);
 							shapeHeightSlider->setVisible(true);
-							clusteringFactorSlider->setVisible(true);
 							clusteringBoundarySlider->setVisible(true);
 							frequencyLineThreshold->setVisible(true);
+							lineCalculation->setVisible(true);
 						}
 						else{ 
 							helpLabel->setVisible(true);
 							filesDropDown->setVisible(false);
 							shapeHeightSlider->setVisible(false);
-							clusteringFactorSlider->setVisible(false);
 							clusteringBoundarySlider->setVisible(false);
 							frequencyLineThreshold->setVisible(false);
+							lineCalculation->setVisible(false);
 						}
 
                         break;
@@ -273,9 +274,6 @@ void coneVizApp::refreshViz()
 	if(refreshRequested == false)
 		return;
 
-	loadingMessage->setVisible(true);
-	loadingMessage->draw();
-
 	itemsets = std::vector<Itemset*>();
 	levels = std::vector<Level*>();
 	spheres = std::vector<VizElement*>();
@@ -317,9 +315,12 @@ void coneVizApp::refreshViz()
 
 	}
 
-	for(int i = 0; i < levels.size()-1; i++)
+	if(calculateLines)
 	{
-		Utilities::setConnections(*levels[i], *levels[i+1], &mesh, lineFrequencyThreshold);
+		for(int i = 0; i < levels.size()-1; i++)
+		{
+			Utilities::setConnections(*levels[i], *levels[i+1], &mesh, lineFrequencyThreshold);
+		}
 	}
 
 	//set the flag to false, just do rendering from now on
@@ -330,8 +331,6 @@ void coneVizApp::refreshViz()
 	if(frequencyLineThreshold != NULL)
 		frequencyLineThreshold->setMax(maxFrequency);
 
-	loadingMessage->setVisible(false);
-	loadingMessage->draw();
 
 }
 
@@ -394,14 +393,10 @@ void coneVizApp::guiEvent(ofxUIEventArgs &e)
 		refreshRequested = true;
 	}
 
-	if(refreshRequested == true)
+	else if(name == "Turn off connections calculation (use when loading large datasets)")
 	{
-		loadingMessage->setVisible(true);
-	}else
-	{
-		loadingMessage->setVisible(false);
+		calculateLines = !calculateLines;
 	}
-
 
 }
 
@@ -420,13 +415,9 @@ void coneVizApp::setUpGUI()
 
 	frequencyLineThreshold = mainGUI->addSlider("Line drawing threshold", 1, maxFrequency, 1, 500, 10);
 
-	clusteringFactorSlider = mainGUI->addSlider("Clustering factor", 1, 100, 1, 500, 10);
 	clusteringBoundarySlider = mainGUI->addSlider("Clustering boundary", 1, 1000, 1, 500, 10);
 
-	loadingMessage = new ofxUICanvas( ofGetScreenWidth()/2-150, ofGetScreenHeight()/2-12, 300,25);
-	loadingMessage->addLabel("LOADING. HAVE PATIENCE.", "LOADING. HAVE PATIENCE.", OFX_UI_FONT_LARGE);
-	loadingMessage->setVisible(true);
-
+	lineCalculation = mainGUI->addToggle( "Turn off connections calculation (use when loading large datasets)", false, 10, 10);
 
 	//hook up the listener
 	ofAddListener(mainGUI->newGUIEvent, this, &coneVizApp::guiEvent); 
