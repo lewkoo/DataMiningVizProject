@@ -1,7 +1,15 @@
 DataMiningVizProject
 ====================
 
-A COMP 4710 project on visualizing data mining results
+A COMP 4710 project on visualizing data mining results,
+
+A COMP 4520 project on advancing & improving the visualization of Data Mining results
+
+Goal
+===================
+The goal of this project is to research and explore new and innovative ideas about processing and visualizing Mined Data results. This project should consist of two parts: 1) Pre-processor application to take the raw, mined data and produce a visualization file. 2) A player application, which will take the visualization file and display the data, as well as let the user interact with it. 
+
+
 
 Requirements
 ====================
