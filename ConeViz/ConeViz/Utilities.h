@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <sstream>
-#include <direct.h>
+
 
 #include <string>
 #include <algorithm>

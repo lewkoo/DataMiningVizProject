@@ -101,7 +101,7 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 	switch(newShape)
 	{
 
-	case SHAPE_TYPES::FLAT_CONE : 
+	case SHAPE_TYPES::FLAT_CONE :
 			
 		for(int i = 0; i < levels->size(); i++)
 		{
