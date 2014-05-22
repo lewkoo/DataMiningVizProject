@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A3801051-0F1E-4911-8DF7-A538F55AB927</string>
+	<key>IDESourceControlProjectName</key>
+	<string>easyCamExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>277D1D37-4A23-44AA-9593-D8856C207616</key>
+		<string>https://github.com/lewkoo/DataMiningVizProject.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>OF_OS_X/examples/3d/easyCamExample/easyCamExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>277D1D37-4A23-44AA-9593-D8856C207616</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/lewkoo/DataMiningVizProject.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>277D1D37-4A23-44AA-9593-D8856C207616</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>277D1D37-4A23-44AA-9593-D8856C207616</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DataMiningVizProject</string>
+		</dict>
+	</array>
+</dict>
+</plist>
