@@ -283,7 +283,7 @@ void coneVizApp::refreshViz()
 
 	Utilities::loadItemsets(currentDataset, &itemsets, &levels);
 
-	Utilities::setYCoordinates(&levels, Utilities::SHAPE_TYPES::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
+	Utilities::setYCoordinates(&levels, Utilities::NORMAL_CONE); // goes over all the levels and sets the Y coordinates
 
 	Level::setClusteringFactor(20);
 

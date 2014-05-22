@@ -1,4 +1,5 @@
 #include "Utilities.h"
+#include <string>
 
 int Utilities::Y_RASING_FACTOR = 20;
 
@@ -52,7 +53,7 @@ void Utilities::loadItemsets(ofFile fileToOpen, std::vector<Itemset*>* itemsets,
 			frequency_string.erase(frequency_string.end()-1);
 
 
-			itemset->setFrequency(std::stoi(frequency_string));
+			//itemset->setFrequency(std::atoi(frequency_string));
 
 		}
 
@@ -101,7 +102,7 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 	switch(newShape)
 	{
 
-	case SHAPE_TYPES::FLAT_CONE :
+	case FLAT_CONE :
 			
 		for(int i = 0; i < levels->size(); i++)
 		{
@@ -110,7 +111,7 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 
 		break;
 
-	case SHAPE_TYPES::INVERTED_CONE :
+	case INVERTED_CONE :
 
 		for(int i = 0; i < levels->size(); i++)
 		{
@@ -120,7 +121,7 @@ void Utilities::setYCoordinates(std::vector<Level*> *levels, SHAPE_TYPES newShap
 
 		break;
 
-	case SHAPE_TYPES::NORMAL_CONE :
+	case NORMAL_CONE :
 		
 		for(int i = 0; i < levels->size(); i++)
 		{
