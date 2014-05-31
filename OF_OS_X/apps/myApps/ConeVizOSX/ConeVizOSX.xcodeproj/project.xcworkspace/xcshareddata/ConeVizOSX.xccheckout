@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>13A650ED-E5A0-4245-B01F-46249BE9122E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ConeVizOSX</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EBD9077C-2CA4-44AD-81D4-33715D8C6FCC</key>
+		<string>https://github.com/lewkoo/DataMiningVizProject.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>OF_OS_X/apps/myApps/ConeVizOSX/ConeVizOSX.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EBD9077C-2CA4-44AD-81D4-33715D8C6FCC</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/lewkoo/DataMiningVizProject.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EBD9077C-2CA4-44AD-81D4-33715D8C6FCC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EBD9077C-2CA4-44AD-81D4-33715D8C6FCC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DataMiningVizProject</string>
+		</dict>
+	</array>
+</dict>
+</plist>
