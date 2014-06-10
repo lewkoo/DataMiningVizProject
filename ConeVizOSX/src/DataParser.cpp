@@ -43,8 +43,18 @@ bool DataParser::analizeFile()
         return false;
     
     //1 - Attempt to open the file
+
     file.open(ofToDataPath(currentFileName), ofFile::ReadOnly, false);
     ofLog() << "Opening: " << currentFileName;
+
+    //1.1 - Check if the file has been opened and located
+    
+    if(file.isFile() == 0)
+    {
+        ofLog() << "File can not be opened or does not exist" << endl;
+        return false;
+    }
+
     
     //2 - Test is the file can be opened and read
     ofLog() << "Can be read: " << bool(file.isFile());
