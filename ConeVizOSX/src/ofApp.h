@@ -1,8 +1,14 @@
 #pragma once
 
 #include "ofMain.h"
+#include "DataParser.h"
 
 class ofApp : public ofBaseApp{
+    
+    private:
+        DataParser* dataSource;
+        int counter;
+    
 
 	public:
 		void setup();

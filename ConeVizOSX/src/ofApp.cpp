@@ -3,12 +3,21 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-
+    dataSource = DataParser::getInstance();
+    
+    dataSource->setCurrentFile("Results_1_10k5L.txt");
+    
+    dataSource->analizeFile();
+    
+    dataSource->unloadFile();
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 
+    
 }
 
 //--------------------------------------------------------------
