@@ -125,3 +125,8 @@ bool DataParser::buildFileStore()
         files.push_back(currentFileStore.getPath(i));
     }
 }
+
+vector<string> DataParser::getDataFiles()
+{
+    return files;
+}

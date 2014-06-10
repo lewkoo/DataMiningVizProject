@@ -53,6 +53,7 @@ public:
     
     bool setFileStoreDirectory(string newDirectory); //sets the new directory
     bool buildFileStore(); //scans the current folder for text files with data; populates the filelist
+    vector<string> getDataFiles(); // returns all the data files in the current active folder
     
     
     

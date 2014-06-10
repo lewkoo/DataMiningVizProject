@@ -1,13 +1,22 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxUI.h"
 #include "DataParser.h"
+
+#define GUI_WIDTH 600
+#define GUI_HEIGHT 300
 
 class ofApp : public ofBaseApp{
     
     private:
         DataParser* dataSource;
         int counter;
+    
+        //GUI elements
+        ofxUICanvas* mainGUI;
+        ofxUILabel*  helpLabel;
+        ofxUIDropDownList* filesDropDown;
     
 
 	public:
@@ -24,5 +33,11 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
+        //GUI set up
+        void setUpGUI();
+    
+        //GUI event listener
+        void guiEvent(ofxUIEventArgs &e);
 		
 };
