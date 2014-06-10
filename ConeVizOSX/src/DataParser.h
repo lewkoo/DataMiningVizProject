@@ -28,9 +28,14 @@ private:
         //private constructor
     }
     
+    //Current file variables
     static string currentFileName;
     static ofFile file;
     static ofBuffer fileBuffer;
+    
+    //Possible file variables
+    static vector<string>  files; //a list of filenames in the currentFileStore
+    static ofDirectory currentFileStore; //scans the files in this directory
     
 public:
     //some standart stuff for a singleton
@@ -45,6 +50,10 @@ public:
     bool setAndLoadCurrentFile(string newFile); //
     bool loadFile();
     bool unloadFile();
+    
+    bool setFileStoreDirectory(string newDirectory); //sets the new directory
+    bool buildFileStore(); //scans the current folder for text files with data; populates the filelist
+    
     
     
 };

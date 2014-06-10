@@ -4,8 +4,9 @@
 void ofApp::setup(){
     
     dataSource = DataParser::getInstance();
+    dataSource->buildFileStore();
     
-    dataSource->setCurrentFile("Results_1_10k5L.txt");
+    dataSource->setCurrentFile("Results_10_10k5L.txt");
     
     dataSource->analizeFile();
     
