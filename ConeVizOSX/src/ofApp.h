@@ -3,6 +3,9 @@
 #include "ofMain.h"
 #include "ofxUI.h"
 #include "DataParser.h"
+#include "Strategy.h"
+#include "FullConeStrategy.h"
+#include "AssociationCone.h"
 
 #define FILE_CONTROL_WIDTH 400
 #define FILE_CONTROL_HEIGHT 700
@@ -12,7 +15,9 @@ class ofApp : public ofBaseApp{
     private:
     
         DataParser* dataSource;
-        int counter;
+    
+        Strategy* currentStrategy;
+    
     
         //GUI elements
         ofxUICanvas* fileControlls;
@@ -24,6 +29,9 @@ class ofApp : public ofBaseApp{
         ofxUIDropDownList* strategiesDropDown;
         vector<string>* strategies;
     
+        //This canvas gets passed to the strategy,
+        //which then defines its own GUI
+        ofxUICanvas* currentStrategyControlls;
     
     
     

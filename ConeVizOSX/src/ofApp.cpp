@@ -6,6 +6,11 @@ void ofApp::setup(){
     setUpParser();
     setUpGUI();
     
+    //set up the current strategy
+    //default to Full cone strategy
+    currentStrategy = new FullConeStrategy();
+    currentStrategy->initializeStrategy();
+    currentStrategyControlls = currentStrategy->drawGui(currentStrategyControlls);
     
     
 }
@@ -160,7 +165,7 @@ void ofApp::setUpGUI()
     
     
     //2.0 - Add a strategy canvas
-    strategyControlls = new ofxUICanvas( FILE_CONTROL_WIDTH+20, 10, FILE_CONTROL_WIDTH, FILE_CONTROL_HEIGHT);
+    strategyControlls = new ofxUICanvas( FILE_CONTROL_WIDTH+20, 10, FILE_CONTROL_WIDTH, 60);
     
     //2.1 - Add a label
     strategyControlls->addWidgetDown(new ofxUILabel("Strategy control", OFX_UI_FONT_LARGE));
@@ -219,4 +224,45 @@ void ofApp::shapeStrategyGuiEvent(ofxUIEventArgs &e)
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
 	ofLog() << "got event from: " << name << endl;
+    
+    if(name == "STRATEGIES")
+    {
+        ofxUIDropDownList *dropdown = (ofxUIDropDownList *) e.widget;
+        
+		vector<ofxUIWidget *> &selected = dropdown->getSelected();
+        
+        if (selected.size() > 0) {
+            std::string selected_name = selected[0]->getName();
+            
+            if(selected_name.compare("Full-cone") == 0)
+            {
+                if(currentStrategyControlls != NULL)
+                    currentStrategyControlls->ofxUICanvas::~ofxUICanvas();
+                
+                
+                currentStrategy = new FullConeStrategy();
+                currentStrategy->initializeStrategy();
+                currentStrategyControlls = currentStrategy->drawGui(currentStrategyControlls);
+                
+            }
+            
+            if (selected_name.compare("Association rules only") == 0)
+            {
+                if(currentStrategyControlls != NULL)
+                    currentStrategyControlls->ofxUICanvas::~ofxUICanvas();
+                
+                
+                currentStrategy = new AssociationCone();
+                currentStrategy->initializeStrategy();
+                currentStrategyControlls = currentStrategy->drawGui(currentStrategyControlls);
+                
+            }
+            
+        }
+        
+        
+    }
+    
+
+    
 }
