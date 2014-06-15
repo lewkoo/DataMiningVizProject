@@ -132,7 +132,7 @@ void ofApp::setUpGUI()
     //1.0 - Set up the File controlls panells
     
     //1.1 - Inicialize the pannel
-    fileControlls = new ofxUICanvas( 10,10, GUI_WIDTH, GUI_HEIGHT);
+    fileControlls = new ofxUICanvas( 10,10, FILE_CONTROL_WIDTH, FILE_CONTROL_HEIGHT);
     
     //1.2 - Add a label
 	fileControlls->addWidgetDown(new ofxUILabel("ConeViz Visualization Builder Tool", OFX_UI_FONT_LARGE));
@@ -147,9 +147,33 @@ void ofApp::setUpGUI()
     //1.5 - Add a drop down for file source select
     filesDropDown = fileControlls->addDropDownList("DATASETS", dataSource->getDataFiles(), 300);
     
-	//hook up the listener
+    //1.6 - Add a couple of spacers to move the buttons down
+    fileControlls->addSpacer(400, 500);
+    
+    //1.7 - Add a Preview, Update and Generate buttons
+    fileControlls->addLabelButton("Preview", false);
+    fileControlls->addLabelButton("Update", false);
+    fileControlls->addLabelButton("Generate", false);
+    
+	//hook up the listener to the main controlls
 	ofAddListener(fileControlls->newGUIEvent, this, &ofApp::fileControllsGuiEvent);
+    
+    
+    //2.0 - Add a strategy canvas
+    strategyControlls = new ofxUICanvas( FILE_CONTROL_WIDTH+20, 10, FILE_CONTROL_WIDTH, FILE_CONTROL_HEIGHT);
+    
+    //2.1 - Add a label
+    strategyControlls->addWidgetDown(new ofxUILabel("Strategy control", OFX_UI_FONT_LARGE));
 
+    //2.2 - Statically populate the strategies list
+    strategies = new vector<string>();
+    strategies->push_back("Full-cone");
+    strategies->push_back("Association rules only");
+    
+    strategiesDropDown = strategyControlls->addDropDownList("STRATEGIES", *strategies, 300);
+    
+    //2.3 - Hook up a listener to the drop down
+    ofAddListener(strategyControlls->newGUIEvent, this, &ofApp::shapeStrategyGuiEvent);
     
 
 }
@@ -192,5 +216,7 @@ void ofApp::fileControllsGuiEvent(ofxUIEventArgs &e)
 //--------------------------------------------------------------
 void ofApp::shapeStrategyGuiEvent(ofxUIEventArgs &e)
 {
-    
+    string name = e.widget->getName();
+	int kind = e.widget->getKind();
+	ofLog() << "got event from: " << name << endl;
 }

@@ -133,6 +133,7 @@
 		2A0D22E219476A22003BCEC8 /* ofxUIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWidget.h; path = ../OF_OS_X/addons/ofxUI/ofxUIWidget.h; sourceTree = "<group>"; };
 		2A0D22E319476A22003BCEC8 /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWidgetWithLabel.h; path = ../OF_OS_X/addons/ofxUI/ofxUIWidgetWithLabel.h; sourceTree = "<group>"; };
 		2A34046C194644AA00E8D72B /* ConeVizOSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ConeVizOSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A40A7A8194D4BD1000F2EBB /* Strategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Strategy.h; sourceTree = "<group>"; };
 		2A6DA7F9193A403B0099CEF8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2A6DA7FD193A403B0099CEF8 /* ConeVizOSX Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ConeVizOSX Tests-Info.plist"; sourceTree = "<group>"; };
 		2A6DA7FF193A403B0099CEF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -445,6 +446,7 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				2ABBCD3F193E1F6C000A74B3 /* DataParser.cpp */,
 				2ABBCD40193E1F6C000A74B3 /* DataParser.h */,
+				2A40A7A8194D4BD1000F2EBB /* Strategy.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

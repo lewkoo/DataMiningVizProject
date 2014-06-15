@@ -4,8 +4,8 @@
 #include "ofxUI.h"
 #include "DataParser.h"
 
-#define GUI_WIDTH 400
-#define GUI_HEIGHT 700
+#define FILE_CONTROL_WIDTH 400
+#define FILE_CONTROL_HEIGHT 700
 
 class ofApp : public ofBaseApp{
     
@@ -16,9 +16,16 @@ class ofApp : public ofBaseApp{
     
         //GUI elements
         ofxUICanvas* fileControlls;
-        ofxUICanvas* strategyControlls;
         ofxUIWidget*  helpLabel;
         ofxUIDropDownList* filesDropDown;
+    
+    
+        ofxUICanvas* strategyControlls;
+        ofxUIDropDownList* strategiesDropDown;
+        vector<string>* strategies;
+    
+    
+    
     
 
 	public:
