@@ -4,18 +4,19 @@
 #include "ofxUI.h"
 #include "DataParser.h"
 
-#define GUI_WIDTH 600
-#define GUI_HEIGHT 300
+#define GUI_WIDTH 400
+#define GUI_HEIGHT 700
 
 class ofApp : public ofBaseApp{
     
     private:
+    
         DataParser* dataSource;
         int counter;
     
         //GUI elements
-        ofxUICanvas* mainGUI;
-        ofxUILabel*  helpLabel;
+        ofxUICanvas* fileControlls;
+        ofxUIWidget*  helpLabel;
         ofxUIDropDownList* filesDropDown;
     
 
@@ -34,10 +35,15 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+        //Parser set up
+        void setUpParser();
+    
         //GUI set up
         void setUpGUI();
     
-        //GUI event listener
-        void guiEvent(ofxUIEventArgs &e);
-		
+        //GUI event listeners
+        void fileControllsGuiEvent(ofxUIEventArgs &e);
+		void shapeStrategyGuiEvent(ofxUIEventArgs &e);
+    
+    
 };
