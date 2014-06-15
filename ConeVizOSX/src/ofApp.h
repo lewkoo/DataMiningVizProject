@@ -16,6 +16,7 @@ class ofApp : public ofBaseApp{
     
         //GUI elements
         ofxUICanvas* fileControlls;
+        ofxUICanvas* strategyControlls;
         ofxUIWidget*  helpLabel;
         ofxUIDropDownList* filesDropDown;
     
@@ -37,6 +38,8 @@ class ofApp : public ofBaseApp{
     
         //Parser set up
         void setUpParser();
+        void changeFileSource(int indexOfFileToLoad=0);
+        //file index in the drop-down menu
     
         //GUI set up
         void setUpGUI();
