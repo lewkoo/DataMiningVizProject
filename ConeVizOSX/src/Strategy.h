@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "ofxUI.h"
+#include "DataParser.h"
 
 #define STRATEGY_GUI_X 420
 #define STRATEGY_GUI_Y 100
@@ -22,8 +23,9 @@ class Strategy {
 
     
 public:
-    virtual void initializeStrategy() = 0;
+    virtual void initializeStrategy(DataParser *dataSource) = 0;
     virtual ofxUICanvas* drawGui(ofxUICanvas* panel) = 0;
+    virtual void draw() = 0; // draws the preview of the visualization
 
 };
 

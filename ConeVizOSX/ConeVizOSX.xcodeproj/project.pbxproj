@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C0EAEF34D9CCACB4FF3628E /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74D8DD9C9A78173056DAAEC7 /* tinyxmlerror.cpp */; };
 		0DC1CF18A3F90F627BA3E437 /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B8CFAEAC0CF8932FB9DB320 /* ofxBaseGui.cpp */; };
+		2A2BF7B31959E08800F28571 /* VizElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2BF7B11959E08800F28571 /* VizElement.cpp */; };
 		2A2FFDC5194E254300301EA1 /* FullConeStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FFDC3194E254300301EA1 /* FullConeStrategy.cpp */; };
 		2A2FFDC8194E285600301EA1 /* AssociationCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2FFDC6194E285600301EA1 /* AssociationCone.cpp */; };
 		2A6DA7FA193A403B0099CEF8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6DA7F9193A403B0099CEF8 /* XCTest.framework */; };
@@ -134,6 +135,8 @@
 		2A0D22E119476A22003BCEC8 /* ofxUIWaveform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWaveform.h; path = ../OF_OS_X/addons/ofxUI/ofxUIWaveform.h; sourceTree = "<group>"; };
 		2A0D22E219476A22003BCEC8 /* ofxUIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWidget.h; path = ../OF_OS_X/addons/ofxUI/ofxUIWidget.h; sourceTree = "<group>"; };
 		2A0D22E319476A22003BCEC8 /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWidgetWithLabel.h; path = ../OF_OS_X/addons/ofxUI/ofxUIWidgetWithLabel.h; sourceTree = "<group>"; };
+		2A2BF7B11959E08800F28571 /* VizElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VizElement.cpp; sourceTree = "<group>"; };
+		2A2BF7B21959E08800F28571 /* VizElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VizElement.h; sourceTree = "<group>"; };
 		2A2FFDC3194E254300301EA1 /* FullConeStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FullConeStrategy.cpp; sourceTree = "<group>"; };
 		2A2FFDC4194E254300301EA1 /* FullConeStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullConeStrategy.h; sourceTree = "<group>"; };
 		2A2FFDC6194E285600301EA1 /* AssociationCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssociationCone.cpp; sourceTree = "<group>"; };
@@ -293,6 +296,27 @@
 			name = ofxUI;
 			sourceTree = "<group>";
 		};
+		2A2BF7AF1959DD1600F28571 /* Visualization Strategies */ = {
+			isa = PBXGroup;
+			children = (
+				2A40A7A8194D4BD1000F2EBB /* Strategy.h */,
+				2A2FFDC6194E285600301EA1 /* AssociationCone.cpp */,
+				2A2FFDC7194E285600301EA1 /* AssociationCone.h */,
+				2A2FFDC3194E254300301EA1 /* FullConeStrategy.cpp */,
+				2A2FFDC4194E254300301EA1 /* FullConeStrategy.h */,
+			);
+			name = "Visualization Strategies";
+			sourceTree = "<group>";
+		};
+		2A2BF7B01959E07A00F28571 /* Visualization Elements */ = {
+			isa = PBXGroup;
+			children = (
+				2A2BF7B11959E08800F28571 /* VizElement.cpp */,
+				2A2BF7B21959E08800F28571 /* VizElement.h */,
+			);
+			name = "Visualization Elements";
+			sourceTree = "<group>";
+		};
 		2A6DA7F8193A403B0099CEF8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,16 +471,13 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				2A2BF7B01959E07A00F28571 /* Visualization Elements */,
+				2A2BF7AF1959DD1600F28571 /* Visualization Strategies */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
-				2A2FFDC6194E285600301EA1 /* AssociationCone.cpp */,
-				2A2FFDC7194E285600301EA1 /* AssociationCone.h */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				2ABBCD3F193E1F6C000A74B3 /* DataParser.cpp */,
 				2ABBCD40193E1F6C000A74B3 /* DataParser.h */,
-				2A40A7A8194D4BD1000F2EBB /* Strategy.h */,
-				2A2FFDC3194E254300301EA1 /* FullConeStrategy.cpp */,
-				2A2FFDC4194E254300301EA1 /* FullConeStrategy.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -614,6 +635,7 @@
 				B005745B175965617EB22C83 /* ofxPanel.cpp in Sources */,
 				B08E91128721BE6CADCB5E66 /* ofxSlider.cpp in Sources */,
 				D1A71DE6DDA700717A553096 /* ofxSliderGroup.cpp in Sources */,
+				2A2BF7B31959E08800F28571 /* VizElement.cpp in Sources */,
 				78D8E4B5788E32E7A57546BA /* ofxToggle.cpp in Sources */,
 				D9E1C0817BEE36EB5F6CAA1E /* ofxXmlSettings.cpp in Sources */,
 				94EF1894EA56BC98AC447B8C /* tinyxml.cpp in Sources */,

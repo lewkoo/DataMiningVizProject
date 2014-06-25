@@ -8,9 +8,14 @@
 
 #include "FullConeStrategy.h"
 
-void FullConeStrategy::initializeStrategy()
+void FullConeStrategy::initializeStrategy(DataParser *dataSource)
 {
+    
+}
 
+void FullConeStrategy::draw()
+{
+    
 }
 
 ofxUICanvas* FullConeStrategy::drawGui(ofxUICanvas* panel)

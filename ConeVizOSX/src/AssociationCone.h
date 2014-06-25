@@ -16,9 +16,10 @@ class AssociationCone : public Strategy {
     
     
 public:
-    void initializeStrategy();
+    void initializeStrategy(DataParser *dataSource );
     ofxUICanvas* drawGui(ofxUICanvas* panel);
     
+    void draw();
 
 };
 

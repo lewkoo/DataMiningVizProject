@@ -8,9 +8,14 @@
 
 #include "AssociationCone.h"
 
-void AssociationCone::initializeStrategy()
+void AssociationCone::initializeStrategy(DataParser *dataSource)
 {
     
+}
+
+void AssociationCone::draw()
+{
+
 }
 
 ofxUICanvas* AssociationCone::drawGui(ofxUICanvas* panel)

@@ -9,7 +9,7 @@ void ofApp::setup(){
     //set up the current strategy
     //default to Full cone strategy
     currentStrategy = new FullConeStrategy();
-    currentStrategy->initializeStrategy();
+    currentStrategy->initializeStrategy(dataSource);
     currentStrategyControlls = currentStrategy->drawGui(currentStrategyControlls);
     
     
@@ -23,7 +23,11 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    
+    //draw the preview of the current visualization
+    currentStrategy->draw();
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -189,7 +193,7 @@ void ofApp::fileControllsGuiEvent(ofxUIEventArgs &e)
     
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
-	ofLog() << "got event from: " << name << endl;
+	ofLog() << "got event from: " << name;
 
     if(name == "DATASETS") //catch an event from the drop down
 	{
@@ -223,7 +227,7 @@ void ofApp::shapeStrategyGuiEvent(ofxUIEventArgs &e)
 {
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
-	ofLog() << "got event from: " << name << endl;
+	
     
     if(name == "STRATEGIES")
     {
@@ -236,24 +240,30 @@ void ofApp::shapeStrategyGuiEvent(ofxUIEventArgs &e)
             
             if(selected_name.compare("Full-cone") == 0)
             {
+                
+                ofLog() << "New visualization strategy selected: " << selected_name;
+                
                 if(currentStrategyControlls != NULL)
                     currentStrategyControlls->ofxUICanvas::~ofxUICanvas();
                 
                 
                 currentStrategy = new FullConeStrategy();
-                currentStrategy->initializeStrategy();
+                currentStrategy->initializeStrategy(dataSource);
                 currentStrategyControlls = currentStrategy->drawGui(currentStrategyControlls);
                 
             }
             
             if (selected_name.compare("Association rules only") == 0)
             {
+                
+                ofLog() << "New visualization strategy selected: " << selected_name;
+                
                 if(currentStrategyControlls != NULL)
                     currentStrategyControlls->ofxUICanvas::~ofxUICanvas();
                 
                 
                 currentStrategy = new AssociationCone();
-                currentStrategy->initializeStrategy();
+                currentStrategy->initializeStrategy(dataSource);
                 currentStrategyControlls = currentStrategy->drawGui(currentStrategyControlls);
                 
             }
