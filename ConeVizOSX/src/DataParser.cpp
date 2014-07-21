@@ -140,3 +140,48 @@ string DataParser::getAllData()
 {
     return fileBuffer.getText();
 }
+
+Itemset* DataParser::getNextItemset()
+{
+    
+    //0 - Get the line to parse from a file
+    string lineToParse = fileBuffer.getNextLine();
+    
+    if (lineToParse.empty())
+        return NULL;
+    
+    //1 - Instanciate a temporary list of itemsets
+    Itemset *itemset = new Itemset();
+    
+    //2 - Split the line by space, if begins with ( - it is a frequency, else it is an itemset
+    std::istringstream buf(lineToParse);
+    std::istream_iterator<std::string> beg(buf), end;
+    std::vector<std::string> tokens(beg, end); // string is tokenized, parse it
+    
+    //3 - Construct an itemset
+    for (int i = 0; i < tokens.size(); i+=2)
+    {
+        //i - itemset name
+        //i+1 - itemset frequency
+        
+        itemset->addSingletonToItemset(tokens[i]);
+        
+        //process the frequency string as it constains brackets -> (xxxx)
+        string frequency_string = tokens[i+1];
+        frequency_string.erase(frequency_string.begin());
+        frequency_string.erase(frequency_string.end()-1);
+        
+        istringstream buffer(frequency_string);
+        int itemsetFrequency;
+        
+        buffer >> itemsetFrequency;
+        
+        itemset->setFrequency(itemsetFrequency);
+        
+    }
+    
+    return itemset;
+    
+    
+}
+

@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include "ofMain.h"
+#include "Itemset.h"
 
 using namespace std;
 
@@ -58,11 +59,15 @@ public:
     
     // Following are methods that strategies can use in order to get access to data
     
-    //Returns the next line in the data source
+    //Returns the next line in the data source as text
     string getNextLine();
     
-    //Returns the entire file
+    //Returns the entire file as text
     string getAllData();
+    
+    
+    //Return the next itemset as parsed object
+    Itemset* getNextItemset();
     
     
     

@@ -17,12 +17,18 @@ void FullConeStrategy::initializeStrategy(DataParser *dataSource)
 void FullConeStrategy::draw()
 {
  
-    string currentLine = currDataSource->getNextLine();
     
-    while ( !currentLine.empty()) {
-        ofLog() << currentLine << endl;
-        currentLine = currDataSource->getNextLine();
+    Itemset* currentItemset = currDataSource->getNextItemset();
+    
+    while(currentItemset != NULL)
+    {
+        ofLog() << currentItemset->getName() << " " << currentItemset->getFrequency();
+    
+        currentItemset = currDataSource->getNextItemset();
+        
     }
+    
+
     
 }
 

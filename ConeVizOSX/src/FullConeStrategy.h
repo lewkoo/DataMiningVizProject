@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Strategy.h"
 #include "DataParser.h"
+#include "Itemset.h"
 
 class FullConeStrategy : public Strategy {
 
