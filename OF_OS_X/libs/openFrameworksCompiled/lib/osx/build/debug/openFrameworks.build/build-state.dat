@@ -116,13 +116,13 @@ t1400261139
 s4087488
 
 N/System/Library/Frameworks/CoreAudio.framework/CoreAudio
-c000000005302F2EC00000000000EFD70
-t1392702188
-s982384
+c0000000053B350E100000000000EFDA0
+t1404260577
+s982432
 
 N/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
-c0000000053764A0A0000000000688600
-t1400261130
+c0000000053B350E10000000000688600
+t1404260577
 s6850048
 
 N/System/Library/Frameworks/CoreServices.framework/CoreServices
@@ -1295,7 +1295,7 @@ t1402369447
 s9653
 
 N/Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a
-t1402804636
+t1405933159
 s34636184
 
 N/Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/poco/include/Poco/AbstractDelegate.h
@@ -2466,7 +2466,7 @@ r0
 
 CCheck dependencies
 r0
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependenciesbccb31c7df59b941^1c0732c7df59b941^---0#1#1#--18"Check dependencies36"E5A1297C-5F72-4302-9EC7-3FA64FFDA93E-
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependenciesa9c1d0a41a7db941^1022d1a41a7db941^---0#1#1#--18"Check dependencies36"BDB2D0BA-B12C-48F2-B721-2F4F47478764-
 
 CCompileC /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/build/debug/openFrameworks.build/Objects-normal/i386/of3dGraphics.o /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworks/graphics/of3dGraphics.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 s424494464.677975
@@ -8621,8 +8621,8 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection86"Compile
 b925D3FCE-DBF8-47F8-AC7F-D8D8B04E8E39
 
 CLibtool /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a normal i386
-s424494498.990472
-e424494501.184078
+s427625958.827336
+e427625959.320484
 r1
 xLibtool
 x/Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a
@@ -8634,6 +8634,6 @@ owarning: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xct
 o/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(FreeImageC.o-i386) has no symbols
 o/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(libmng_chunk_xs.o-i386) has no symbols
 o/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(libmng_trace.o-i386) has no symbols
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection120"Libtool /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a normal i386120"Libtool /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a normal i386c79efda2454db941^681f2fa5454db941^-1208"warning: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/glut/lib/osx/GLUT.framework/Versions/A/GLUT is a dynamic library, not added to the static librarywarning: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/fmodex/lib/osx/libfmodex.dylib is a dynamic library, not added to the static librarywarning: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/fmodex/lib/osx/libfmodex.dylib is a dynamic library, not added to the static library/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(FreeImageC.o-i386) has no symbols/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(libmng_chunk_xs.o-i386) has no symbols/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(libmng_trace.o-i386) has no symbols3(21%IDEActivityLogMessage2@216"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/glut/lib/osx/GLUT.framework/Versions/A/GLUT is a dynamic library, not added to the static library-424494499#0#226#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#40"Apple Mach-O Librarian (libtool) Warning--2@203"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/fmodex/lib/osx/libfmodex.dylib is a dynamic library, not added to the static library-424494499#226#213#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#40"Apple Mach-O Librarian (libtool) Warning--2@203"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/fmodex/lib/osx/libfmodex.dylib is a dynamic library, not added to the static library-424494499#439#213#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#40"Apple Mach-O Librarian (libtool) Warning--0#0#1#--1379"Libtool /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a normal i386    cd /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/project/osx    export MACOSX_DEPLOYMENT_TARGET=10.9    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only i386 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -L/Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx -filelist /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/build/debug/openFrameworks.build/Objects-normal/i386/openFrameworksDebug.LinkFileList ../../../../libs/tess2/lib/osx/tess2.a ../../../../libs/glew/lib/osx/glew.a ../../../../libs/FreeImage/lib/osx/freeimage.a ../../../../libs/freetype/lib/osx/freetype.a ../../../../libs/glut/lib/osx/GLUT.framework/Versions/A/GLUT ../../../../libs/fmodex/lib/osx/libfmodex.dylib -framework Accelerate -framework AGL -framework ApplicationServices -framework AudioToolbox -framework CoreAudio -framework CoreFoundation -framework CoreServices -framework CoreVideo -framework OpenGL -framework QuickTime -framework QTKit -framework GLUT -o /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a36"2058BBF1-A358-4F2F-AFBE-3262593C33FF-
-b925D3FCE-DBF8-47F8-AC7F-D8D8B04E8E39
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection120"Libtool /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a normal i386120"Libtool /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a normal i386eb1bd4e60d7db941^c80a52e70d7db941^-1208"warning: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/glut/lib/osx/GLUT.framework/Versions/A/GLUT is a dynamic library, not added to the static librarywarning: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/fmodex/lib/osx/libfmodex.dylib is a dynamic library, not added to the static librarywarning: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/fmodex/lib/osx/libfmodex.dylib is a dynamic library, not added to the static library/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(FreeImageC.o-i386) has no symbols/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(libmng_chunk_xs.o-i386) has no symbols/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/FreeImage/lib/osx/freeimage.a(libmng_trace.o-i386) has no symbols3(21%IDEActivityLogMessage2@216"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/glut/lib/osx/GLUT.framework/Versions/A/GLUT is a dynamic library, not added to the static library-427625958#0#226#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#40"Apple Mach-O Librarian (libtool) Warning--2@203"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/fmodex/lib/osx/libfmodex.dylib is a dynamic library, not added to the static library-427625958#226#213#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#40"Apple Mach-O Librarian (libtool) Warning--2@203"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: file: ../../../../libs/fmodex/lib/osx/libfmodex.dylib is a dynamic library, not added to the static library-427625958#439#213#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#40"Apple Mach-O Librarian (libtool) Warning--0#0#1#--1379"Libtool /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a normal i386    cd /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/project/osx    export MACOSX_DEPLOYMENT_TARGET=10.9    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only i386 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -L/Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx -filelist /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/build/debug/openFrameworks.build/Objects-normal/i386/openFrameworksDebug.LinkFileList ../../../../libs/tess2/lib/osx/tess2.a ../../../../libs/glew/lib/osx/glew.a ../../../../libs/FreeImage/lib/osx/freeimage.a ../../../../libs/freetype/lib/osx/freetype.a ../../../../libs/glut/lib/osx/GLUT.framework/Versions/A/GLUT ../../../../libs/fmodex/lib/osx/libfmodex.dylib -framework Accelerate -framework AGL -framework ApplicationServices -framework AudioToolbox -framework CoreAudio -framework CoreFoundation -framework CoreServices -framework CoreVideo -framework OpenGL -framework QuickTime -framework QTKit -framework GLUT -o /Users/lewkoo/DataMiningVizProject/OF_OS_X/libs/openFrameworksCompiled/lib/osx/openFrameworksDebug.a36"804C9584-E7E3-42AD-8E75-2F9BBB7B06DC-
+bB7F2FA99-A3E3-4D2E-ACEC-086651232B75
 

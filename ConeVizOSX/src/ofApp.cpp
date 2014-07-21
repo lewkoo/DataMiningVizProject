@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    previewRequested = true;
+    
     setUpParser();
     setUpGUI();
     
@@ -24,9 +26,18 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    if(previewRequested){
+        
+    //drawing happens only here
+        
+        
     //draw the preview of the current visualization
     currentStrategy->draw();
     
+    
+    }
+    
+    previewRequested = false;
     
 }
 
@@ -55,11 +66,13 @@ void ofApp::keyPressed(int key){
             {
                 fileControlls->setVisible(false);
                 strategyControlls->setVisible(false);
+                currentStrategyControlls->setVisible(false);
                 
             }else
             {
                 fileControlls->setVisible(true);
                 strategyControlls->setVisible(true);
+                currentStrategyControlls->setVisible(true);
             }
             
             break;
@@ -217,6 +230,12 @@ void ofApp::fileControllsGuiEvent(ofxUIEventArgs &e)
 		}
         
 	}
+    
+    
+    if(name == "Preview")
+    {
+        previewRequested = true;
+    }
     
     
     

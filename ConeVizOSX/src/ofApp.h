@@ -33,7 +33,8 @@ class ofApp : public ofBaseApp{
         //which then defines its own GUI
         ofxUICanvas* currentStrategyControlls;
     
-    
+        //Control variables
+        bool previewRequested;
     
 
 	public:

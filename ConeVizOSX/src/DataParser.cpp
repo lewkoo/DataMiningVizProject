@@ -130,3 +130,13 @@ vector<string> DataParser::getDataFiles()
 {
     return files;
 }
+
+string DataParser::getNextLine()
+{
+    return fileBuffer.getNextLine();
+}
+
+string DataParser::getAllData()
+{
+    return fileBuffer.getText();
+}

@@ -19,6 +19,8 @@
 #define STRATEGY_GUI_HEIGHT 500
 #define STRATEGY_GUI_WIDTH 400
 
+static ofMesh visualizationMesh;
+
 class Strategy {
 
     

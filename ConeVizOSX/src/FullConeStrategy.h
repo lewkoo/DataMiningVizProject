@@ -11,8 +11,12 @@
 
 #include <iostream>
 #include "Strategy.h"
+#include "DataParser.h"
 
 class FullConeStrategy : public Strategy {
+
+private:
+    DataParser* currDataSource;
     
     
 public:

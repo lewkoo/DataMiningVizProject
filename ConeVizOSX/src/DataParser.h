@@ -56,6 +56,15 @@ public:
     vector<string> getDataFiles(); // returns all the data files in the current active folder
     
     
+    // Following are methods that strategies can use in order to get access to data
+    
+    //Returns the next line in the data source
+    string getNextLine();
+    
+    //Returns the entire file
+    string getAllData();
+    
+    
     
 };
 
